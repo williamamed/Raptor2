@@ -1,0 +1,320 @@
+<!--
+	Developed by Mr. Alien
+	http://stackoverflow.com/users/1542290/mr-alien
+
+	Website : http://fig.decodingweb.com
+
+	Github : https://github.com/mr-alien/fig
+
+	License : Apache 2.0
+-->
+<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Online Flat Icon Generator</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no" />
+		<meta name="description" content="Onlines First Flat Icon Generator" />
+		<meta name="keywords" content="Flat Design, CSS, HTML, Flat Icons, Icon Generator, Icon Creator, Flat, Minimal" />
+		<meta name="author" content="Vaibhav Mehta (Mr. Alien)" />
+		<link rel="stylesheet" href="{{ asset('Raptor/flat/css/default.css') }}" />
+                <style type="text/css">
+                        body{
+                            width: 100%;
+                            height: 100%;
+                            background: rgba(255,255,255,0.8);
+                            background-attachment: fixed;
+                            background-size: cover;
+                        }
+                </style>
+	</head>
+	<body>
+		<div id="wrapper">
+			<header class="clear">
+				<h1 class="logo">Flat Icon Generator <sup>Beta <span>v1.0</span></sup></h1>
+				<ul class="top-links">
+					<li><a href="#" data-link="about">About</a></li>
+					<li><a href="#" data-link="license">License</a></li>
+					<li><a href="#" data-link="credits">Credits</a></li>
+					<li><a href="https://github.com/mr-alien/fig" target="_blank" data-fork><span class="icon-code-fork"></span> Fork</a></li>
+					<li>Firefox > 27.0 - Recommended</li>
+				</ul>
+			</header>
+
+			<div id="contentWrap" class="clear">
+				<div id="leftPanel">
+					<ul id="controls">
+						<li>
+							<h3>Select Icon</h3>
+							<div class="custom-dropdown">
+								<select id="iconList">
+									<option value="e000">Mobile</option>
+									<option value="e001">Laptop</option>
+									<option value="e002">Desktop</option>
+									<option value="e003">Tablet</option>
+									<option value="e004">Phone</option>
+									<option value="e005">Document</option>
+									<option value="e006">Documents</option>
+									<option value="e007">Search</option>
+									<option value="e008">Clipboard</option>
+									<option value="e009">Newspaper</option>
+									<option value="e00a">Notebook</option>
+									<option value="e00b">Book (Open)</option>
+									<option value="e00c">Browser</option>
+									<option value="e00d">Calendar</option>
+									<option value="e00e">Presentation</option>
+									<option value="e00f">Picture</option>
+									<option value="e010">Pictures</option>
+									<option value="e011">Video</option>
+									<option value="e012">Camera</option>
+									<option value="e013">Printer</option>
+									<option value="e014">Toolbox</option>
+									<option value="e015">Briefcase</option>
+									<option value="e016">Wallet</option>
+									<option value="e017">Gift</option>
+									<option value="e018">Bar Graph</option>
+									<option value="e019">Grid</option>
+									<option value="e01a">Expand</option>
+									<option value="e01b">Focus</option>
+									<option value="e01c">Edit</option>
+									<option value="e01d">Adjustments</option>
+									<option value="e01e">Ribbon</option>
+									<option value="e01f">Hour Glass</option>
+									<option value="e020">Lock</option>
+									<option value="e021">Megaphone</option>
+									<option value="e022">Shield</option>
+									<option value="e023">Trophy</option>
+									<option value="e024">Flag</option>
+									<option value="e025">Map</option>
+									<option value="e026">Puzzle</option>
+									<option value="e027">Basket</option>
+									<option value="e028">Envelope</option>
+									<option value="e029">Streetsign</option>
+									<option value="e02a">Telescope</option>
+									<option value="e02b">Gears</option>
+									<option value="e02c">Key</option>
+									<option value="e02d">Paperclip</option>
+									<option value="e02e">Attachment</option>
+									<option value="e02f">Price Tags</option>
+									<option value="e030">Light Bulb</option>
+									<option value="e031">Layers</option>
+									<option value="e032">Pencil</option>
+									<option value="e033">Tools</option>
+									<option value="e034">Tools 2</option>
+									<option value="e035">Scissors</option>
+									<option value="e036">Paint Brush</option>
+									<option value="e037">Magnifying Glass</option>
+									<option value="e038">Circle Compass</option>
+									<option value="e039">Line Graph</option>
+									<option value="e03a">Mic</option>
+									<option value="e03b">Strategy</option>
+									<option value="e03c">Beaker</option>
+									<option value="e03d">Caution</option>
+									<option value="e03e">Recycle</option>
+									<option value="e03f">Anchor</option>
+									<option value="e040">Profile Male</option>
+									<option value="e041">Profile Female</option>
+									<option value="e042">Bike</option>
+									<option value="e043">Wine</option>
+									<option value="e044">Hot Air Ball</option>
+									<option value="e045">Globe</option>
+									<option value="e046">Genius</option>
+									<option value="e047">Map Pin</option>
+									<option value="e048">Dial</option>
+									<option value="e049">Chat</option>
+									<option value="e04a">Heart</option>
+									<option value="e04b">Cloud</option>
+									<option value="e04c">Upload</option>
+									<option value="e04d">Download</option>
+									<option value="e04e">Target</option>
+									<option value="e04f">Hazardous</option>
+									<option value="e050">Pie Chart</option>
+									<option value="e051">Speedometer</option>
+									<option value="e052">Global</option>
+									<option value="e053">Compass</option>
+									<option value="e054">Lifesaver</option>
+									<option value="e055">Clock</option>
+									<option value="e056">Aperture</option>
+									<option value="e057">Quote</option>
+									<option value="e058">Scope</option>
+									<option value="e059">Alarm Clock</option>
+									<option value="e05a">Refresh</option>
+									<option value="e05b">Happy</option>
+									<option value="e05c">Sad</option>
+									<option value="e05d">Facebook</option>
+									<option value="e05e">Twitter</option>
+									<option value="e05f">Google Plus</option>
+									<option value="e060">RSS</option>
+									<option value="e061">Tumblr</option>
+									<option value="e062">LinkedIn</option>
+									<option value="e063">Dribbble</option>
+									<option value="e98c">Number</option>
+									<option value="e98d">Number 2</option>
+									<option value="e98e">Number 3</option>
+									<option value="e98f">Number 4</option>
+									<option value="e990">Number 5</option>
+									<option value="e991">Number 6</option>
+									<option value="e992">Number 7</option>
+									<option value="e993">Number 8</option>
+									<option value="e994">Number 9</option>
+									<option value="e995">Number 10</option>
+									<option value="e996">Number 11</option>
+									<option value="e997">Number 12</option>
+									<option value="e998">Number 13</option>
+									<option value="e999">Number 14</option>
+									<option value="e99a">Number 15</option>
+									<option value="e99b">Number 16</option>
+									<option value="e99c">Number 17</option>
+									<option value="e99d">Number 18</option>
+									<option value="e99e">Number 19</option>
+									<option value="e99f">Number 20</option>
+									<option value="e9a0">Quote 2</option>
+									<option value="e9a1">Quote 3</option>
+									<option value="e9a2">Tag</option>
+									<option value="e9a3">Tag 1</option>
+									<option value="e9a4">Link</option>
+									<option value="e9a5">Link 2</option>
+									<option value="e9a6">Cabinet</option>
+								</select>
+							</div>
+						</li>
+						<li>
+							<h3>Icon Size <span title="When you set the icon size, the icon glyph will re adjust the size proportionally and hence will reset the Custom Font Size."><i class="icon-question5"></i></span></h3>
+							<input type="text" id="iconRange" />
+						</li>
+						<li>
+							<h3>Font Size <span title="Make sure you set the size of the icon before setting up the font size as resetting the Icon size will lead to Reset of Custom Font Size."><i class="icon-question5"></i></span></h3>
+							<input type="text" id="fontRange" />
+						</li>
+						<li>
+							<h3>Colors</h3>
+							<ul id="selectColors">
+								<li><div id="BgColorSelector"><div style="background-color: #017afd"></div></div> <span>Background Color</span></li>
+								<li><div id="IconColorSelector"><div style="background-color: #ffffff"></div></div> <span>Icon Color</span></li>
+							</ul>
+						</li>
+						<li>
+							<h3>Icon Shape</h3>
+							<div class="control-group">
+							  <input id="square" type="radio" value="square" name="icontype" checked />
+							  <label for="square">Square Icon</label>
+							</div>
+
+							<div class="control-group">
+							  <input id="circle" type="radio" value="circle" name="icontype" />
+							  <label for="circle" title="Will get blurry edges if on Chrome">Round Icon</label>
+							</div>
+						</li>
+					</ul>
+				</div>
+
+				<div id="rightPanel">
+					<div id="iconWrapper">
+						<div id="iconInfo" class="clear">
+							<h3 class="clear">Generated Icon <a class="btn" id="exportBtn" href="#">Get Icon</a></h3>
+							<ul>
+								<li id="showIconSize">Size : <span></span></li>
+								<li id="showIconName">Name : <span>Mobile</span></li>
+								<li id="ShowIcoBgColor">Background : <span>#017AFD</span></li>
+								<li id="ShowFontColor">Color : <span>#FFFFFF</span></li>
+								<li id="showFontSize">Font Size : <span>60px</span></li>
+							</ul>
+						</div>
+						<div id="generatedIcon">
+							<span style="font-family: icomoon;">&#xe000;</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div data-modal="about">
+			<span class="icon-close"></span>
+			<div class="modal-wrap">
+				<h1 class="logo">Flat Icon Generator <sup>Beta <span>v1.0</span></sup></h1>
+				<p>Flat Icon Generator <sup>Beta</sup> can be used to generate Flat Icons with an ease and can be exported as .png images.</p>
+
+				<p>As of now I've not covered the features extensively but are on my list and will be added soon.</p>
+
+				<h3>Current Features</h3>
+				<ul>
+					<li>Select Icons (more than 1500 icons)</li>
+					<li>Set the Icon Size</li>
+					<li>Set the Font Size</li>
+					<li>Custom Background Colors</li>
+					<li>Custom Font Colors</li>
+					<li>Icon Shape [Square, Circle]</li>
+				</ul>
+				<br>
+				<p>Developed by <a href="http://stackoverflow.com/users/1542290/mr-alien" target="_blank">Mr. Alien</a></p>
+			</div>
+		</div>
+
+		<div data-modal="license">
+			<span class="icon-close"></span>
+			<div class="modal-wrap">
+				<h1 class="logo">Flat Icon Generator <sup>Beta <span>v1.0</span></sup></h1>
+				<p>Flat Icon Generator is Licensed Under <a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank">Apache License v2.0</a></p>
+				<br>
+				<p>As far as the Redistribution goes, refer Point 4 "Redistribution"</p>
+				<p>You may reproduce and distribute copies of the Work or Derivative Works thereof in any medium, with or without modifications, and in Source or Object form, provided that You meet the following conditions:</p>
+				<ul>
+					<li>You must give any other recipients of the Work or Derivative Works a copy of this License; and</li>
+					<li>You must cause any modified files to carry prominent notices stating that You changed the files; and</li>
+					<li>You must retain, in the Source form of any Derivative Works that You distribute, all copyright, patent, trademark, and attribution notices from the Source form of the Work, excluding those notices that do not pertain to any part of the Derivative Works; and</li>
+					<li>If the Work includes a "NOTICE" text file as part of its distribution, then any Derivative Works that You distribute must include a readable copy of the attribution notices contained within such NOTICE file, excluding those notices that do not pertain to any part of the Derivative Works, in at least one of the following places: within a NOTICE text file distributed as part of the Derivative Works; within the Source form or documentation, if provided along with the Derivative Works; or, within a display generated by the Derivative Works, if and wherever such third-party notices normally appear. The contents of the NOTICE file are for informational purposes only and do not modify the License. You may add Your own attribution notices within Derivative Works that You distribute, alongside or as an addendum to the NOTICE text from the Work, provided that such additional attribution notices cannot be construed as modifying the License.</li>
+				</ul>
+				<p>You may add Your own copyright statement to Your modifications and may provide additional or different license terms and conditions for use, reproduction, or distribution of Your modifications, or for any such Derivative Works as a whole, provided Your use, reproduction, and distribution of the Work otherwise complies with the conditions stated in this License.</p>
+				<br>
+				<p><b>Please DO NOT use this for any Commercial Purposes</b></p><br>
+				<p>Information of the License for the plugins used can be found on their respective Git Hub Pages...</p>
+				<br>
+			</div>
+		</div>
+
+		<div data-modal="credits">
+			<span class="icon-close"></span>
+			<div class="modal-wrap">
+				<h1 class="logo">Flat Icon Generator <sup>Beta <span>v1.0</span></sup></h1>
+				<h3>Credits</h3>
+				<ul>
+					<li><a href="http://icomoon.io/" target="_blank">IcoMoon for Glyphs</a></li>
+					<li><a href="https://github.com/abpetkov/powerange" target="_blank">Powerange jQuery Plugin</a></li>
+					<li><a href="http://www.eyecon.ro/colorpicker/#about" target="_blank">Eyecon jQuery Color Picker Plugin</a></li>
+					<li><a href="https://github.com/niklasvh/html2canvas" target="_blank">HTML2Canvas for Image Exporting</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- Pre Loader-->
+		<div id="preloader">
+		    <div id="status">
+		    	<div class="centralized">
+		    		<svg class="loader" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="-120 130 451 40" enable-background="new -120 130 451 40" xml:space="preserve">
+						<path fill="none" stroke="#313131" stroke-width="5" d="M331,160c-30,0-45-20-75-20s-46,20-76,20l0,0c-30,0-45-20-75-20 s-45,20-75,20s-45-20-75-20s-45,20-75,20"/>
+					</svg><br>
+					<span>Loading...</span>
+		    	</div>
+		    </div>
+		</div>
+		<script src="{{ asset('Raptor/flat/js/jquery_min.js') }}"></script>
+		<script src="{{ asset('Raptor/flat/js/powerange.js') }}"></script>
+		<script src="{{ asset('Raptor/flat/js/colorpicker.js') }}"></script>
+		<script src="{{ asset('Raptor/flat/js/html2canvas.js') }}"></script>
+		<script src="{{ asset('Raptor/flat/js/jquery.nicescroll.min.js') }}"></script>
+		<script src="{{ asset('Raptor/flat/js/module.js') }}"></script>
+		<script>
+			//Preloader
+			$(window).load(function() {
+			    $('#status').fadeOut();
+			    $('#preloader').delay(350).fadeOut('slow');
+			    $('body').delay(350).css({'overflow':'visible'});
+                           
+			});
+                        $(document.body).ready(function() {
+
+                            $(window.parent.document.body).find('#tabla').height($(document.body).outerHeight(true));
+                            
+                        });
+		</script>
+	</body>
+</html>

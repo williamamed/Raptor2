@@ -1,0 +1,91 @@
+{% extends "@systemBundle/template.html.twig" %}
+{% block content %}
+
+<div class="container" style="padding: 20px;" >
+    <h2 class="featurette-heading"><span class="">Bundles Installer</span></h2>
+    <br>
+    <h4 class="featurette-heading"><span >{{ message|raw }}</span></h4>
+    <hr>
+    <h4 class="featurette-heading"><span class="text-muted">Please choose a bundle to install or upload one</span></h4>
+    <br>
+    <div class="featurette" style="background: transparent !important;">
+        <form class="form-horizontal" action="{{ path('_raptor_bundle_installer_upload') }}" method="POST" enctype="multipart/form-data" >
+            <div class="row">
+                <div class="col-md-5">
+                <label class="control-label" for="mybundle">Install your exported bundle</label>
+                    <div class="controls">
+                        <input id="file-field" class="form-control" type="file" name="mybundle" style="display: none">
+                    </div>
+                 <div class="input-group">
+                     <input type="text" id="show-field" class="form-control" disabled>
+                    <span class="input-group-btn">
+                        <button id="myfield" class="btn btn-default" type="button">Browse</button>
+                    </span>
+                  </div>
+                </div> 
+
+             </div>
+             <div class="row pull-left" style="margin-top: 15px;">
+                    <div class="col-md-4">
+                        <button type="submit" id="btn-config" class="btn btn-success"><i class="icon-raptor-configure icon-white" style="margin-right: 5px"></i>Submit</button>
+                    </div>
+
+                </div>   
+            </form>
+
+            <br><br>
+            <p class="lead">
+
+
+            </p>
+
+        </div>
+    <h2 class="featurette-heading text-center" style="margin-top: 50px"><span class="">Bundles Repository</span></h2>
+        <hr>
+        
+        <div class="row text-center">
+            {% if modules|length ==0 %}
+                <h3 class="featurette-heading text-center" style="margin-top: 50px;margin-bottom: 50px"><span class="">No bundles to install</span></h3>      
+            {% else %}
+                 
+                {% for item in modules %}
+                    <div class="col-md-4">
+                        {% if item['image'] %}
+                            <img src="{{ asset(item['image']) }}" width="115">
+                        {% else %}
+                            <img src="{{ asset('Raptor/img/logo.png') }}" width="115">
+                        {% endif %}
+                        <h2>{{ item['name'] }}</h2>
+                        <p>{{ item['description'] }}</p>
+                        <h4><span class="text-muted">{{ item['author'] }}</span></h4>
+                        <p><a class="btn btn-success" href="{{ path('_raptor_bundle_installer_module') }}?name={{ item['name'] }}" role="button">Install &raquo;</a></p>
+                      </div>
+                {% endfor %}
+            {% endif %}
+            
+      </div>
+
+</div>
+
+
+
+    
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+        $(document.body).ready(function() {
+
+            $(window.parent.document.body).find('#tabla').height($(document.body).outerHeight(true));
+            $('#myfield').click(function(){
+                $('#file-field').trigger('click');
+            })
+            $('#file-field').change(function(){
+                $('#show-field').val($('#file-field').val());
+            });
+        });
+       
+    </script>
+{% endblock %}
+

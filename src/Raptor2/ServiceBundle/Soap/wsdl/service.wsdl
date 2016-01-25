@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://localhost/Raptor2/web/index.php" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="Raptor2.ServiceBundle.Soap.Service" targetNamespace="http://localhost/Raptor2/web/index.php">
+  <types>
+    <xsd:schema targetNamespace="http://localhost/Raptor2/web/index.php">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+    </xsd:schema>
+  </types>
+  <portType name="Raptor2.ServiceBundle.Soap.ServicePort"/>
+  <binding name="Raptor2.ServiceBundle.Soap.ServiceBinding" type="tns:Raptor2.ServiceBundle.Soap.ServicePort">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+  </binding>
+  <service name="Raptor2.ServiceBundle.Soap.ServiceService">
+    <port name="Raptor2.ServiceBundle.Soap.ServicePort" binding="tns:Raptor2.ServiceBundle.Soap.ServiceBinding">
+      <soap:address location="http://localhost/Raptor2/web/index.php"/>
+    </port>
+  </service>
+</definitions>

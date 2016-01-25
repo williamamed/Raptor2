@@ -1,0 +1,27 @@
+UIR COMBO
+----------------------------------------------
+HTML
+----------------------------------------------
+ <div class="controls controls-row">
+       <div class="span8" >
+             <table id="mesas-table" class="table table-bordered2 "></table>
+                                               
+       </div>
+                                    
+</div>
+
+JAVASCRIPT
+-----------------------------------------------
+.....ComboUIR({
+            url:'reservacion/listmesa',
+            displayField:'descripion',
+            valueField:'id',
+            defaultText:'Escoja la mesa...',
+            class:'input-block-level',
+            invalid:'Este campo es requerido'
+});
+-----------------------------------------------
+
+
+
+-----------------------------------------------

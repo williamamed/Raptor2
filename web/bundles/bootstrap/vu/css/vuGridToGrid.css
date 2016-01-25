@@ -1,0 +1,20 @@
+/*BGIN GRID-TO-GRID*/
+.vu-gridtogrid.horizontal-mode .gridtogrid-btn-container .btn{
+    margin: 0 auto;
+    margin-top: 15px;
+    width: 100%;
+    display: block;
+}
+.vu-gridtogrid.horizontal-mode .gridtogrid-btn-container .btn > i{
+    min-width: 16px;
+}
+
+
+ .vu-gridtogrid.horizontal-mode > :first-child
+,.vu-gridtogrid.horizontal-mode > :last-child{
+    width: 44.6809%;
+}
+
+/*END GRID-TO-GRID*/
+
+

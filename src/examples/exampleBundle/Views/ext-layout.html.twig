@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+         <!-- Add Raptor Icons Package -->
+         <link href="{{ asset('Raptor/css/icons.css') }}" rel="stylesheet">
+         <!-- Add Raptor Msg Style -->
+         <link href="{{ asset('Raptor/css/msg.css') }}" rel="stylesheet">
+         <!-- Add ExtJs Style Library -->
+         <link href="{{ asset('extjs/resources/css/ext-all-gray.css') }}" rel="stylesheet" type="text/css" media="screen"/>
+         
+    </head>
+    <body>
+       <!-- Add Full ExtJs Library  -->
+       <script type="text/javascript" src="{{ asset('extjs/ext-all.js') }}"></script>
+       <!-- Add Raptor Msg Library  -->
+       <script type="text/javascript" src="{{ asset('Raptor/js/msg.js') }}"></script>
+       {% block javascript %}{% endblock %}
+       
+       <!-- Add Raptor Client Security Library  -->
+       <script type="text/javascript" src="{{ asset('Raptor/js/rpt-ext.js') }}"></script>
+      <!-- Add ExtJs Languaje Package  -->
+       {% if locale()!='' %}
+        <script type="text/javascript" src="{{ asset(['extjs/locale/ext-lang-',locale(),'.js']|join()) }}"></script>
+       {% endif %}
+    </body>
+</html>

@@ -1,0 +1,9 @@
+Ext.define('{{name}}.store.GenericTreeStore', {
+    extend: 'Ext.data.TreeStore',
+    model: '{{name}}.model.GenericTreeModel',
+    autoLoad: false,
+    root: {
+        text: "Root",
+        expandable:false
+    }
+});

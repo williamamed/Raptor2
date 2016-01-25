@@ -1,0 +1,9 @@
+<h4>{{ msg }}</h4>
+<img src="{{ asset('Raptor/img/raptor-eye.png') }}">
+<form id="form-imagen" action="{{ path('_example_edit') }}" method="POST" name="form-carta">
+    <label>Imagen del producto<b style="margin-left:5px;color:red">*</b></label>
+    <input id="imagen" class="input-block-level " type="text" name="imagen" />
+
+    <button type="submit" >Enviar</button>
+
+</form>

@@ -1,0 +1,42 @@
+/*BEGIN - CSS DE LOS MENSAJES DE BOOTBOX.ADD*/
+.msg-error{
+    width: 60px;
+    height: 60px;
+    float: left;
+    margin-right: 10px;
+    background-image: url('../images/error.png')
+}
+
+.msg-info{
+    width: 60px;
+    height: 60px;
+    float: left;
+    margin-right: 10px;
+    background-image: url('../images/info.png')
+}
+.msg-warning{
+    width: 60px;
+    height: 60px;
+    float: left;
+    margin-right: 10px;
+    background-image: url('../images/warning.png')
+}
+.msg-confirm{
+    width: 60px;
+    height: 60px;
+    float: left;
+    margin-right: 10px;
+    background-image: url('../images/confirm.png')
+}
+
+.vu-text-msg{
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.vu-text-msg-container{
+    min-height: 60px;
+    padding-left: 70px;
+}
+
+/*END - CSS DE LOS MENSAJES DE BOOTBOX.ADD*/

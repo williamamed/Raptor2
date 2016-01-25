@@ -1,0 +1,79 @@
+form div {
+  
+}
+form div label.campo{
+  width: 25%;
+  float: left;
+}
+input[type=submit]{
+    margin-left: 150px;
+    margin-top: 20px;
+}
+fieldset{
+    
+}
+form .float-msg{
+  
+	position:absolute;
+	
+}
+.select2-container-error{
+	border: 1px red solid;
+	border-radius:3px;
+	border-color: rgba(215, 18, 18, 0.8);
+  outline: 0;
+  outline: thin dotted \9;
+  /* IE6-9 */
+
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(215, 18, 18, 0.6);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(215, 18, 18, 0.6);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(215, 18, 18, 0.6);
+}
+
+.swicht-container-error{
+	border: 1px red solid;
+	border-radius:3px;
+	
+}
+.switch-error{
+
+border: 1px red solid !important;
+border-color: rgba(215, 18, 18, 0.8);
+  outline: 0;
+  outline: thin dotted \9;
+  /* IE6-9 */
+
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(215, 18, 18, 0.6);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(215, 18, 18, 0.6);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(215, 18, 18, 0.6);
+}
+ .select2-error{
+    color:red;
+    background-image: url(img/error.png);
+    background-repeat: no-repeat;
+    padding-left: 20px;
+	
+	background:white;
+	
+	padding:10px;
+	border: 1px red solid;
+	
+	border-radius:5px;
+	
+}
+
+ label.error{
+   z-index: 1000000;
+	
+}
+
+form input.error{
+    border-color: rgba(215, 18, 18, 0.8);
+  outline: 0;
+  outline: thin dotted \9;
+  /* IE6-9 */
+
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(215, 18, 18, 0.6);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(215, 18, 18, 0.6);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(215, 18, 18, 0.6);
+}

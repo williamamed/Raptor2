@@ -1,0 +1,160 @@
+{% extends "@systemBundle/template.html.twig" %}
+{% block content %}
+
+<div class="container" style="padding: 20px;" >
+    <h2 class="featurette-heading"><span class="">Application Options</span></h2>
+    <hr>
+    <h4 class="featurette-heading"><span class="text-muted">this is the basic configuration to the conf/options file, you can add others options directly</span></h4>
+    <br><br>
+    <div class="featurette" style="background: transparent !important;">
+        <form class="form-horizontal" method="POST" action="{{ path('_raptor_configuration_configure') }}">
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="control-label" for="driver">Driver</label>
+                <div class="controls">
+                    <select class="form-control" name="driver" id="driver">
+                        <option >pdo_pgsql</option>
+                        <option >pdo_mysql</option>
+                        <option >pdo_sqlite</option>
+                        <option >pdo_odbc</option>
+                        <option >pdo_oci</option>
+                    </select>
+                    </div>
+                </div>
+                    <div class="col-md-offset-8">
+                        <label class="control-label" for="lang">Language</label>
+                <div class="controls">
+
+                    <select class="form-control" name="lang" id="lang" >
+                         {% for item in raptor.locales %}
+                            <option>{{ item }}</option>
+                          {% endfor %}
+
+                        </select>
+                    </div>
+                </div>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label" for="inputDB">DB name</label>
+                        <div class="controls">
+                            <input class="form-control" name="db" type="text" id="inputDB" placeholder="" value="{{ db.dbname }}">
+                        </div>
+                    </div>
+                        <div class="col-md-offset-8">
+                            <label class="control-label" for="cache">Cache</label>
+                        <div class="controls">
+                            <input name="cache" class="form-control" type="text" id="cache" placeholder="" value="{{ raptor.cache }}">
+                        </div>
+                    </div> 
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label" for="inputHost">Host</label>
+                            <div class="controls">
+                                <input name="host" class="form-control" type="text" id="inputHost" placeholder="" value="{{ db.host }}">
+                            </div>
+                        </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="control-label" for="inputPort">Port</label>
+                                <div class="controls">
+                                    <input name="port" class="form-control" type="text" id="inputPort" placeholder="" value="{{ db.port }}">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="control-label" for="inputUser">User</label>
+                                <div class="controls">
+                                    <input name="user" class="form-control" type="text" id="inputUser" placeholder="" value="{{ db.user }}">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="control-label" for="inputPass">Password</label>
+                                <div class="controls">
+                                    <input name="password" class="form-control" type="password" id="inputPass" placeholder="" value="{{ db.password }}">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="control-label" for="inputSecret">Secret</label>
+                                <div class="input-group">
+                                    <input name="secret" class="form-control" type="text" id="inputSecret" placeholder="" value="{{ raptor.secret }}">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" class="" id="Generator" type="button">Generate!</button>
+                                     </span>
+                                </div>
+                                
+                            </div>
+
+                        </div>
+
+                <div class="row pull-right" style="margin-top: 15px;">
+                    <div class="col-md-4">
+                        <button type="submit" id="btn-config" class="btn btn-success"><i class="icon-raptor-configure icon-white" style="margin-right: 5px"></i>Configure</button>
+                    </div>
+
+                </div>
+
+                
+
+            </form>
+
+            <br><br>
+            <p class="lead">
+
+
+            </p>
+
+        </div>
+
+
+</div>
+
+
+
+    
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+        $(document.body).ready(function() {
+
+            $(window.parent.document.body).find('#tabla').height($(document.body).outerHeight(true));
+            $('#Generator').click(generateSecret);
+            $('#driver').val("{{db.driver}}");
+            $('#lang').val("{{raptor.language}}");
+            $('#btn-config').click(function() {
+                $(this).attr({disabled: true});
+            })
+            if(window.parent)
+                window.parent.Interactive.show('raptor.configuration.conf');
+        });
+        function generateSecret() {
+
+            for (var c = ''; c.length < 32; )
+                c += 'abcdefgh1234567890@#$%*ijklmnopqrstuvwxyz'.charAt(Math.random() * 26)
+
+            $('#inputSecret').val(c);
+        }
+    </script>
+{% endblock %}
+

@@ -1,0 +1,49 @@
+/* ::::: file:///twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css ::::: */
+
+/* ::::: file:///home/eddy/Desktop/bootstrap-switch-master/static/stylesheets/bootstrapSwitch.css ::::: */
+
+.has-switch { display: inline-block; cursor: pointer; border-radius: 5px; border-width: 1px; border-style: solid; -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; border-image: none; border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); position: relative; text-align: left; overflow: hidden; line-height: 8px; -moz-user-select: none; min-width: 100px; }
+.has-switch.switch-mini { min-width: 72px; }
+.has-switch.switch-small { min-width: 80px; }
+.has-switch.switch-large { min-width: 120px; }
+.has-switch.deactivate { opacity: 0.5; cursor: default ! important; }
+.has-switch.deactivate label, .has-switch.deactivate span { cursor: default ! important; }
+.has-switch > div { display: inline-block; width: 150%; position: relative; top: 0px; }
+.has-switch > div.switch-animate { transition: left 0.5s ease 0s; }
+.has-switch > div.switch-off { left: -50%; }
+.has-switch > div.switch-on { left: 0%; }
+.has-switch input[type="checkbox"] { display: none; }
+.has-switch span, .has-switch label { -moz-box-sizing: border-box; cursor: pointer; position: relative; display: inline-block; height: 100%; padding-bottom: 4px; padding-top: 4px; font-size: 14px; line-height: 20px; }
+.has-switch span.switch-mini, .has-switch label.switch-mini { padding-bottom: 4px; padding-top: 4px; font-size: 10px; line-height: 9px; }
+.has-switch span.switch-small, .has-switch label.switch-small { padding-bottom: 3px; padding-top: 3px; font-size: 12px; line-height: 18px; }
+.has-switch span.switch-large, .has-switch label.switch-large { padding-bottom: 9px; padding-top: 9px; font-size: 16px; line-height: normal; }
+.has-switch label { text-align: center; margin-top: -1px; margin-bottom: -1px; z-index: 100; width: 34%; border-left: 1px solid rgba(0, 0, 0, 0.1); border-right: 1px solid rgba(0, 0, 0, 0.1); color: rgb(255, 255, 255); text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25); background-color: rgb(245, 245, 245); background-image: linear-gradient(to bottom, rgb(255, 255, 255), rgb(230, 230, 230)); background-repeat: repeat-x; border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); }
+.has-switch label:hover, .has-switch label:focus, .has-switch label:active, .has-switch label.active, .has-switch label.disabled, .has-switch label[disabled] { color: rgb(255, 255, 255); background-color: rgb(230, 230, 230); }
+.has-switch label:active, .has-switch label.active {  }
+.has-switch span { text-align: center; z-index: 1; width: 33%; }
+.has-switch span.switch-left { border-top-left-radius: 4px; border-bottom-left-radius: 4px; }
+.has-switch span.switch-right { color: rgb(51, 51, 51); text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.75); background-color: rgb(240, 240, 240); background-image: linear-gradient(to bottom, rgb(230, 230, 230), rgb(255, 255, 255)); background-repeat: repeat-x; border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); }
+.has-switch span.switch-right:hover, .has-switch span.switch-right:focus, .has-switch span.switch-right:active, .has-switch span.switch-right.active, .has-switch span.switch-right.disabled, .has-switch span.switch-right[disabled] { color: rgb(51, 51, 51); background-color: rgb(255, 255, 255); }
+.has-switch span.switch-right:active, .has-switch span.switch-right.active {  }
+.has-switch span.switch-primary, .has-switch span.switch-left { color: rgb(255, 255, 255); text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25); background-color: rgb(0, 95, 204); background-image: linear-gradient(to bottom, rgb(0, 68, 204), rgb(0, 136, 204)); background-repeat: repeat-x; border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); }
+.has-switch span.switch-primary:hover, .has-switch span.switch-left:hover, .has-switch span.switch-primary:focus, .has-switch span.switch-left:focus, .has-switch span.switch-primary:active, .has-switch span.switch-left:active, .has-switch span.switch-primary.active, .has-switch span.switch-left.active, .has-switch span.switch-primary.disabled, .has-switch span.switch-left.disabled, .has-switch span.switch-primary[disabled], .has-switch span.switch-left[disabled] { color: rgb(255, 255, 255); background-color: rgb(0, 136, 204); }
+.has-switch span.switch-primary:active, .has-switch span.switch-left:active, .has-switch span.switch-primary.active, .has-switch span.switch-left.active {  }
+.has-switch span.switch-info { color: rgb(255, 255, 255); text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25); background-color: rgb(65, 167, 197); background-image: linear-gradient(to bottom, rgb(47, 150, 180), rgb(91, 192, 222)); background-repeat: repeat-x; border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); }
+.has-switch span.switch-info:hover, .has-switch span.switch-info:focus, .has-switch span.switch-info:active, .has-switch span.switch-info.active, .has-switch span.switch-info.disabled, .has-switch span.switch-info[disabled] { color: rgb(255, 255, 255); background-color: rgb(91, 192, 222); }
+.has-switch span.switch-info:active, .has-switch span.switch-info.active {  }
+.has-switch span.switch-success { color: rgb(255, 255, 255); text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25); background-color: rgb(88, 176, 88); background-image: linear-gradient(to bottom, rgb(81, 163, 81), rgb(98, 196, 98)); background-repeat: repeat-x; border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); }
+.has-switch span.switch-success:hover, .has-switch span.switch-success:focus, .has-switch span.switch-success:active, .has-switch span.switch-success.active, .has-switch span.switch-success.disabled, .has-switch span.switch-success[disabled] { color: rgb(255, 255, 255); background-color: rgb(98, 196, 98); }
+.has-switch span.switch-success:active, .has-switch span.switch-success.active {  }
+.has-switch span.switch-warning { color: rgb(255, 255, 255); text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25); background-color: rgb(249, 161, 35); background-image: linear-gradient(to bottom, rgb(248, 148, 6), rgb(251, 180, 80)); background-repeat: repeat-x; border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); }
+.has-switch span.switch-warning:hover, .has-switch span.switch-warning:focus, .has-switch span.switch-warning:active, .has-switch span.switch-warning.active, .has-switch span.switch-warning.disabled, .has-switch span.switch-warning[disabled] { color: rgb(255, 255, 255); background-color: rgb(251, 180, 80); }
+.has-switch span.switch-warning:active, .has-switch span.switch-warning.active {  }
+.has-switch span.switch-danger { color: rgb(255, 255, 255); text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25); background-color: rgb(209, 70, 65); background-image: linear-gradient(to bottom, rgb(189, 54, 47), rgb(238, 95, 91)); background-repeat: repeat-x; border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); }
+.has-switch span.switch-danger:hover, .has-switch span.switch-danger:focus, .has-switch span.switch-danger:active, .has-switch span.switch-danger.active, .has-switch span.switch-danger.disabled, .has-switch span.switch-danger[disabled] { color: rgb(255, 255, 255); background-color: rgb(238, 95, 91); }
+.has-switch span.switch-danger:active, .has-switch span.switch-danger.active {  }
+/* ::::: http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css ::::: */
+
+/* ::::: http://twitter.github.com/bootstrap/assets/css/docs.css ::::: */
+
+.span4, h1 { text-align: center; }
+h1 { margin-bottom: 20px; }
+h3 { margin-top: 20px; }

@@ -1,0 +1,13 @@
+Ext.define('{{name}}.view.GenericTree', {
+    extend: 'Ext.tree.Panel',
+    alias: 'widget.generictree',
+    rootVisible: true,
+    store: 'GenericTreeStore',
+    title: 'Tree',
+    iconCls:'',
+    width:'30%',
+    initComponent: function() {
+        
+        this.callParent();
+    }
+});

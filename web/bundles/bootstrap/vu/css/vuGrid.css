@@ -1,0 +1,616 @@
+.pagination{
+    color: #0088CC;
+    line-height: 10px;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.pagination .paginator-container > li{
+    cursor: pointer;
+}
+
+.pagination li.page-active > span{
+    background-color: #0088CC;
+    color: #FFFFFF;
+}
+
+.pagination .progress
+,.pagination .progress-text-behind
+,.pagination .progress-text-infront
+{
+    width: 200px;
+}
+
+.pagination .page-size
+{
+    width: 50px; 
+    border-radius: 2px; 
+    font-size: 12px; 
+    height: 18px; 
+    margin-bottom: 0; 
+    padding: 1px;
+}
+
+.pagination .progress
+{
+    margin-bottom: 0; 
+    white-space: nowrap; 
+    position: relative;
+}
+
+.pagination .progress-text-inner-container
+{
+    position: absolute;  
+    z-index: 99; 
+    white-space: nowrap; 
+    overflow: hidden;
+}
+
+.pagination .progress-text-behind
+{
+    position: absolute; 
+    left: 0; 
+    font-size: 12px; 
+    text-align: center; 
+    text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.pagination .progress-text-infront
+{
+    background-color: transparent;
+}
+
+
+
+/*END: VU-PAGINATED-TABLE*/
+
+/*grid */
+
+.grid{
+    border-color: #D0D0D0;
+    /*background-color: #DFE9F6;*/
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.grid-head{
+    background-color: red;
+    height: 25px ;
+    border-bottom-width: 1px !important;
+    box-shadow: 0 1px 0 0 #F4F8FD inset, -1px 0 0 0 #F4F8FD inset, 1px 0 0 0 #F4F8FD inset;
+    background-color: #CBDDF3;
+    background-image: -moz-linear-gradient(center top , #DAE7F6, #CDDEF3 45%, #ABC7EC 46%, #ABC7EC 50%, #B8CFEE 51%, #CBDDF3);
+    border-color: #99BCE8;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 0 0 #F4F8FD inset;
+    /*font-size: 11px;*/
+
+
+
+    background-color: #D7D2D2;
+    background-image: -moz-linear-gradient(center top , #F0F0F0, #D7D7D7);
+    border-color: #D0D0D0;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 0 0 #EFEDED inset;
+    font-size: 11px;
+
+}
+
+.grid .grid-head .grid-head-title{
+    padding: 3px ;
+    color: #00000;
+    font-family: tahoma,arial,verdana,sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 17px;
+}
+
+.grid .grid-body{
+    padding: 4px ;
+}
+
+.grid .grid-body .grid-body-toolbars{
+    height: 25px ;
+
+    border: 1px solid #99BCE8;
+    border-bottom-width: 0 !important;
+
+    background-color: #D8D8D8;
+    background-image: -moz-linear-gradient(center top , #E6E6E6, #EFEFEF);
+    border-color: #D0D0D0;
+
+}
+.grid .grid-body .grid-body-toolbars *{
+    border-radius: 0px!important ;
+}
+
+.grid .grid-body .grid-body-toolbars .subnav{
+    height: 25px ;
+}
+.grid .grid-body .grid-body-toolbars .subnav .nav-pills > li > a{
+    /*background: blue ;*/
+    padding: 4px ;
+}
+.grid .grid-body .grid-body-toolbars .subnav .nav-pills > li > a:hover{
+   
+    background-color: #E5E5E5;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.225) inset;
+    color: #555555;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+
+.grid .grid-body .grid-body-toolbars .subnav .nav-pills > li > a:click{
+    background-color: #0088CC;
+    background-image: -moz-linear-gradient(center top , #0088CC, #0088CC);
+    color: #FFFFFF;
+}
+
+.grid .grid-body .grid-body-columns{
+    background-color: #C5C5C5;
+    background-image: -moz-linear-gradient(center top , #F9F9F9, #E3E4E6);
+    border-color: #D0D0D0;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+    cursor: default;
+    padding: 0;
+    height: 25px ;
+    overflow: hidden; 
+
+}
+.grid .grid-body .grid-body-columns table > thead > tr > th:hover{
+    background-image:-moz-linear-gradient(center top , #E9E8E8, #E9E8E8 39%, #DEDEDE 40%, #DEDEDE);
+}
+.grid .grid-body .grid-body-columns *{
+    border-radius: 0px!important ;
+}
+/*.grid .grid-body .grid-body-columns table > thead > tr > th:last-child{
+    width: 10px ;
+}*/
+/*.grid .grid-body .grid-body-columns table > thead > tr > th:first-child,
+.grid .grid-body .grid-body-list table > tbody > tr > td:first-child{
+   
+}
+*/
+.grid .grid-body .grid-body-list{
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-color: #D0D0D0;
+    border-right: 1px solid #D0D0D0;
+    border-style: solid;
+    border-width: 0px 1px 1px;
+    overflow: auto;
+}
+
+.grid .grid-body .grid-body-list *{
+    border-radius: 0px!important ;
+}
+
+.grid .grid-body .grid-body-list table tbody > tr:first-child > td,.grid .grid-body .grid-body-list table {
+    /*border-top:  none;*/
+}
+
+.grid .grid-body .grid-body-pagination{
+    min-height: 28px ;
+    /*padding: 10px ;*/
+    background-color: #D8D8D8;
+    background-image: -moz-linear-gradient(center top , #E6E6E6, #EFEFEF);
+    border-color: #D0D0D0;
+    border-right: 1px solid #D0D0D0;
+    border-style: solid;
+    border-width: 0 1px 1px ;
+    border-radius: 0px ;
+    /*background: white ;*/
+
+}
+.grid .grid-body .grid-body-pagination *{
+    border-radius: 0px ;
+}
+.grid .grid-body .grid-body-pagination .pagination ul  {
+    box-shadow: none; ;  
+}
+.grid .grid-body .grid-body-pagination .pagination ul > li:first-child > a,.grid .grid-body .grid-body-pagination .pagination ul > li:first-child > span   {
+    border-left: none; 
+    padding: 0px ;
+}
+.grid .grid-body .grid-body-pagination .pagination ul > li:last-child > a,.grid .grid-body .grid-body-pagination .pagination ul > li:last-child > span   {
+    border-right: none; 
+}
+.grid .grid-body .grid-body-pagination .pagination ul > li > a, .pagination ul > li > span {
+    border-top: none;
+    border-bottom: none ;  
+}
+
+.grid .grid-body .grid-body-pagination .pagination ul > li > a, .grid .grid-body .grid-body-pagination .pagination ul > li > span {
+    background-color: #D3E1F1;
+    background-image: -moz-linear-gradient(center top , #E6E6E6, #EFEFEF);
+    color: #000000 ;
+}
+
+/*.grid .grid-body .grid-body-pagination .pagination ul > li.disabled > a, .grid .grid-body .grid-body-pagination .pagination ul > li.disabled > span {
+    background-color: #E6E6E6;
+    background-image: -moz-linear-gradient(center top , #E6E6E6, #E6E6E6);
+    color: #73A3E0 ;
+}*/
+.grid .grid-body .grid-body-pagination .pagination ul > li.page-active > a, .grid .grid-body .grid-body-pagination .pagination ul > li.page-active > span {
+    /*background-color: #0088CC;*/
+    /*background-image: -moz-linear-gradient(center top , #0088CC, #0088CC);*/
+    /*color: white;*/
+    
+    background-color: #E5E5E5;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.225) inset;
+    color: #555555;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+.grid .grid-body .grid-body-pagination .progress .bar{
+     background-image: -moz-linear-gradient(center top , #D1D1D1, #B8B8B8 50%, #ABABAB 51%, #9E9E9E);
+}
+/*por akis*/
+
+
+
+
+
+
+.grid .grid-body .grid-body-columns  table,.grid .grid-body .grid-body-list table{
+    margin-bottom: 0px ;
+    border-radius: 0px ;
+}
+
+.grid .grid-footer{
+    /*background-color: #EEEEEE;*/
+    /*border: solid 1px ;*/
+    /*margin: 5px ;*/
+    padding: 5px ;
+    border-top: 1px solid #DDDDDD; 
+}
+
+
+/* otros */
+
+.pagination ul > .disabled > span, .pagination ul > .disabled > a, .pagination ul > .disabled > a:hover, .pagination ul > .disabled > a:focus {
+    cursor: not-allowed;
+}
+/* subnav */
+.subnav .nav > li span{
+    margin-left: 3px;
+}
+
+.subnav .nav > li.nav-container .input-append button{
+    margin-left: -1px;
+    width: 28px;
+    padding: 5px 8px 3px 6px;
+    outline: none;
+}
+
+.subnav .nav > li.nav-container input[type="text"]:focus{
+    border-color: rgb(204, 204, 204);
+    box-shadow: 0 0 5px rgba(0,0,0, 0.2) inset;
+}
+
+.subnav .nav > li > a:hover{
+    cursor: pointer;
+    background-color: #E4E4E4;
+}
+
+.subnav .nav > li > a {
+    /*border-left: 1px solid #F5F5F5;*/
+    border-radius: 0 0 0 0;
+    border-left: 1px solid #E5E5E5;
+    border-color: rgba(0, 0, 0, 0.15);
+    margin: 0;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+    color: #333333;
+    line-height: 16px;
+}
+
+.subnav .nav > li.nav-action > a > i[class*="icon-"] {
+    /*line-height: 16px;*/
+}
+
+.subnav .nav > li.disabled > a {
+    color: #999999;
+    /*background-color: #FEFEFE;*/
+    /*box-shadow: 0 0 10px #EEEEEE inset;*/
+    background-color: #E4E4E4;
+    cursor: not-allowed;
+}
+
+.subnav .nav > li.icon-action > a{
+    padding-left: 5px;
+    padding-right: 5px;
+    line-height: 16px;
+}
+
+.subnav .nav > .active > a
+, .subnav .nav > .active > a:hover {
+    background-color: #E9E9E9;
+    border-left: 0 none;
+    border-right-color: #DDDDDD;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05) inset;
+    color: #777777;
+    padding-left: 13px;
+}
+
+.subnav .nav {
+    margin-bottom: 0;
+    overflow-x: visible;
+    /*overflow-y: hidden;*/
+}
+
+.subnav .nav .nav {
+    height: 36px;
+}
+
+.subnav .nav > li:first-child > a, .subnav .nav > li:first-child > a:hover {
+    border-right: none;
+    border-left: none;
+    border-radius: 4px 0 0 4px;
+    padding-left: 12px;
+}
+
+.subnav-fixed .nav > li:first-child > a
+, .subnav-fixed .nav > li:first-child > a:hover{
+    border-radius: 0;
+}
+
+.subnav .nav li .input-append{
+    /*    width: 168px;*/
+    margin: 3px 10px 3px 3px;
+}
+
+.subnav .nav li .input-append input{
+    width: 140px;
+}
+
+.subnav .nav li .input-append input{
+    width: 140px;
+}
+.subnav .nav li.inner-subnav-container{
+    /*width: 761px;*//*761px;*/
+    max-height: 25px;
+    overflow: hidden;
+}
+
+.subnav .nav li.inner-subnav-container ul li{
+    display: inline-block;
+    float: none;
+    margin-left: -4px;
+}
+
+.subnav .nav .nav{
+    position: relative;
+    /*width: 10000px;*/
+}
+
+.subnav .nav .navigator-left{
+    /*position: absolute;*/
+    /*left: 0;*/
+    margin-left: -4px;
+}
+
+/*.subnav .nav .navigator-right{*/
+/*position: absolute;*/
+/*right: 0;*/
+/*}*/
+
+.subnav .nav .navigator-left a
+,.subnav .nav .navigator-right a{
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 16px;
+}
+
+.subnav .nav .nav .navigator-left a > i
+,.subnav .nav .nav .navigator-right a > i{
+    line-height: 18px;
+}
+
+/*INICIO ESTILOS APLICADOS A LA BUSQUEDA AVANZADA*/
+/*.subnav-advanced-search .nav-actions-container > li.nav-container:first-child{
+    padding-left: 3px;
+}*/
+
+.subnav .nav-actions-container > li.nav-container{
+    padding: 3px;
+}
+
+.subnav .nav-actions-container > li.nav-container > *{
+    margin: 0;
+}
+
+/*.subnav-advanced-search{
+    margin-bottom: 0;
+}*/
+/*INICIO ESTILOS APLICADOS A LA BUSQUEDA AVANZADA*/
+.subnav-fill{
+    display: none;
+}
+/*END ESTILOS BARRA DE ACCIONES
+
+
+
+
+/**/
+/*BEGIN: VU-PAGINATED-TABLE*/
+table.vu-paginated-table{
+    /*margin-top: 10px;*/
+    position: relative;
+    table-layout: fixed;
+    /*background:white;*/
+}
+
+
+table.vu-paginated-table tbody td{
+    font-size: 13px;
+    line-height: 13px;
+    overflow: hidden;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+table.vu-paginated-table td input{
+    margin: 0;
+}
+
+table.vu-paginated-table tbody{
+    min-height: 120px;
+}
+
+table.table tbody tr.new > td{
+    color: #469266;
+}
+
+table.table tbody tr.modified > td{
+    color: #C09853;
+    /*color: #e08c1b;*/
+}
+
+table.table tbody tr.deleted > td{
+    color: #B94A48;
+    /*color: #e08c1b;*/
+}
+
+table.vu-paginated-table tr.tr-loading
+,table.vu-paginated-table tr.tr-loading:hover{
+    cursor: wait;
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    /*bottom: 63px; */
+    bottom: 0;
+    right: 0; 
+    border-radius: 5px;
+    z-index: 100;
+    background: rgba(100,100,100,0.1) !important;
+}
+
+/*table.vu-paginated-table.table-condensed tr.tr-loading*/
+/*,table.vu-paginated-table.table-condensed tr.tr-loading:hover{*/
+/*bottom: 55px;*/
+/*}*/
+
+table.vu-paginated-table tr.tr-loading td.td-loading{
+    border-radius: 5px; 
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+}
+
+table.vu-paginated-table tr.tr-loading .progress{
+    margin-bottom: 0;
+}
+
+table.vu-paginated-table tr.tr-loading td.td-loading .loading-progress-container{
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    height: 20px;
+    left: 50%;
+    margin: -15px auto 0 -25%;
+    padding: 5px;
+    position: absolute;
+    top: 50%;
+    width: 50%;
+}
+
+table.vu-paginated-table tbody tr:hover{
+    cursor: pointer;
+    background-color: #F5F5F5;
+}
+
+table.vu-paginated-table th, table.table-administration td{
+    vertical-align: middle;
+}
+
+table.vu-paginated-table thead th span{
+    cursor: pointer;
+    text-shadow: 0 0 1px #ccc;
+}
+
+table.vu-paginated-table thead th span:hover{
+    color: #0081C2;
+}
+
+
+
+table.vu-paginated-table .pagination{
+    color: #0088CC;
+    line-height: 10px;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+table.vu-paginated-table .pagination .paginator-container > li{
+    cursor: pointer;
+}
+
+table.vu-paginated-table .pagination li.page-active > span{
+    background-color: #0088CC;
+    color: #FFFFFF;
+}
+
+table.vu-paginated-table .pagination .progress
+,table.vu-paginated-table .pagination .progress-text-behind
+,table.vu-paginated-table .pagination .progress-text-infront
+{
+    width: 200px;
+}
+
+table.vu-paginated-table .pagination .page-size
+{
+    width: 50px; 
+    border-radius: 2px; 
+    font-size: 12px; 
+    height: 18px; 
+    margin-bottom: 0; 
+    padding: 1px;
+}
+
+table.vu-paginated-table .pagination .progress
+{
+    margin-bottom: 0; 
+    white-space: nowrap; 
+    position: relative;
+}
+
+table.vu-paginated-table .pagination .progress-text-inner-container
+{
+    position: absolute;  
+    z-index: 99; 
+    white-space: nowrap; 
+    overflow: hidden;
+}
+
+table.vu-paginated-table .pagination .progress-text-behind
+{
+    position: absolute; 
+    left: 0; 
+    font-size: 12px; 
+    text-align: center; 
+    text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.25);
+}
+
+table.vu-paginated-table .pagination .progress-text-infront
+{
+    background-color: transparent;
+}
+
+table.vu-paginated-table tfoot > tr > th 
+{
+    height: 10px;
+}
+/*END: VU-PAGINATED-TABLE*/

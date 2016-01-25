@@ -1,0 +1,183 @@
+ 
+<link type="text/css" href="{{ asset('Raptor/css/panel.css') }}" rel="stylesheet">
+
+
+<script type="text/javascript">
+        
+       Debug={
+            Panel:function(){
+                $(document.body).ready(function() {
+                $('.panel-rpt-data').data('open', false);
+                $('#raptor-debug-msg').show();
+                $('.panel-rpt-data').css('max-width', $('#raptor-debug-msg').width() + 50);
+
+                $('.panel-rpt-input').keyup(function(event) {
+                    $("b[id*='id-route-']").hide();
+                    $("b[id*='" + $(this).val() + "']").show();
+                    if ($(this).val() == '')
+                        $("b[id*='id-route-']").show();
+                    if (event.keyCode == 27)
+                        $('#rpt-close-panel').click();
+                });
+                $('#raptor-debug-msg').click(function(event) {
+                    $("#to-focus").focus();
+                });
+                $('.panel-rpt-input').click(function(event) {
+                    $(this).focus();
+                    event.stopPropagation();
+                    //console.debug(event)
+                });
+                $('#to-focus').keyup(function(event) {
+                    if (event.keyCode == 27)
+                        $('#rpt-close-panel').click();
+
+                });
+                setTimeout(function() {
+                    if ($('.panel-rpt-data').data('open') == false) {
+                        $('#raptor-debug-msg').fadeOut();
+                        $('#rpt-eyes').fadeIn();
+                        $('.panel-rpt-data').fadeOut();
+                        $('.panel-rpt-data').data('open', false);
+                    }
+                }, 9000);
+
+                $('#rpt-close-panel').click(function() {
+                    $('#raptor-debug-msg').fadeOut();
+                    $('#rpt-eyes').fadeIn();
+                    $('.panel-rpt-data').fadeOut();
+                    $('.panel-rpt-input').fadeOut();
+                    $('.panel-rpt-data').data('open', false);
+                });
+                $('#rpt-eyes').click(function() {
+                    $('#raptor-debug-msg').fadeIn();
+                    $('#rpt-eyes').fadeOut();
+                });
+                //Actions of the panel
+                $('#panel-rpt-session').click(function() {
+                    $('.panel-rpt-data').empty();
+                    $('.panel-rpt-data').html($('#rtp-session-data').html());
+                    $('.panel-rpt-input').hide();
+                    if ($('.panel-rpt-data').data('open') == false) {
+                        $('.panel-rpt-data').slideDown();
+
+                        $('.panel-rpt-data').data('open', true);
+
+                    } else {
+                        if ($('.panel-rpt-data').data('by') === 'session') {
+                            $('.panel-rpt-data').slideUp();
+
+                            $('.panel-rpt-data').data('open', false);
+                        }
+                    }
+                    $('.panel-rpt-data').data('by', 'session');
+                });
+
+                $('#panel-rpt-header').click(function() {
+                    $('.panel-rpt-data').empty();
+                    $('.panel-rpt-data').html($('#rtp-header-data').html());
+                    $('.panel-rpt-input').hide();
+                    if ($('.panel-rpt-data').data('open') == false) {
+                        $('.panel-rpt-data').slideDown();
+                        $('.panel-rpt-data').data('open', true);
+
+                    } else {
+                        if ($('.panel-rpt-data').data('by') === 'header') {
+                            $('.panel-rpt-data').slideUp();
+
+                            $('.panel-rpt-data').data('open', false);
+                        }
+                    }
+                    $('.panel-rpt-data').data('by', 'header');
+                });
+
+                $('#panel-rpt-routes').click(function() {
+                    $('.panel-rpt-data').empty();
+                    $('.panel-rpt-data').html($('#rtp-routes-data').html());
+                    $("b[id*='id-route-']").show();
+                    $('.panel-rpt-input').show();
+                    $('.panel-rpt-input').val('');
+                    if ($('.panel-rpt-data').data('open') == false) {
+                        $('.panel-rpt-data').slideDown();
+                        $('.panel-rpt-data').data('open', true);
+
+                    } else {
+                        if ($('.panel-rpt-data').data('by') === 'routes') {
+                            $('.panel-rpt-data').slideUp();
+                            $('.panel-rpt-input').hide();
+                            $('.panel-rpt-data').data('open', false);
+                        }
+                    }
+                    $('.panel-rpt-data').data('by', 'routes');
+                });
+            });
+            }
+        }
+       
+       if(!window.$){
+            var script2 = document.createElement('script');
+             script2.onload = script2.onreadystatechange = script2.onerror = null;
+             script2.type = 'text/javascript';
+
+             script2.onload = function(){
+                     Debug.Panel()
+             };
+             script2.src = '{{ asset('bootstrap/js/jquery.js') }}';
+             document.getElementsByTagName('head')[0].appendChild(script2);
+        }else
+            Debug.Panel();
+    
+    </script>
+    <div title="Raptor panel" id="rpt-eyes" class="panel-rpt-shortcut" style="display: none;">
+        <img src="{{ asset('Raptor/img/dev.png') }}"  height="50">
+    </div>
+    <div id="rtp-session-data" style="display: none;">
+        <div style="text-align: center;color: #0079d2">Session Values</div>
+            {% for key,tag in session %}
+        <b><span style="color: #0079d2">{{ key }}:&nbsp;</span>{{ tag }}</b><br>
+            {% endfor %}
+    </div>
+    <div id="rtp-header-data" style="display: none;">
+        <div style="text-align: center;color: #0079d2">Headers Values</div>
+            {% for key,tag in header %}
+        <b><span style="color: #0079d2">{{ key }}:&nbsp;</span>{{ tag }}</b><br>
+            {% endfor %}
+    </div>
+    <div id="rtp-routes-data" style="display: none;">
+        <div style="text-align: center;color: #0079d2">Registered Routes Values</div>
+            {% for key,tag in routes %}
+        <div>       
+            <b id="id-route-{{ key }}">
+                <span style="color: #0079d2">{{ key }}:&nbsp;</span>{{ tag.getPattern }}
+            </b>
+            </div>  
+            {% endfor %}
+
+    </div>
+    <a href="#" id="to-focus"></a>
+    <div id='raptor-debug-msg' class="panel-rpt-main-window" style="display: none;">
+        <div style="margin-bottom: 40px;">
+            <img style="float: left;margin-right: 10px;height: 20px !important;" src="{{ asset('Raptor/img/dev_white.png') }}" height="20"/>
+            <b style="float: left;" >Development Mode</b>
+        <b title="Close"   style="" id="rpt-close-panel" class="panel-rpt-x">x</b>
+        </div>
+            <div style="float: left">
+                <input class="panel-rpt-input" style="display: none;" type="text"/>
+        <div class="panel-rpt-data" style="display: none;"></div>
+        Time: <span style="color:{{ color }}">{{ time }}</span>
+        |
+        Memory: <span style="">{{ memory }}</span>
+        
+        <span id="panel-rpt-session" class="panel-rpt-btn">Session</span>
+        
+        <span id="panel-rpt-header" class="panel-rpt-btn">Headers</span>
+        
+        <span id="panel-rpt-routes" class="panel-rpt-btn">Routes</span>
+        
+        <a href="{{ path('_raptor_clean') }}" class="panel-rpt-btn" target="cache">Clear cache</a>
+        
+        <a href="{{ path('_raptor_front') }}" class="panel-rpt-btn" target="main">Raptor Main Panel</a>
+
+       </div>
+        </div>
+
+  

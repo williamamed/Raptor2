@@ -1,0 +1,134 @@
+
+{% extends "@systemBundle/baseTools.html.twig" %}
+{% block head %}
+<style type="text/css">
+      
+        
+    #all-demos {
+       
+    }
+   .item-temp div {
+        cursor:pointer;
+        float:left;
+        height:100px;
+        margin:5px 5px 5px 10px;
+        width:300px;
+        display: inline-block;
+        padding: 5px;
+        zoom:1;
+    }
+    .item-temp div img {
+        border: 1px solid #ddd;
+        float:left;
+        height:90px;
+        margin:5px 0 0 5px;
+        width:120px;
+    }
+
+    .item-temp div div {
+        float:left;
+        margin-left:10px;
+        width:160px;
+    }
+
+    .item-temp div h4 {
+        color:#555;
+        font-size:11px;
+        font-weight:bold;
+    }
+    .item-temp div p {
+        color:#777;
+    }
+    .item-temp div:hover {
+        background: #ddd;
+        
+
+        border: 2px solid #99bbe8;
+       
+        
+        cursor: pointer;
+        
+        transform: scale(0.9);
+        transition: transform 0.2s ease 0s, opacity 0.2s ease 0s;
+    }
+    #loading-mask{
+        background-color:white;
+        height:100%;
+        position:absolute;
+        left:0;
+        top:0;
+        width:100%;
+        z-index:20000;
+    }
+    #loading{
+        height:auto;
+        position:absolute;
+        left:45%;
+        top:40%;
+        padding:2px;
+        z-index:20001;
+    }
+    #loading a {
+        color:#225588;
+    }
+    #loading .loading-indicator{
+        background:white;
+        color:#444;
+        font:bold 13px Helvetica, Arial, sans-serif;
+        height:auto;
+        margin:0;
+        padding:10px;
+    }
+    #loading-msg {
+        font-size: 10px;
+        font-weight: normal;
+    }
+
+    .item-temp {
+        background-color: #fff;
+        border:1px solid;
+        border-color:#dadada #ebebeb #ebebeb #dadada;
+        overflow: auto;
+    }
+   
+    #sample-ct {
+        padding:2px;
+        font: 11px tahoma,arial,helvetica,sans-serif
+    }
+
+    .item-temp h2 {
+        border-bottom: 2px solid #99bbe8;
+        cursor:pointer;
+        padding-top:6px;
+    }
+    .item-temp h2 div {
+        background:transparent url(../resources/themes/images/default/grid/group-expand-sprite.gif) no-repeat 3px -47px;
+        color:#3764a0;
+        font:bold 11px Helvetica, Arial, sans-serif;
+        padding:4px 4px 4px 17px;
+    }
+    .item-temp .collapsed h2 div {
+        background-position: 3px 3px;
+    }
+    .item-temp .collapsed dl {
+        display:none;
+    }
+    .x-window {
+        text-align:left;
+    }
+    .item-temp dd h4 span.new-sample{
+        color: red;
+    }
+
+    .item-temp dd h4 span.updated-sample{
+        color: blue;
+    }
+    li {
+	list-style: inherit !important;
+    }
+
+    </style>
+{% endblock %}
+{% block javascript %}
+    <script type="text/javascript" src="{{ asset('Raptor/js/UIGenerator/UIGenerator.js') }}"></script>
+{% endblock %}

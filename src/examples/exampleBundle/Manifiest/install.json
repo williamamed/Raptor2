@@ -1,0 +1,6 @@
+{
+    "author": "Dinobyte S.L",
+    "description": "This is a bundle example",
+    "installScript": "Installer\/Install.php",
+    "installed": 1
+}

@@ -1,0 +1,17 @@
+Ext.define('{{name}}.model.GenericTreeModel', {
+    extend: 'Ext.data.Model',
+    fields: ['id'],
+    
+    proxy: {
+        type: 'ajax',
+        url: 'action/list',
+       
+        actionMethods: { //POST o GET
+            read: 'POST'
+        },
+        reader: {
+            type: 'json'
+           
+        }
+    }
+});

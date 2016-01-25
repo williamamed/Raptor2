@@ -1,0 +1,132 @@
+/* 
+    Document   : icons
+    Created on : 18-oct-2014, 11:21:52
+    Author     : DinoByte
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+[class^="icon-raptor-"],
+[class*=" icon-raptor-"] {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  *margin-right: .3em;
+  line-height: 20px;
+  vertical-align: text-top;
+  background-image: url("../img/raptor-cool.png");
+  background-position: 20px 20px;
+  background-repeat: no-repeat;
+}
+
+/* White icons with optional class, or on hover/focus/active states of certain elements */
+
+.icon-white,
+.nav-pills > .active > a > [class^="icon-raptor-"],
+.nav-pills > .active > a > [class*=" icon-raptor-"],
+.nav-list > .active > a > [class^="icon-raptor-"],
+.nav-list > .active > a > [class*=" icon-raptor-"],
+.navbar-inverse .nav > .active > a > [class^="icon-raptor-"],
+.navbar-inverse .nav > .active > a > [class*=" icon-raptor-"],
+.dropdown-menu > li > a:hover > [class^="icon-raptor-"],
+.dropdown-menu > li > a:focus > [class^="icon-raptor-"],
+.dropdown-menu > li > a:hover > [class*=" icon-raptor-"],
+.dropdown-menu > li > a:focus > [class*=" icon-raptor-"],
+.dropdown-menu > .active > a > [class^="icon-raptor-"],
+.dropdown-menu > .active > a > [class*=" icon-raptor-"],
+.dropdown-submenu:hover > a > [class^="icon-raptor-"],
+.dropdown-submenu:focus > a > [class^="icon-raptor-"],
+.dropdown-submenu:hover > a > [class*=" icon-raptor-"],
+.dropdown-submenu:focus > a > [class*=" icon-raptor-"] {
+  background-image: url("../img/raptor-white.png");
+}
+
+
+.icon-raptor-del {
+background-position:  -20px -80px !important;	   
+}
+
+.icon-raptor-add {
+background-position: 0 -80px !important;	   
+}
+.icon-raptor-cancel {
+background-position: -40px -80px !important;	   
+}
+.icon-raptor-acept{
+background-position: -60px -80px !important;	 
+}
+.icon-raptor-tool{
+background-position: -300px -120px !important;	 
+}
+.icon-raptor-conf{
+background-position: -320px -120px !important;	 
+}
+.icon-raptor-bundle-create{
+background-position: -320px -100px !important;	 
+}
+.icon-raptor-security{
+background-position: -240px -20px !important;	 
+}
+.icon-raptor-home{
+background-position: 0 -20px !important;	 
+}
+.icon-raptor-fire{
+background-position: -60px -100px !important;	 
+}
+
+.icon-raptor-image{
+background-position: -380px -40px !important;	 
+}
+
+.icon-raptor-info{
+background-position: -100px -80px !important;	 
+}
+
+.icon-raptor-bundle{
+background-position: -200px 0 !important;	 
+}
+
+.icon-raptor-table{
+background-position: -220px 0 !important;	 
+}
+
+.icon-raptor-update{
+background-position: -200px -20px !important;	 
+}
+
+.icon-raptor-vendor{
+background-position: -340px -100px !important;	 
+}
+
+.icon-raptor-excep {
+background-position: -20px -80px !important;	   
+}
+
+.icon-raptor-service {
+background-position: -280px -120px !important;	   
+}
+
+.icon-raptor-configure {
+background-position: -360px 0 !important;	   
+}
+.icon-raptor-trash {
+background-position: -380px 0 !important;	   
+}
+
+.icon-raptor-user {
+background-position: -140px 0 !important;	   
+}
+.icon-raptor-win {
+background-position: -180px 0 !important;	   
+}
+.icon-raptor-book {
+background-position: -40px -40px !important;	   
+}
+.icon-raptor-diana {
+background-position: -120px -80px !important;	   
+}
+.icon-raptor-installer {
+background-position: -80px -20px !important;	   
+}
+

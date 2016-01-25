@@ -1,0 +1,162 @@
+{% extends "@systemBundle/template.html.twig" %}
+{% block content %}
+
+<div class="container" style="padding: 20px;" >
+    
+    <h4 class="featurette-heading text-center"><img class="featurette-image text-center" src="{{ asset('Raptor/img/logo.png') }}" style="margin-right: 15px;" width="250"></h4>
+    <h2 class="featurette-heading text-center"><span class="">Welcome to Raptor 2</span></h2>
+    <hr>
+    <br><br>
+    <div class="featurette" style="background: transparent !important;">
+            
+            <p class="lead">
+                
+                In this version Raptor implements his logic under Slim micro framework, giving you a nice experience with a light core.
+                We include a lot of new functions in this release like Interactive Guide, AOP(Aspect Oriented Programming) and other toys.<br><br>
+                The gold of raptor always will be the cognitive charge reduction in the development, and give you a cool enviroment to
+                do professional webs.<br><br>
+                To start, look the requirements below and see your current state:<br>
+                <table class="table">
+                    <thead>
+                        <th>Requirements</th>
+                        <th>Value</th>
+                    <thead>
+                    <tbody>
+                        <tr>
+                            <td>PHP 5.4 > <span class="label label-danger">Required</span></td>
+                            <td>
+                            {% if version[1]==true %}
+                               <span class="label label-success">{{ version[0] }}</span>     
+                            {% else %}
+                               <span class="label label-danger">{{ version[0] }}</span>          
+                            {% endif %}
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td>SOAP Extension </td>
+                            <td>
+                            {% if other['soap']==false %}
+                               <span class="label label-danger">not active</span>     
+                            {% else %}
+                               <span class="label label-success">active</span>          
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ZIP Extension <span class="label label-danger">Required for installer</span></td>
+                            <td>
+                            {% if other['zip']==false %}
+                               <span class="label label-danger">not active</span>     
+                            {% else %}
+                               <span class="label label-success">active</span>          
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>MCRYPT Extension <span class="label label-danger">Required by system</span></td>
+                            <td>
+                            {% if other['mcrypt']==false %}
+                               <span class="label label-danger">not active</span>     
+                            {% else %}
+                               <span class="label label-success">active</span>          
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>OPENSSL Extension <span class="label label-warning">Required by SAML</span></td>
+                            <td>
+                            {% if other['openssl']==false %}
+                               <span class="label label-danger">not active</span>     
+                            {% else %}
+                               <span class="label label-success">active</span>          
+                            {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                  </table>
+            <br>
+            <h3 class="featurette-heading"><img src="{{ asset('Raptor/img/logo-syn.png') }}" width="90" alt="..." >The improvement of Syntarsus</h3>
+            <hr>
+            The Security Module(Syntarsus) continue with the access control model based on structures, this time with the
+            posibilities of categorize it, the inclusion of nick image in the user manager and some corrections.<br><br>
+            
+            To be more faster and integrate the flow we unified the concept of routes, placing the old action manager in the privileges manager, with a few of cool functions like detecting automatictly the actions, and add it to his corresponding privilege, your work this time will be edit it if you want. Great !!<br><br>
+            
+            This time besides the route and route name you will see the description that was post it as annotation in the route, this is to give
+            more feedback in the asigment of priviliges to rol. In Raptor nemesis the asigment was by pure memory and skill, in Raptor 2
+            we want to be more usefull in that asigment giving you a description of what that route do and let you choose correctly.<br><br>
+            With the inclusion of Interactive module we give you a complete Guide of the module to understand his work and help you with the terms more complex in the security and Syntarsus.
+            
+            </p>
+            <br>
+            <br>
+            <h3 class="featurette-heading"><img src="{{ asset('Raptor/img/logo-int.png') }}" width="90" alt="..." >Interactive Guide</h3>
+            <hr>
+            This is one of the best funtions in Raptor 2, the module erase the old idea of users manual. The interactive
+            functions will give you the necesary tools to show tutorials in real time and interact with the user.<br><br>
+            
+            The module is installed by default under the vendor Raptor2 in the src location, to use it only you need is create the necesary templates about your content and call it in real time in the interface based on events of user interaction<br><br>
+            
+            With interactive you will point objects to user atention, show messages and give a author face(this trigger a care sensation).<br><br>
+            
+            
+            </p>
+            <br>
+            
+            <div class="row text-center">
+            <div class="col-sm-4 col-md-2">
+              <div class="">
+                <img src="{{ asset('Raptor/img/Authors/amed.jpg') }}" width="60" alt="..." class="img-circle">
+                <div class="caption">
+                  <h5>Amed</h5>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="">
+                <img src="{{ asset('Raptor/img/Authors/otto.jpg') }}" width="60" alt="..." class="img-circle">
+                <div class="caption">
+                  <h45>Otto Haus</h5>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="">
+                <img src="{{ asset('Raptor/img/Authors/richard.jpg') }}" width="60" alt="..." class="img-circle">
+                <div class="caption">
+                  <h5>Richard</h5>
+                  
+                </div>
+              </div>
+            </div>
+            
+          </div>
+    </div>
+
+
+</div>
+
+
+
+    
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+        $(document.body).ready(function(){
+            
+            if(window.parent){
+                window.parent.Interactive.show('raptor.start.startopen');
+                
+            }
+            $(window.parent.document.body).find('#tabla').height($(document.body).outerHeight(true));
+            
+        });
+    </script>
+{% endblock %}
+
+

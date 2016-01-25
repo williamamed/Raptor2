@@ -1,0 +1,65 @@
+	input[type=radio].css-checkbox {
+							display:none;
+	}
+
+	input[type=radio].css-checkbox + label.css-label {
+							padding-left:21px;
+							height:16px; 
+							display:inline-block;
+							line-height:16px;
+							background-repeat:no-repeat;
+							background-position: 0 0;
+							font-size:16px;
+							vertical-align:middle;
+							cursor:pointer;
+
+	}
+
+	input[type=radio].css-checkbox:checked + label.css-label {
+							background-position: 0 -16px;
+	}
+	label.css-label {
+				
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+	}
+	
+	label.css-label-checkbox {
+				background-image:url(../img/check/checkbox.png);
+				
+	}
+	
+	label.css-label-radio{
+				background-image:url(../img/check/radio.png);
+				
+	}
+	
+	
+	
+		input[type=checkbox].css-checkbox {
+							display:none;
+	}
+
+	input[type=checkbox].css-checkbox + label.css-label {
+							padding-left:21px;
+							height:16px; 
+							display:inline-block;
+							line-height:16px;
+							background-repeat:no-repeat;
+							background-position: 0 0;
+							font-size:16px;
+							vertical-align:middle;
+							cursor:pointer;
+
+	}
+
+	
+	input[type=checkbox].css-checkbox:checked + label.css-label {
+							background-position: 0 -16px;
+						}
+	
+	

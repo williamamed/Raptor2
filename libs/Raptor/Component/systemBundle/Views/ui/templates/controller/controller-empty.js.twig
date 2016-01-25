@@ -1,0 +1,46 @@
+Ext.define('{{name}}.controller.Generic', {
+    extend: 'Ext.app.Controller',
+    stores: ['Generic'],
+    models: ['GenericModel'],
+    refs: [],
+    init: function() {
+        this.control({
+            
+            'genericwindow button[action=save]': {
+                click: this.addAction
+            },
+            
+            
+            'viewport':{
+                render:this.onRender
+            }
+        });
+       
+    },
+    onRender:function(){
+        //Make Raptor control the UI to activate the privilege
+        Raptor.controlActions();
+    },
+    
+    onListSelect: function() {
+       
+        
+    },
+    onListDeSelect: function() {
+      
+        
+    },
+   
+    onAddAction: function() {
+        var view = Ext.widget('genericwindow');
+    },
+    
+    addAction:function(button){
+        var win=button.up('window');
+        
+    }
+    
+
+});
+
+

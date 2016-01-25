@@ -1,0 +1,9 @@
+<style>body{margin:0;padding:30px;font:12px/1.5 Helvetica,Arial,Verdana,sans-serif;}h1{margin:0;font-size:48px;font-weight:normal;line-height:48px;}strong{display:inline-block;width:65px;}</style>
+<div style="background-color: #402878 ;color: white;padding: 25px;"><h1 style="">Cache Cleaned</h1></div>
+{% if autoinstall %}
+<div style="background-color: #cccccc;color: #000066;padding: 25px;">
+{% for item in autoinstall %}
+        {{ item|raw }}
+{% endfor %}
+</div>
+{% endif %}

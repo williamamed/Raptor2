@@ -1,0 +1,98 @@
+/* 
+    Document   : panel
+    Created on : 27-mar-2015, 15:20:52
+    Author     : Dinobyte
+    Description:
+        Purpose of the stylesheet follows.
+*/
+.panel-rpt-main-window a{
+    background: #777;
+    text-decoration: none;
+    color: #402878 ;
+}
+.panel-rpt-main-window a:visited{
+   
+   text-decoration: none
+}
+.panel-rpt-btn { 
+    padding: 10px;
+    background: #333;
+    
+}
+.panel-rpt-btn:hover { 
+    color: #402878 ;
+    background: #b9b9ba
+}
+#rpt-eyes img:hover{
+    height: 45px;
+}
+.panel-rpt-main-window input{
+    color:#402878 ;
+}
+.panel-rpt-main-window{
+    border: 1px solid #777;
+	border-color: rgba(0,0,0,0.2);
+	
+        color: white;
+
+	cursor: pointer;
+	display: inline-block;
+	font: bold 100%/2.1 Lucida Grande, Tahoma, sans-serif;
+        font-size: 11px;
+	padding: 2px;
+	text-decoration: none;
+	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+	position: fixed;
+	z-index: 100000000;
+	
+        background-color: #402878 ;
+        bottom:5px;
+        right:5px;
+        padding:10px;
+        padding-top:2px;
+        float: left;
+        display: none;
+        
+}
+.panel-rpt-shortcut{
+    cursor: pointer;
+    text-decoration: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    position: fixed;
+    z-index: 100000000;
+    bottom:5px;
+    right:5px;
+    
+}
+.panel-rpt-x{
+    float: right;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+.panel-rpt-x:hover{
+    
+    background: #b9b9ba
+}
+.panel-rpt-data{
+    max-height: 400px;
+    padding: 10px;
+    border: 0px solid black;
+    overflow-y:  scroll;
+    overflow-x: hidden;
+    border-bottom-width: 1px;
+    border-bottom-color: #33cc00;
+    border-top-width: 1px;
+    border-top-color: #33cc00;
+    user-select: select;
+    
+}
+.panel-rpt-main-window input[type="text"]{
+    padding: 5px !important;
+    height: 30px;
+    width: 100%;
+}

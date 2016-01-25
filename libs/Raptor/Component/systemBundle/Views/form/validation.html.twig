@@ -1,0 +1,56 @@
+ 
+
+
+<script src="{{ asset('Raptor/js/form/form.validation.js') }}"></script> 
+<script type="text/javascript">
+    
+       Validation={
+            init:function(){
+                 $(document.body).ready(function() {
+            var fields= {{ fields|raw }} ;   
+            $('{{ formId }}').validate({
+                    //focusInvalid: false,
+                    onkeyup: false,
+                    onfocusout: false,
+                    //by default the error elements is a <label>
+                    errorElement: "div",
+                    //place all errors in a <div id="errors"> element
+                    errorPlacement: function(error, element) {
+                        var el = $('<b>').append(error.html());
+                        el.css({color: 'red'});
+
+                        var cont = $('#error-' + element.attr('name'));
+
+                        if (cont.size() > 0) {
+                            cont.empty();
+                            cont.append(el);
+                            cont.show()
+                        } else {
+                            cont = $('<div>').attr('id', 'error-' + element.attr('name')).append(el);
+                            element.before(cont)
+                        }
+
+                        setTimeout(function() {
+                            cont.fadeOut("slow");
+                        }, 20000)
+                    },
+                    rules:fields
+
+                });
+            });
+            }
+        }
+       if(!window.$){
+            var script2 = document.createElement('script');
+             script2.onload = script2.onreadystatechange = script2.onerror = null;
+             script2.type = 'text/javascript';
+
+             script2.onload = function(){
+                     Validation.init()
+             };
+             script2.src = '{{ asset('bootstrap/js/jquery.js') }}';
+             document.getElementsByTagName('head')[0].appendChild(script2);
+        }else
+            Validation.init();
+</script>
+       

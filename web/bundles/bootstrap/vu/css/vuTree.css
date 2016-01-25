@@ -1,0 +1,211 @@
+.tree,
+.tree ul {
+  list-style: none outside none;
+  -moz-user-select:none;-khtml-user-select:none;-webkit-user-select:ignore;
+  background:white;
+}
+
+.tree span{
+	
+	
+}
+.tree li {
+	background:white;
+	background-image: url("../../img/tree/vline.gif");
+	background-repeat:repeat-y;
+	
+	background-position: 3px 0px;
+}
+
+.tree li:last-child {
+	background:red;
+	background-image:none;
+	
+}
+.tree .last-li {
+	
+	background-image:none;
+	
+}
+
+li {
+ 
+  line-height: 16px;
+ 
+
+}
+
+li.open {
+ 
+  
+
+}
+
+li.closeTree {
+	
+   
+
+}
+/*  CHECKBOX   */
+.tree .tree-checkbox{
+	height:16px;
+	width:16px;
+	background-image: url("../../img/tree/icons.gif");
+	display:inline-block;
+	background-position: 0px -32px;
+}
+
+.tree .tree-blanc{
+	height:16px;
+	width:16px;
+	background-image: url("../../img/tree/icons.gif");
+	display:inline-block;
+	background-position: -48px -66px;
+}
+.tree .tree-connec{
+	height:18px;
+	width:16px;
+	
+	display:inline-block;
+	background-image: url("../../img/tree/icons.gif");
+	background-repeat:no-repeat;
+	background-position: 2px -64px;
+}
+.tree .tree-connecLast{
+	height:18px;
+	width:16px;
+	
+	display:inline-block;
+	background-image: url("../../img/tree/icons.gif");
+	background-repeat:no-repeat;
+	background-position: -14px -64px;
+}
+
+
+.tree .tree-checkbox:hover{
+	background-image: url("../../img/tree/icons.gif");
+	background-position: -16px -32px;
+}
+.tree .tree-checkbox-check{
+	height:16px;
+	width:16px;
+	background-image: url("../../img/tree/icons.gif");
+	display:inline-block;
+	background-position: -32px -32px;
+}
+.tree .tree-checkbox-check:hover{
+	background-image: url("../../img/tree/icons.gif");
+	background-position: -48px -32px;
+}
+/*  EXPANDER   */
+.expander{
+	height:16px;
+	width:16px;
+	background-image: url("../../img/tree/icons.gif");
+	background-position: 0px -80px;
+	display:inline-block;
+	
+}
+.expander:hover{
+	height:16px;
+	width:16px;
+	background-image: url("../../img/tree/icons.gif");
+	background-position: -16px -80px;
+	display:inline-block;
+}
+.expander-open{
+	height:16px;
+	width:16px;
+	background-image: url("../../img/tree/icons.gif");
+	background-position: -32px -80px;
+	display:inline-block;
+}
+/*  ICON   */
+.icon{
+	height:16px;
+	width:16px;
+	background-image: url("../../img/tree/icons.gif");
+	background-position: 0px -16px;
+	display:inline-block;
+	margin-right:2px;
+}
+/*  ICON   font-style:italic;*/
+.tree-row{
+	display:block;
+	border: 1px dotted transparent;
+	overflow:hidden;
+	height:20px;
+	
+	
+}
+ .tree-rowlast {
+background:white !important;
+	
+	
+}
+.tree-row:hover{
+	border: 1px dotted  #B8D6FB;
+	background-color: #F2F7FD; /* light blue */
+	
+
+}
+.tree .text{
+	cursor:pointer;
+	font-family: tahoma, arial, helvetica;
+	font-size: 10pt; /* font size should not be too big */
+}
+.tree .node-tree-select{
+	background-color: #D8F0FA; /* light blue */
+	border-color: #B8D6FB;
+}
+
+.tree .tree-leaf{
+	background-image: url("../../img/tree/icons.gif");
+	background-position: 0px 0px;
+}
+
+.tree .tree-loading{
+	background-position: 0 0;
+	background-image: url("../../img/tree/loading.gif");
+}
+.drop-el{
+	border:1px solid red !important;
+
+}
+.drop-el:hover{
+	border:1px solid red !important;
+
+}
+.item-drop-red{
+	
+	color:white;
+	padding:5px;
+	border:1px solid white !important;
+	border-radius:5px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(215, 18, 18, 0.6);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(215, 18, 18, 0.6);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(215, 18, 18, 0.6);
+}
+.item-drop-green{
+	
+	color:white;
+	padding:5px;
+	border:1px solid white !important;
+	border-radius:5px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(22, 156, 23, 0.6);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(22, 156, 23, 0.6);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(22, 156, 23, 0.6);
+}
+.tree .tree-root{
+	background:white;
+	height:2px;
+}
+.tree .tree-node-sep{
+	
+	height:2px;
+}
+
+ul{
+margin-left:16px;
+}
+

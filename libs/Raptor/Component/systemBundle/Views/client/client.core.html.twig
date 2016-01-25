@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <script type="text/javascript">
+            /**
+             * This is the Raptor Client Core Library
+             */
+
+            BaseRaptor = function() {
+                window.localStorage.setItem('rapLib', "{{ token }}");
+            }
+            BaseRaptor.prototype = {
+                constructor: BaseRaptor,
+                getToken: function() {
+                    return window.localStorage.getItem('rapLib');
+                },
+                getFront: function() {
+                    return "{{ front }}";
+                },
+                getBundleResource: function(resource) {
+                    return "{{ front }}/../bundles/" + resource;
+                },
+                getTag: function(name) {
+                    var lang = {{ file|raw}};
+                            return lang[name];
+                },
+                getLanguage: function() {
+                    return "{{ lang }}";
+                },
+                getUser:function(){
+                    return "{{ user }}";
+                },
+                {{ plugin('core_library_inside')|raw }}
+            }
+            Raptor = new BaseRaptor();
+            {{ plugin('core_library_outside')|raw }}
+            </script>
+            {{ plugin('core_header')|raw }}

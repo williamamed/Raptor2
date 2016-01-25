@@ -1,0 +1,13 @@
+database:
+    driver: pdo_mysql
+    dbname: 
+    user: 
+    port: ''
+    password: 
+    host: localhost
+raptor:
+    language: es
+    secret: 'c96ekb%94$$65d%66%01$@a2e7j%*72g'
+    cache: '3'
+    services: 'http://localhost/Raptor2/web/index.php'
+    locales: [es, en]

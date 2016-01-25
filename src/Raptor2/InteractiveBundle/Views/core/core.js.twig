@@ -1,0 +1,87 @@
+Interactive={
+    init:false,
+    many:0,
+    stack:new Array(),
+    
+    perfil:{{ perfil|raw }},
+    begin:function(){
+        if(this.perfil.reject==true){
+            return false;
+        }
+        this.init=true;
+        
+        if(!window.$){
+            var script2 = document.createElement('script');
+            script2.onload = script2.onreadystatechange = script2.onerror = null;
+            script2.type = 'text/javascript';
+
+            script2.onerror = this.onErrorFn;
+            script2.onload = function(){
+                me.onLoadFn()
+            };
+            script2.src = '{{ asset('bootstrap/js/jquery.js') }}';
+            document.getElementsByTagName('head')[0].appendChild(script2);
+        }else
+            this.many++;
+        
+        var script = document.createElement('script');
+        script.onload = script.onreadystatechange = script.onerror = null;
+        script.type = 'text/javascript';
+        var me=this;
+        script.onerror = this.onErrorFn;
+        script.onload = function(){
+            me.onLoadFn()
+        };
+        script.src = '{{ url }}';
+        document.getElementsByTagName('head')[0].appendChild(script);    
+    },
+    show:function(name,condition){
+        var me=this;
+        if(!this.init)
+            this.stack.push(function(){
+                me.calling(name,condition);
+            })
+        if(!this.init)
+            this.begin();
+        else
+            me.calling(name,condition);
+    },
+    calling:function(name,condition){
+        var val=$.cookie('Interactive_'+Raptor.getUser());
+        var obj=$.parseJSON(val);
+        if(!obj || !obj.tutoriales )
+            return;
+        if(obj.reject)
+            return;
+        if(obj.tutoriales[name]!=undefined)
+            return;
+        if(condition){
+            if(!Interactive.Util.checkCondition(condition,obj))
+                return;
+        }
+        if(this.before){
+            this.before.destroy();
+        }
+        var msg=new Interactive.Core();
+        msg.setRoot('{{ asset('../index.php/interactive/tutorial') }}');
+        msg.call(name);
+        this.before=msg;
+    },
+    onErrorFn:function(){
+        
+    },
+    onLoadFn:function(){
+        this.many++;
+        if(this.many<2){
+            return;
+        }
+        
+        for(var i=0,cant=this.stack.length;i < cant ;i++){
+            this.stack[i].call();
+        }
+        this.stack=new Array();
+    }
+   
+}
+
+

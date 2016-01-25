@@ -1,0 +1,256 @@
+ .progressbar{
+ 
+	position:absolute;
+	
+	
+	background:#ffffff;
+	border-radius:5px;
+	border: 2px solid gray;
+	z-index:1001;
+	cursor:pointer;
+	width:400px;
+	-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:ignore;
+ }
+ 
+ .floting{
+ 
+	position:absolute;
+	
+	
+	
+	z-index:1001;
+	cursor:pointer;
+	
+	-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:ignore;
+ }
+ 
+ .progressbar .msg-text{
+	color: #000000;
+    font-family: 'Segoe UI Light_','Open Sans Light',Verdana,Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    line-height: 1.3rem;
+	
+	
+	display:inline;
+	-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:ignore;
+ }
+ 
+
+ 
+ .msg-cerrar{
+	
+	
+	float:right;
+
+  
+  }
+  .msg-title-name{
+	height:30px;
+	color:black;
+	
+	float:left;
+	margin-top:3px;
+	font-family: 'Segoe UI Light_','Open Sans Light',Verdana,Arial,Helvetica,sans-serif;
+	z-index:1002;
+	font-size: 14px;
+  
+  }
+ 
+ .progressbar .barcontainer{
+	margin:0px;
+	margin-top:17px;
+	float:right;
+	width:100%;
+	 border: 1px solid #d4d4d4;
+	
+	padding-top:10px;
+	padding-bottom:10px;
+ 
+ }
+  .progressbar .bar{
+	
+	
+	
+	float:right;
+	
+	 padding: 4px 12px;
+  text-align: center;
+  vertical-align: middle !important;
+  background-color: #d9d9d9;
+  border: 1px transparent solid;
+  color: #222222;
+  border-radius: 0;
+  cursor: pointer;
+  display: inline-block;
+  outline: none;
+  font-family: 'Segoe UI Light_', 'Open Sans Light', Verdana, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  margin: auto;
+  margin-right:10px;
+ 
+ }
+ 
+ .progressbar .button{
+	
+	
+	
+	float:right;
+	
+  
+  cursor: pointer;
+  display: inline-block;
+  outline: none;
+  font-family: 'Segoe UI Light_', 'Open Sans Light', Verdana, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  margin: auto;
+  margin-right:10px;
+ 
+ }
+ 
+  .progressbar .bar:focus{
+	outline: 0;
+	border: 1px #353535 dotted;
+ }
+ 
+ .progressbar .bar:hover{
+	outline: 0;
+	border: 1px #353535 dotted;
+ }
+  .progressbar .barcontainer2{
+	margin:10px;
+	margin-top:5px;
+	float:left;
+	clear:both;
+	width:90%;
+	
+ 
+ }
+ 
+  .progressbar .msg-bartitle{
+	height:30px;
+	 background-color: #fafafa;
+  background-image: -moz-linear-gradient(top, #ffffff, #f2f2f2);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f2f2f2));
+  background-image: -webkit-linear-gradient(top, #ffffff, #f2f2f2);
+  background-image: -o-linear-gradient(top, #ffffff, #f2f2f2);
+  background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
+  background-repeat: repeat-x;
+   border: 1px solid #d4d4d4;
+	color:white;
+	font-family: 'Segoe UI Light_','Open Sans Light',Verdana,Arial,Helvetica,sans-serif;
+	padding:3px;
+	cursor:move;
+	-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:ignore;
+  }
+  
+
+.msg-cerrar:hover{
+	
+
+  
+  
+  }
+ 
+  .progressbar .msg-icon-apply{
+		background-image:url(../img/message/apply.png);
+		height:15px;
+		width:15px;
+		display:inline-block;
+		margin-right:5px;
+		background-size:100% 100%;
+   }
+   
+   .progressbar .msg-icon-base{
+		
+		height:15px;
+		width:15px;
+		display:inline-block;
+		margin-right:5px;
+		background-size:100% 100%;
+   }
+   
+    .msg-icon-info{
+		
+		height:45px !important;
+		width:45px !important;
+		
+		float:left !important;
+		margin:1px !important;
+		margin-right:10px !important;
+		margin-left:10px !important;
+		margin-top:-10px;
+		background-size:100% 100% !important;
+   }
+   
+  .msg-icon-confirm{
+		background-image:url(../img/message/confirm.png);
+		height:45px;
+		width:45px;
+		
+		float:left;
+		margin:1px;
+		margin-right:10px;
+		margin-top:-10px;
+		background-size:100% 100%;
+   }
+    .msg-icon-warning{
+		background-image:url(../img/message/warning.png);
+		height:45px;
+		width:45px;
+		
+		float:left;
+		margin:1px;
+		margin-right:10px;
+		margin-top:-10px;
+		background-size:100% 100%;
+   }
+   
+  .msg-icon-success{
+		background-image:url(../img/message/success.png);
+		height:45px;
+		width:45px;
+		
+		float:left;
+		margin:1px;
+		margin-right:10px;
+		margin-top:-10px;
+		background-size:100% 100%;
+   }
+     .msg-icon-error{
+		background-image:url(../img/message/error.png);
+		height:45px;
+		width:45px;
+		
+		float:left;
+		margin:1px;
+		margin-right:10px;
+		margin-top:-10px;
+		background-size:100% 100%;
+   }
+   
+   .progressbar .msg-icon-cancel{
+		background-image:url(../img/message/cancel.png);
+		height:15px;
+		width:15px;
+		display:inline-block;
+		margin-right:5px;
+		background-size:100% 100%;
+   }
+   
+
+ .fondo-progressbar{
+ 
+	background:rgba(0,0,0,0.5);
+	position:absolute;
+	left:0px;
+	top:0px;
+	height:100%;
+	width:100%;
+	z-index:1000;
+ 
+ }
+ 
