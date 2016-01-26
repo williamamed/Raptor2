@@ -2,7 +2,7 @@
 
 Starting with the first change in Raptor is the removal of the old core
 and the use of Slim microframework in it's place. After a lot of testing
-we falling in love of Slim to take the place of the core, with very documentation
+we fall in love of Slim to take the place of the core, with very documentation
 and periodical updates.
 
 In the beginning we decide base the arquitecture of raptor in the Symfony
@@ -58,4 +58,4 @@ After that you are ready to run Raptor in you localhost machine like this:
 
 You must run it through the dev front in order to get the development enviroment
 
-Enjoy your Raptor !! Is easy to use and faster to build
+Enjoy your Raptor !! Is easy to use, faster to run and great to build apps
