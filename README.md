@@ -24,7 +24,7 @@ never interfering with the bundle logic.
  
 ## Clients libreries
 
-One of our gold is provide a full integration with the client side libreries
+One of our goal is provide a full integration with the client side libreries
 providing security mechanism to protect the comunications beetwen layers.
 Raptor include Extjs, jQuery and Angular with no need of intalled, you can
 create fully configuraded templates in every tecnology and just used with
