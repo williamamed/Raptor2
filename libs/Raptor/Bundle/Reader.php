@@ -144,7 +144,7 @@ class Reader {
                             $doc = $method->getReflectionDocComment();
                             $collectionRouteObj = $doc->getAnnotationsCollection()->getAnnotation('version');
                             $collectionRoute = $collectionRouteObj[0];
-                            $api->version=$prefixController . $collectionRoute->getDescription();
+                            $api->version=$collectionRoute->getDescription();
                         }
                     }
                     if ($api->hasApi) {
