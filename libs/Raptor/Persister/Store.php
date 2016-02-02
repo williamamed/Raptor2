@@ -117,8 +117,8 @@ class Store extends \Slim\Middleware {
         $this->annotations = $annotations;
         $config->setMetadataDriverImpl($driverImpl);
 
-
-        if ($this->app->getMode() == "development") {
+        //Until the development of the RaptorCache
+        if (true or $this->app->getMode() == "development") {
             $cache = new \Doctrine\Common\Cache\ArrayCache();
         } else {
             $cache = new \Doctrine\Common\Cache\ApcCache();
