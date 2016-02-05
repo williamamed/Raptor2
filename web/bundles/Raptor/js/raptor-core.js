@@ -29,7 +29,14 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 Raptor.controlActions=function() {
+    if(!Raptor.getActions){
+                
+                console.error("You are using the function Raptor.getActions() provided by the Syntarsus Module wich is not linked to this route.");
+                return;
+            }
+            
     if(window.Ext){
+            
             var actions = Raptor.getActions();
             if (actions != false) {
                 var actionsSize = actions.length;
@@ -51,6 +58,7 @@ Raptor.controlActions=function() {
             }
     }
     if(window.jQuery){
+            
             var actions = Raptor.getActions();
             if (actions != false) {
                 var actionsSize = actions.length;
