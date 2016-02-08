@@ -256,7 +256,7 @@ class Store extends \Slim\Middleware {
                             $bundleRoute = substr($routes, 1);
                         else
                             $bundleRoute = $routes;
-                        $fileroute = __DIR__ . "/../../src/" . str_replace('\\', DIRECTORY_SEPARATOR, $bundleRoute);
+                        $fileroute = __DIR__ . "/../../../src/" . str_replace('\\', DIRECTORY_SEPARATOR, $bundleRoute);
                         $fileroute.=DIRECTORY_SEPARATOR . $target . ".php";
 
 
