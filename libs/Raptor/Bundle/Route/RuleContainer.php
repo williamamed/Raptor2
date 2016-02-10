@@ -59,6 +59,33 @@ class RuleContainer {
         $this->container[$priority][]=array($pattern,array($callback, 'call'));
         
     }
+    
+    /**
+     * This add a route rule to the container, meaning that the especified
+     * Rule will be executed when the pattern annotation match with the requested route
+     * 
+     * @param \Raptor\Bundle\Route\Rule $callback
+     * 
+     */
+    public function addRule(Rule $callback) {
+        $class = new \Wingu\OctopusCore\Reflection\ReflectionClass($callback);
+        $pattern='';
+        $priority=0;
+        if (!$class->getReflectionDocComment()->isEmpty() and $class->getReflectionDocComment()->getAnnotationsCollection()->hasAnnotationTag('Pattern')) {
+            $doc = $class->getReflectionDocComment();
+            $obj = $doc->getAnnotationsCollection()->getAnnotation('Pattern');
+            $pattern = $obj[0]->getDescription();
+        }else
+            return;
+        if (!$class->getReflectionDocComment()->isEmpty() and $class->getReflectionDocComment()->getAnnotationsCollection()->hasAnnotationTag('Priority')) {
+            $doc = $class->getReflectionDocComment();
+            $obj = $doc->getAnnotationsCollection()->getAnnotation('Priority');
+            $priority = $obj[0]->getDescription();
+        }
+        $this->container[intval($priority)][]=array($pattern,array($callback, 'call'));
+        
+    }
+    
     /**
      * This a shortcut added to register a Guia 
      * in the route /interactive/tutorial, internally this call

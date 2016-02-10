@@ -63,7 +63,7 @@ Interactive={
             this.before.destroy();
         }
         var msg=new Interactive.Core();
-        msg.setRoot('{{ asset('../index.php/interactive/tutorial') }}');
+        msg.setRoot(Raptor.getFront()+'/interactive/tutorial');
         msg.call(name);
         this.before=msg;
     },

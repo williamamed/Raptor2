@@ -65,7 +65,24 @@ class Routing extends \Slim\Middleware {
         $this->app->getRuleContainer()->dispatch();
         
         foreach ($this->routes as $key => $route) {
-            $route = $this->app->any($route[0], array(new \Raptor\Bundle\Delegate($route[1], $route[2], $route[3]), 'call'));
+            switch ($route) {
+                case 'POST':
+                    $route = $this->app->post($route[0], array(new \Raptor\Bundle\Delegate($route[1], $route[2], $route[3]), 'call'));
+                    break;
+                case 'GET':
+                    $route = $this->app->get($route[0], array(new \Raptor\Bundle\Delegate($route[1], $route[2], $route[3]), 'call'));
+                    break;
+                case 'PUT':
+                    $route = $this->app->put($route[0], array(new \Raptor\Bundle\Delegate($route[1], $route[2], $route[3]), 'call'));
+                    break;
+                case 'DELETE':
+                    $route = $this->app->delete($route[0], array(new \Raptor\Bundle\Delegate($route[1], $route[2], $route[3]), 'call'));
+                    break;
+                default:
+                    $route = $this->app->any($route[0], array(new \Raptor\Bundle\Delegate($route[1], $route[2], $route[3]), 'call'));
+                    break;
+            }
+            
             $route->setName($key);
             $route->setMiddleware(array($this->app->router(), 'setCurrent'));
         }

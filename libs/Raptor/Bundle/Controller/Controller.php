@@ -235,7 +235,10 @@ class Controller {
         
         $msgObj->set('success', true);
         $msgObj->set('cod', $cod);
-        $msgObj->set('cod', $data);
+        foreach ($data as $key => $value) {
+            $msgObj->set($key, $value);
+        }
+        
         $this->app->contentType(\Raptor\Raptor::JSON);
         return $msgObj->toJson();
     }

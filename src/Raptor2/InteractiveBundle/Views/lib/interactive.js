@@ -97,7 +97,8 @@ Interactive.Core.prototype={
     },
     show:function(data){
         this.textData=$(data.text);
-        
+        if(!data.found && data.found===false)
+            return;
         
         this.cont.append(this.textData);
         if(data.author.name)

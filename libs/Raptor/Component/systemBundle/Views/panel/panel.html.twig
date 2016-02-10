@@ -32,7 +32,7 @@
                         $('#rpt-close-panel').click();
 
                 });
-                setTimeout(function() {
+                var makeHide=setTimeout(function() {
                     if ($('.panel-rpt-data').data('open') == false) {
                         $('#raptor-debug-msg').fadeOut();
                         $('#rpt-eyes').fadeIn();
@@ -109,6 +109,39 @@
                     }
                     $('.panel-rpt-data').data('by', 'routes');
                 });
+                $('.btn-rpt-clear').data('pulsed',false);
+                $('.btn-rpt-clear').click(function(){
+                    if($('.btn-rpt-clear').data('pulsed')===false){
+                        $('.btn-rpt-clear').data('pulsed',true);
+                        $('.info-panel').html("  <img src='{{ asset('Raptor/img/progress.gif') }}' width='20'>Cleaning the cache ... ");
+                        clearTimeout(makeHide);
+                        $.post("{{ path('_raptor_clean_ajax') }}", function(data){ 
+                          if(data=="OK"){
+                              $('.info-panel').html(" .... The cache was cleaned");
+                          }else{
+                              $('.info-panel').html(" .... An error ocurred cleaning the cache, pulse <a style='background:transparent;color: #0079d2' href='{{ path('_raptor_clean') }}' target='cache'>here</a> to see the details");
+                              
+                          }
+                          setTimeout(function(){
+                                  $('.info-panel').html('');
+                              },10000)
+                          makeHide=setTimeout(function() {
+                            if ($('.panel-rpt-data').data('open') == false) {
+                                $('#raptor-debug-msg').fadeOut();
+                                $('#rpt-eyes').fadeIn();
+                                $('.panel-rpt-data').fadeOut();
+                                $('.panel-rpt-data').data('open', false);
+                            }
+                        }, 12000);
+                          $('.btn-rpt-clear').data('pulsed',false);
+                        });
+                    }
+                    
+                })
+                
+                
+                
+                
             });
             }
         }
@@ -157,7 +190,7 @@
     <div id='raptor-debug-msg' class="panel-rpt-main-window" style="display: none;">
         <div style="margin-bottom: 40px;">
             <img style="float: left;margin-right: 10px;height: 20px !important;" src="{{ asset('Raptor/img/dev_white.png') }}" height="20"/>
-            <b style="float: left;" >Development Mode</b>
+            <b style="float: left;" >Development Mode<span class="info-panel" style="margin-left: 10px;"></span></b>
         <b title="Close"   style="" id="rpt-close-panel" class="panel-rpt-x">x</b>
         </div>
             <div style="float: left">
@@ -173,7 +206,7 @@
         
         <span id="panel-rpt-routes" class="panel-rpt-btn">Routes</span>
         
-        <a href="{{ path('_raptor_clean') }}" class="panel-rpt-btn" target="cache">Clear cache</a>
+        <a href="#" class="panel-rpt-btn btn-rpt-clear" >Clear cache</a>
         
         <a href="{{ path('_raptor_front') }}" class="panel-rpt-btn" target="main">Raptor Main Panel</a>
 

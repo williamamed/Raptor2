@@ -50,6 +50,16 @@ class RaptorController extends \Raptor\Bundle\Controller\Controller {
             'autoinstall'=>$this->app->getConfigurationLoader()->getAutoInstallMessage()
         ));
     }
+    
+    /**
+     * @Route /cleanajax
+     * @RouteName _raptor_clean_ajax
+     */
+    public function cleanAjaxAction() {
+        
+        $this->app->getConfigurationLoader()->forceLoad();
+        return "OK";
+    }
 
     /**
      * @Route /

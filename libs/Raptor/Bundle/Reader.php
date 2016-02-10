@@ -174,9 +174,14 @@ class Reader {
                             $collectionDescrip = $doc->getAnnotationsCollection()->getAnnotation('Description');
                             $descrip = $collectionDescrip[0]->getDescription();
                         }
+                        $methodName='ANY';
+                        if ($method->getReflectionDocComment()->getAnnotationsCollection()->hasAnnotationTag('Method')) {
+                            $collectionMethod = $doc->getAnnotationsCollection()->getAnnotation('Method');
+                            $methodName = $collectionMethod[0]->getDescription();
+                        }
                         
                         $this->definitions[$collectionName]=$api;
-                        $this->definitions[$collectionName] = array($prefixController . $collectionRoute->getDescription(), $method->getDeclaringClass()->getName(), $method->getName(), $class->getName());
+                        $this->definitions[$collectionName] = array($prefixController . $collectionRoute->getDescription(), $method->getDeclaringClass()->getName(), $method->getName(), $class->getName(),'method'=>$methodName);
                         $this->description[$prefixController . $collectionRoute->getDescription()]=array($descrip,$method->getReflectionDocComment()->getFullDescription());
                         
                     }

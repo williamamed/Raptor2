@@ -117,8 +117,8 @@ class Store extends \Slim\Middleware {
         $this->annotations = $annotations;
         $config->setMetadataDriverImpl($driverImpl);
 
-        //Until the development of the RaptorCache
-        if (true or $this->app->getMode() == "development") {
+
+        if (true) {
             $cache = new \Doctrine\Common\Cache\ArrayCache();
         } else {
             $cache = new \Doctrine\Common\Cache\ApcCache();
@@ -251,20 +251,22 @@ class Store extends \Slim\Middleware {
                     $names = $this->entityManager->getConfiguration()->getEntityNamespaces();
                     $target = $meta->associationMappings[$key]['targetEntity'];
                     $found = false;
+                   
                     foreach ($names as $routes) {
                         if ($routes[0] == '\\')
                             $bundleRoute = substr($routes, 1);
                         else
                             $bundleRoute = $routes;
-                        $fileroute = __DIR__ . "/../../src/" . str_replace('\\', DIRECTORY_SEPARATOR, $bundleRoute);
+                        $fileroute = __DIR__ . "/../../../src/" . str_replace('\\', DIRECTORY_SEPARATOR, $bundleRoute);
                         $fileroute.=DIRECTORY_SEPARATOR . $target . ".php";
-
+                        
 
                         if (file_exists($fileroute)) {
                             $found = true;
-                            $target = substr($routes, 1) . $this->namespaceSeparator . $value['targetEntity'];
+                            $target = $bundleRoute . $this->namespaceSeparator . $value['targetEntity'];
                         }
                     }
+                    
                     if ($found) {
                         //$target = $namespace . $this->namespaceSeparator . 'Entity' . $this->namespaceSeparator . $value['targetEntity'];
                         $meta->associationMappings[$key]['targetEntity'] = $target;

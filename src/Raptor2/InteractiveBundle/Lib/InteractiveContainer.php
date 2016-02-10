@@ -109,12 +109,18 @@ abstract class InteractiveContainer {
     public function getTutorial($name) {
         $route=  str_replace('.', '/', $name);
         
+        $lang= \Raptor\Raptor::getInstance()->getLanguage()->getUserCurrentLanguage();
         
         if (isset($this->tags[$name])) {
             $tutorial = new \Raptor\Util\ItemList($this->tags[$name]);
-            if (file_exists($this->tags[$name]['bundle'] . "/Tutorials/docs/$route.html")) {
+            if (!file_exists($this->tags[$name]['bundle'] . "/Tutorials/$lang")){
+                $default=$this->getDefault();
+                $default['found']=FALSE;
+                return $default;
+            }
+            if (file_exists($this->tags[$name]['bundle'] . "/Tutorials/$lang/docs/$route.html")) {
 
-                $tutorial->set('text', file_get_contents($this->tags[$name]['bundle'] . "/Tutorials/docs/$route.html"));
+                $tutorial->set('text', file_get_contents($this->tags[$name]['bundle'] . "/Tutorials/$lang/docs/$route.html"));
                 $tutorial->set('bundle', '');
             }
             
@@ -122,7 +128,7 @@ abstract class InteractiveContainer {
                 $tutorial->set('author', array('img' => 'Raptor/img/logo.png'));
             else {
                 $author = str_replace('.', '/', $this->tags[$name]['author']);
-                $obj = json_decode(file_get_contents($this->tags[$name]['bundle'] . "/Tutorials/authors/$author.json"));
+                $obj = json_decode(file_get_contents($this->tags[$name]['bundle'] . "/Tutorials/$lang/authors/$author.json"));
                 $result=array();
                 
                 if ($obj->img == '')

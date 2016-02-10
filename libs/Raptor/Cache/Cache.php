@@ -49,6 +49,7 @@ class Cache {
     private $data;
     private $update;
     private $instanceCache;
+    private $variables;
     /**
      * The name and identification in the cache directory
      * @param string $name
@@ -56,8 +57,14 @@ class Cache {
     function __construct($name) {
         $this->name = $name;
         $this->instanceCache = null;
+        $this->variables = array();
         $this->load();
     }
+    
+    private function add($key,$var,$ttl=0) {
+        $this->variables[$key]=array('ttl'=>$ttl,'value'=>$var);
+    }
+
 
     /**
      * Return TRUE if exist a cache config for this actual name
