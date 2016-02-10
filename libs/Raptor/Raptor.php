@@ -146,7 +146,8 @@ class Raptor extends \Slim\Slim {
         $this->plugins=array();
 
         $this->appAspectKernel = \App\AppAspectKernel::getInstance();
-        
+        if(!file_exists(Core\Location::get(Core\Location::CACHE)))
+            @mkdir (Core\Location::get(Core\Location::CACHE));
         $this->appAspectKernel->init(array(
             'debug' => $this->config('debug'),
             'appDir' => Core\Location::get(Core\Location::SRC),
