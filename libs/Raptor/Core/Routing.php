@@ -65,7 +65,7 @@ class Routing extends \Slim\Middleware {
         $this->app->getRuleContainer()->dispatch();
         
         foreach ($this->routes as $key => $route) {
-            switch ($route) {
+            switch ($route['method']) {
                 case 'POST':
                     $route = $this->app->post($route[0], array(new \Raptor\Bundle\Delegate($route[1], $route[2], $route[3]), 'call'));
                     break;
