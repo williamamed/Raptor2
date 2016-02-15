@@ -283,7 +283,8 @@ if(window.Ext){
         
         if(window.parent && window.parent.Ext){
             Ext.getBody().on('click',function(){
-                window.parent.Ext.menu.Manager.hideAll();
+            	if(window.parent.Ext&&window.parent!=window)
+                	window.parent.Ext.menu.Manager.hideAll();
             });
 
         }
