@@ -106,7 +106,7 @@ Interactive.Core.prototype={
         if(data.author.reference)
             this.cont.append('<b style="font-size:10px">'+data.author.reference+'</b><br>');
         this.cont.append('<img class="rapt-interactive" style="float:right" src="" width="60">');
-        this.cont.find('.rapt-interactive').attr('src',this.url+"/../../../bundles/Raptor/img/logo-int.png");
+        this.cont.find('.rapt-interactive').attr('src',Raptor.getBundleResource('Raptor/img/logo-int.png'));
         if(data.pointer){
             this.pointer=this.getPointer(data.pointer);
             $('body').append(this.pointer);
@@ -117,7 +117,7 @@ Interactive.Core.prototype={
         this.cont.append(this.counterAttr);
         
         this.cont.css(data.style);
-        this.auth.find('img').attr('src',this.url+"/../../../bundles/"+data.author.img);
+        this.auth.find('img').attr('src',Raptor.getBundleResource(data.author.img));
         this.global.css(data.position);
         this.global.fadeIn();
         var global=this.global;
@@ -197,7 +197,7 @@ Interactive.Core.prototype={
     control:function(){
         var foot=$('<b></b>');
         foot.append('<img src="" width="20">');
-        foot.find('img').attr('src',this.url+"/../../../bundles/Raptor/img/interactive/player_pause.png");
+        foot.find('img').attr('src',Raptor.getBundleResource('Raptor/img/interactive/player_pause.png'));
         foot.css('marginTop','5px');
         foot.css('marginRight','5px');
         foot.css('float','left');
@@ -208,11 +208,11 @@ Interactive.Core.prototype={
             if(me.state){
                me.pause();
                me.state=false;
-               foot.find('img').attr('src',this.url+"/../../../bundles/Raptor/img/interactive/player_play.png");
+               foot.find('img').attr('src',Raptor.getBundleResource("Raptor/img/interactive/player_play.png"));
             }else{
                me.play();
                me.state=true;
-               foot.find('img').attr('src',this.url+"/../../../bundles/Raptor/img/interactive/player_pause.png");
+               foot.find('img').attr('src',Raptor.getBundleResource('Raptor/img/interactive/player_pause.png'));
             }
         })
         return foot;
