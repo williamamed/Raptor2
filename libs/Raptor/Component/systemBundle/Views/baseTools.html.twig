@@ -3,12 +3,15 @@
         <meta charset="UTF-8">
         <title></title>
         <link href="{{ asset('Raptor/css/icons-board.css') }}" rel="stylesheet">
-         <link href="{{ asset('extjs/resources/css/ext-all-gray.css') }}" rel="stylesheet" type="text/css" media="screen"/>
+        <link href="{{ asset('extjs/resources/css/azzurra/azzurra-core.css') }}" rel="stylesheet" type="text/css" media="screen"/>
+        <link href="{{ asset('extjs/resources/css/azzurra/azzurra-ui-all.css') }}" rel="stylesheet" type="text/css" media="screen"/>
+        
          {% block head %}{% endblock %}
     </head>
     <body >
        <script type="text/javascript" src="{{ asset('extjs/ext-all.js') }}"></script>
        <script type="text/javascript" src="{{ asset('Raptor/js/raptor-core.js') }}"></script>
+       <script type="text/javascript" src="{{ asset('extjs/resources/css/js/azzurra.js') }}"></script>
        {% block javascript %}{% endblock %}
       
     </body>
