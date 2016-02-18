@@ -35,6 +35,7 @@ Interactive.Util={
 Interactive.Core.prototype={
     constructor:Interactive.Core,
     stack:new Array(),
+    destroyed:false,
     call:function(text){
         
         if(this.active==false)
@@ -49,7 +50,6 @@ Interactive.Core.prototype={
         this.global.css({
             position:'fixed',
             'zIndex':'10000000'
-            
         });
         this.cont.css({
             background:'black',
@@ -87,12 +87,14 @@ Interactive.Core.prototype={
     loadMsg:function(name){
         var me=this;
         $.getJSON(this.url, { name: name },function(data){
-            if(data.waitSeconds)
-                me.clearWait=setTimeout(function(){
+            if(me.destroyed===false){
+                if(data.waitSeconds)
+                    me.clearWait=setTimeout(function(){
+                        me.show(data);
+                    },data.waitSeconds*1000);
+                else
                     me.show(data);
-                },data.waitSeconds*1000);
-            else
-                me.show(data);
+            }
         });
     },
     show:function(data){
@@ -154,12 +156,13 @@ Interactive.Core.prototype={
     destroy:function(){
        var global=this.global;
        var me=this;
+       me.destroyed=true;
        clearTimeout(me.clear);
        clearInterval(me.clearCounter);
        clearTimeout(me.clearWait);
        if(this.pointer)
                this.pointer.remove();
-       this.global.fadeOut('slow',function(){
+       this.global.hide(function(){
                 global.remove();
 //                if(me.data.next)
 //                    me.call(me.data.next)

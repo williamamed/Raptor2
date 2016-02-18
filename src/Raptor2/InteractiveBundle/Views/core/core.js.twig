@@ -2,7 +2,8 @@ Interactive={
     init:false,
     many:0,
     stack:new Array(),
-    
+    stacked: false,
+    free:true,
     perfil:{{ perfil|raw }},
     begin:function(){
         if(this.perfil.reject==true){
@@ -37,9 +38,13 @@ Interactive={
     },
     show:function(name,condition){
         var me=this;
+        this.stack=new Array();
         if(!this.init)
             this.stack.push(function(){
-                me.calling(name,condition);
+                if(me.free)
+                    me.calling(name,condition);
+                else
+                    me.pile(name,condition);
             })
         if(!this.init)
             this.begin();
@@ -47,6 +52,7 @@ Interactive={
             me.calling(name,condition);
     },
     calling:function(name,condition){
+        this.free=false;
         var val=$.cookie('Interactive_'+Raptor.getUser());
         var obj=$.parseJSON(val);
         if(!obj || !obj.tutoriales )
@@ -66,6 +72,15 @@ Interactive={
         msg.setRoot(Raptor.getFront()+'/interactive/tutorial');
         msg.call(name);
         this.before=msg;
+        this.free=true;
+        this.areFree();
+    },
+    areFree:function(){
+        if(this.stacked!==false)
+            me.calling(this.stacked);
+    },
+    pile:function(name){
+        this.stacked=name;
     },
     onErrorFn:function(){
         
