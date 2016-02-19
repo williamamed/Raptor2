@@ -40,7 +40,7 @@ $loader->set('Doctrine\\Common\\Annotations\\', __DIR__ . '/Doctrine/Common/Anno
 $loader->set('', __DIR__ . '/../src');
 $loader->set('Dissect', __DIR__ );
 $loader->set('TokenReflection', __DIR__);
-$loader->set('App', __DIR__ . '/../');
+$loader->set('App', __DIR__ . '/..');
 $loader->set('Wingu', __DIR__ );
 $loader->set('Wingu', __DIR__ );
 $loader->set('Assetic', __DIR__. '/kriswallsmith/assetic/src' );
@@ -48,4 +48,6 @@ $loader->set('PhpOffice', __DIR__. '/PHPWord-master/src' );
 $loader->addClassMap(array('PHPExcel'=>__DIR__. '/Exel/PHPExcel.php'));
 require __DIR__. '/Barcode/autoload.php';
 $loader->register(true);
+require __DIR__. '/../app/AppAspectKernel.php';
+require __DIR__. '/../app/Main.php';
 ?>
