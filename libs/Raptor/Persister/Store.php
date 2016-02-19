@@ -103,7 +103,7 @@ class Store extends \Slim\Middleware {
         $config->setProxyDir(\Raptor\Core\Location::get(\Raptor\Core\Location::CACHE) . '/d0374123/Proxies');
         $config->setProxyNamespace('Proxies');
 //        $config->setAutoGenerateProxyClasses(($this->app->getMode() == "development"));
-        $config->setAutoGenerateProxyClasses($this->app->config('debug'));
+        $config->setAutoGenerateProxyClasses(true);
         
         $annotations = array();
         $definitions = new ItemList($this->options['specifications']);
