@@ -207,7 +207,7 @@ class Controller {
      */
     public function moveUploadFileTo($name, $dir) {
         if ($_FILES[$name] and $_FILES[$name]['tmp_name'])
-            return move_uploaded_file($_FILES[$name]['tmp_name'], $dir.'/'.$_FILES[$name]['name']);
+            return move_uploaded_file($_FILES[$name]['tmp_name'], $dir);
     }
     
     /**
