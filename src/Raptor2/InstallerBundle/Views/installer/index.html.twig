@@ -50,15 +50,19 @@
                  
                 {% for item in modules %}
                     <div class="col-md-4">
-                        {% if item['image'] %}
-                            <img src="{{ asset(item['image']) }}" width="115">
+                        {% if item['type']=='local' %}
+                            {% if item['image'] %}
+                                <img src="{{ asset(item['image']) }}" width="115">
+                            {% else %}
+                                <img src="{{ asset('Raptor/img/logo.png') }}" width="115">
+                            {% endif %}
                         {% else %}
-                            <img src="{{ asset('Raptor/img/logo.png') }}" width="115">
+                                <img src="{{ item['image'] }}" width="115">
                         {% endif %}
                         <h2>{{ item['name'] }}</h2>
                         <p>{{ item['description'] }}</p>
                         <h4><span class="text-muted">{{ item['author'] }}</span></h4>
-                        <p><a class="btn btn-success" href="{{ path('_raptor_bundle_installer_module') }}?name={{ item['name'] }}" role="button">Install &raquo;</a></p>
+                        <p><a class="btn btn-success" href="{{ path('_raptor_bundle_installer_module') }}?name={{ item['name'] }}&type={{ item['type'] }}&url={{ item['file'] }}" role="button">Install &raquo;</a></p>
                       </div>
                 {% endfor %}
             {% endif %}

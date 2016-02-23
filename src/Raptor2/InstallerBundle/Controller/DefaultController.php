@@ -25,10 +25,14 @@ class DefaultController extends Controller{
      * @param \Slim\Route $route
      */
     public function bundleInstallerIndexAction() {
-        
-        
+        $local=\Raptor2\InstallerBundle\Importer\BundleImporter::getMetainformation();
+        $conf=  $this->getApp()->getConfigurationLoader()->getConfOption();
+        if(isset($conf['raptor']['repository'])){
+            $remote=  \Raptor2\InstallerBundle\Importer\BundleImporter::getRemoteMetainformation($conf['raptor']['repository']);
+            $local=  array_merge($local, $remote);
+        }
         return $this->render('@InstallerBundle/installer/index.html.twig',array(
-            'modules'=> \Raptor2\InstallerBundle\Importer\BundleImporter::getMetainformation()
+            'modules'=> $local
         ));
     }
     
@@ -53,8 +57,14 @@ class DefaultController extends Controller{
                 
             }
         }
+        $local=\Raptor2\InstallerBundle\Importer\BundleImporter::getMetainformation();
+        $conf=  $this->getApp()->getConfigurationLoader()->getConfOption();
+        if(isset($conf['raptor']['repository'])){
+            $remote=  \Raptor2\InstallerBundle\Importer\BundleImporter::getRemoteMetainformation($conf['raptor']['repository']);
+            $local=  array_merge($local, $remote);
+        }
         return $this->render('@InstallerBundle/installer/index.html.twig',array(
-            'modules'=>\Raptor2\InstallerBundle\Importer\BundleImporter::getMetainformation(),
+            'modules'=>$local,
             'message'=>$msg
         ));
     }
@@ -72,7 +82,7 @@ class DefaultController extends Controller{
     public function bundleInstallerModuleAction($request) {
         
         $msg="";
-        if($request->get('name')){
+        if($request->get('name') and $request->get('type')=='local'){
             $dir=\Raptor2\InstallerBundle\Importer\BundleImporter::prepareCache();
             $meta=  \Raptor2\InstallerBundle\Importer\BundleImporter::getMetainformation($request->get('name'));
             if($meta!==false){
@@ -82,9 +92,22 @@ class DefaultController extends Controller{
                 $msg=\Raptor2\InstallerBundle\Importer\BundleImporter::proccesBundle($dir.'/'.$meta['file']);
                 
             }
+        }elseif ($request->get('name') and $request->get('type')=='remote' and $request->get('url')) {
+            
+             $file=  \Raptor2\InstallerBundle\Importer\BundleImporter::downloadRemoteFile($request->get('url'));
+             
+             $msg=\Raptor2\InstallerBundle\Importer\BundleImporter::proccesBundle($file);
+                
+            
+        }
+        $local=\Raptor2\InstallerBundle\Importer\BundleImporter::getMetainformation();
+        $conf=  $this->getApp()->getConfigurationLoader()->getConfOption();
+        if(isset($conf['raptor']['repository'])){
+            $remote=  \Raptor2\InstallerBundle\Importer\BundleImporter::getRemoteMetainformation($conf['raptor']['repository']);
+            $local=  array_merge($local, $remote);
         }
         return $this->render('@InstallerBundle/installer/index.html.twig',array(
-            'modules'=>\Raptor2\InstallerBundle\Importer\BundleImporter::getMetainformation(),
+            'modules'=>$local,
             'message'=>$msg
         ));
     }

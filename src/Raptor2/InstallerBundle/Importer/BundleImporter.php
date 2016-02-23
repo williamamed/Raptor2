@@ -140,6 +140,7 @@ class BundleImporter {
                     $meta['image']=0;
                 //Validate if the file exists
                 //if(__DIR__.'/../BundleStorage/files/'.$meta['file'])
+                $meta['type']='local';
                     $metaInformation[]=$meta;
                 if($name!=NULL and $name==$meta['name'])
                         return $meta;
@@ -147,6 +148,69 @@ class BundleImporter {
         }
         if($name!=NULL)
             return false;
+        return $metaInformation;
+    }
+    
+    
+    static private function getRemoteManifiest($url) {
+        
+        $array=array();
+        $bufer=@file_get_contents($url);
+        
+       
+        $array=  json_decode($bufer,true);
+        if(!$array)
+            return array();
+        return $array;
+    }
+    
+    static public function downloadRemoteFile($url) {
+       
+       $bufer=@file_get_contents($url);
+       $rand_id = rand(10, 100000);
+       $file=self::prepareCache()."/remote/$rand_id.zip";
+       if(!file_exists(self::prepareCache()."/remote"))
+             @mkdir (self::prepareCache()."/remote") ;
+       file_put_contents($file, $bufer);
+       return $file;
+    }
+
+    static public function getRemoteMetainformation($url) {
+        $modules= self::getRemoteManifiest($url);
+        $metaInformation=array();
+        
+        foreach ($modules as $filename) {
+            $metaObj=  $filename;
+            
+            if($metaObj){
+                $meta=array('name'=>'','description'=>'','file'=>'');
+                if(isset($metaObj['name']) and $metaObj['name']){
+                    $meta['name']=$metaObj['name'];
+                }else
+                    continue;
+                if(isset($metaObj['description']))
+                    $meta['description']=$metaObj['description'];
+                
+                if(isset($metaObj['author']))
+                    $meta['author']=$metaObj['author'];
+                
+                if(isset($metaObj['file']) and $metaObj['file'])
+                    $meta['file']=$metaObj['file'];
+                else
+                    continue;
+                
+                if(isset($metaObj['image'])){
+                    $meta['image']=$metaObj['image'];
+                    
+                }else
+                    $meta['image']=0;
+                
+                    $meta['type']='remote';
+                    $metaInformation[]=$meta;
+               
+            }
+        }
+        
         return $metaInformation;
     }
 }
