@@ -192,6 +192,32 @@ class Security extends \Slim\Middleware {
         if(!file_exists($savePath))
             @mkdir ($savePath);
         session_save_path($savePath);
+        
+        
+        if (isset($options['raptor']['proxy'])) {
+            $parts=  explode('@', $conf['raptor']['proxy']);
+            $header=array();
+            $proxy='';
+            if(count($parts)==2){
+                $auth = base64_encode($parts[0]);
+                $header[]="Proxy-Authorization: Basic $auth";
+                $proxy=$parts[1];
+            }else{
+                $proxy=$parts[0];
+            }
+            
+            
+            stream_context_set_default(
+                    array('http' =>
+                        array('proxy' => "tcp://$proxy",
+                            'request_fulluri' => true,
+                            'method' => "GET",
+                            'user_agent' => 'Mozilla/5.0',
+                            'header' => $header
+                        )
+                    )
+            );
+        }
     }
     
     /**
