@@ -400,8 +400,11 @@ class ConfigurationLoader {
                 }
             }
             if($detect==false){
-                $bundleRoute=$src.'/'.str_replace('\\', '/', $bundle).'/../';
-                $ruta=  $bundleRoute.'Manifiest/install.json';
+                $bundleRoute=$src.''.str_replace('\\', '/', $bundle).'';
+        		$div=explode('/',$bundleRoute);
+        		unset($div[count($div)-1]);
+        		$bundleRoute=join('/',$div);
+                $ruta=  $bundleRoute.'/Manifiest/install.json';
                 if(file_exists($ruta)){
                     $meta=  json_decode(file_get_contents($ruta),true);
                     
