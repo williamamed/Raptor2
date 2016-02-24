@@ -49,9 +49,9 @@ class DefaultController extends Controller{
     public function bundleInstallerUploadAction($request) {
         
         $msg="";
-        if($request->file('mybundle') and $request->file('mybundle')->get('type')=='application/octet-stream'){
+        if($request->file('mybundle') and ($request->file('mybundle')->get('type')=='application/zip' or $request->file('mybundle')->get('type')=='application/octet-stream')){
             $dir=\Raptor2\InstallerBundle\Importer\BundleImporter::prepareCache();
-            if($this->moveUploadFileTo('mybundle', $dir)){
+            if($this->moveUploadFileTo('mybundle', $dir.'/'.$request->file('mybundle')->get('name'))){
                 
                 $msg=\Raptor2\InstallerBundle\Importer\BundleImporter::proccesBundle($dir.'/'.$request->file('mybundle')->get('name'));
                 
