@@ -195,7 +195,7 @@ class Security extends \Slim\Middleware {
         
         
         if (isset($options['raptor']['proxy'])) {
-            $parts=  explode('@', $conf['raptor']['proxy']);
+            $parts=  explode('@', $options['raptor']['proxy']);
             $header=array();
             $proxy='';
             if(count($parts)==2){
