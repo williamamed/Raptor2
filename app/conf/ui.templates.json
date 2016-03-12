@@ -1,0 +1,56 @@
+{
+    "boot": {
+        "title": "Bootstrap 3",
+        "icon":"Raptor/img/ui/bootstrap/bootstrap-32.png",
+        "templates": [
+            {
+                "title": "Empty Boot Template",
+                "desc":"Create a starter bootstrap template",
+                "url": "genui/create",
+                "icon": "Raptor/img/ui/bootstrap/bootstrap-empty.png"
+            },
+            {
+                "title": "Boot Site Template <b style='color:white;background: red;padding: 3px;'>New</b>",
+                "desc":"Create a fluid boostrap template",
+                "url": "genui/create",
+                "icon": "Raptor/img/ui/bootstrap/bootstrap-full.png"
+            },
+        ]
+    },
+    "ext": {
+        "title": "Extjs 4",
+        "icon":"Raptor/img/ui/extjs/ext-16.gif",
+        "templates": [
+            {
+               "title": "Empty Template",
+               "desc":"Create a empty ExtJs template",
+               "url": "genui/create",
+               "icon": "Raptor/img/ui/extjs/form-vbox.png" 
+            },
+            {
+               "title": "Grid Template <b style='color:white;background: red;padding: 3px;'>New</b>",
+               "desc":"Create a Grid based ExtJs template",
+               "url": "genui/create",
+               "icon": "Raptor/img/ui/extjs/grid.gif" 
+            },
+            {
+               "title": "Tree-Grid Template <b style='color:white;background: red;padding: 3px;'>New</b>",
+               "desc":"Create a Tree-Grid based ExtJs template",
+               "url": "genui/create",
+               "icon": "Raptor/img/ui/extjs/acc-tree.gif" 
+            }
+        ]
+    },
+    "ng": {
+        "title": "Angular",
+        "icon":"Raptor/img/ui/angular/angular-16.png",
+        "templates": [
+            {
+               "title": "Empty Template",
+               "desc":"Create a empty Angular-Bootstrap template <b style='color:white;background: red;padding: 3px;'>New</b>",
+               "url": "genui/create",
+               "icon": "Raptor/img/ui/angular/bootstrap-empty.png"
+            }
+        ]
+    }
+}

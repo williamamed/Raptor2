@@ -45,7 +45,17 @@ class UiController extends \Raptor\Bundle\Controller\Controller{
     public function indexAction() {
         return $this->render('@systemBundle/ui/index.html.twig');
     }
-
+    
+    /**
+     * @Route /genui/list
+     */
+    public function listAction() {
+        $dir=  \Raptor\Core\Location::get(\Raptor\Core\Location::APP);
+        $this->app->contentType(\Raptor\Raptor::JSON);
+        return file_get_contents($dir."/conf/ui.templates.json");
+        return $this->render('@systemBundle/ui/index.html.twig');
+    }
+    
     /**
      * @Route /genui/bundles
      */
@@ -107,11 +117,13 @@ class UiController extends \Raptor\Bundle\Controller\Controller{
            $this->createHtmlExt($name, $bundle);
        }
        if($modeObj[0]=='boot'){
-           
-          
            $this->createHtmlBootstrap($name, $bundle,$modeObj[1]);
        }
-       return $this->show("The UI <b style='color: #ddd'>$name</b> was created in:<br> $bundle/Resources/public<br> The twig template in:<br>$bundle/Resources/views/$name");
+       if($modeObj[0]=='ng'){
+           $this->createHtmlAngular($name, $bundle,$modeObj[1]);
+       }
+       
+       return $this->show("The UI <b style='color: #ddd'>$name</b> was created in:<br> $bundle/Resources<br> The twig template in:<br>$bundle/Views/$name");
     }
     
     private function createExtEstructure($name,$bundle,$index) {
@@ -197,6 +209,23 @@ class UiController extends \Raptor\Bundle\Controller\Controller{
             $gen=file_get_contents($resource.'/empty.html.twig');
         if($index==1)
             $gen=file_get_contents($resource.'/full.html.twig');
+      
+        file_put_contents($app.'/'.$name.'/index.html.twig', $gen );
+    }
+    
+    private function createHtmlAngular($name,$bundle,$index) {
+        $bundles=  $this->app->getConfigurationLoader()->getBundlesSpecifications();
+        
+        $location=$bundles[$bundle]['location'];
+        $app=$location.'/Views';
+        
+        $resource=__DIR__.'/../Views/ui/angular';
+        
+        if(!file_exists($app.'/'.$name))
+        @mkdir($app.'/'.$name,0777, true);
+        if($index==0)
+            $gen=file_get_contents($resource.'/empty.html.twig');
+        
       
         file_put_contents($app.'/'.$name.'/index.html.twig', $gen );
     }
