@@ -8,6 +8,7 @@
 
             BaseRaptor = function() {
                 window.localStorage.setItem('rapLib', "{{ token }}");
+                
             }
             BaseRaptor.prototype = {
                 constructor: BaseRaptor,
@@ -18,7 +19,7 @@
                     return "{{ front }}";
                 },
                 getBundleResource: function(resource) {
-                    return "{{ front }}/../bundles/" + resource;
+                    return "{{ bundle }}/" + resource;
                 },
                 getTag: function(name) {
                     var lang = {{ file|raw}};
