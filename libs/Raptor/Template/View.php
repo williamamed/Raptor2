@@ -68,7 +68,7 @@ class View extends \Slim\View {
         if (\Raptor\Raptor::getInstance()->config('debug')) {
             
             $this->twig = new Twig_Environment($loader, array(
-
+//                   'cache' => \Raptor\Core\Location::get(\Raptor\Core\Location::CACHE) . '/7u136',
             ));
         } else {
             $this->twig = new Twig_Environment($loader, array(
@@ -95,10 +95,8 @@ class View extends \Slim\View {
     
     public function register() {
         $asset = new Twig_SimpleFunction('asset', function ($val) {
-                    if(dirname($_SERVER['SCRIPT_NAME'])=='/')
-                        return '/bundles/' . $val;
-                    else
-                        return dirname($_SERVER['SCRIPT_NAME']) . '/bundles/' . $val;
+                    
+                    return dirname($_SERVER['SCRIPT_NAME']) . '/bundles/' . $val;
                 });
         $this->twig->addFunction($asset);
 
@@ -118,7 +116,9 @@ class View extends \Slim\View {
                         return "";
                     return join("", $result);
                 });
+        
         $this->twig->addFunction($plugin);
+       
         $locale = new Twig_SimpleFunction('locale', function () {
                    $params = \Raptor\Raptor::getInstance()->getConfigurationLoader()->getConfOption();
                     if (isset($params['raptor']['language'])) {
