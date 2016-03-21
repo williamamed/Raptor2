@@ -62,7 +62,7 @@ class Client implements \Raptor\Bundle\Route\Rule {
         $data = array(
             'token' => $app->getSecurity()->getToken(),
             'front' => $app->request()->getRootUri(),
-            'bundle' => $app->request()->getRootUri() . '/../bundle',
+            'bundle' => dirname($_SERVER['SCRIPT_NAME']) . '/bundles',
             'file' => $app->getLanguage()->getBundleFile(),
             'lang' => $app->getLanguage()->getUserCurrentLanguage(),
             'user' => $user
