@@ -1,39 +1,37 @@
 Ext.onReady(function() {
-    UiGenTemplate.init();
+    
     var g=new Generator.View();
     g.aplied=0;
     Ext.getCmp('out-pan').on('tabchange',function(p,n){
-        if(g.aplied<2){
+        
+        
             var tpl = new Ext.XTemplate(
             '<tpl for=".">',       // process the data.kids node
                 '<div class="item-temp">',
                    '<span >',
-                    '<img  src="{url}" width="105"></span>', 
-                 '<div class="items-sel" typemod="{mode}"><h4>{#}. {title}</h4><p>{desc}</p></div>' ,  
+                    '<img  src="{icon}" width="105"></span>', 
+                 '<div class="items-sel" urlget="{url}" typemod="{mode}"><h4>{#}. {title}</h4><p>{desc}</p></div>' ,  
                  '</div>',
             '</tpl></p>'
             );
-            if(n.id=='ext-pan')    
-            tpl.overwrite(n.body,ext_template);
+           
+            tpl.overwrite(n.body,UiGenTemplate.items[n.id].templates);
+            
+            var it=Ext.query('.items-sel');
+            for (var i=0;i<it.length;i++){
+                Ext.get(it[i]).on('click',function(e,h){
 
-            if(n.id=='boot-pan')    
-            tpl.overwrite(n.body,boot_template);
-            g.aplied++;
-        }
-    })
-    Ext.getCmp('out-pan').setActiveTab(1);
-    Ext.getCmp('out-pan').setActiveTab(0);
+                    g.pan.mostrarAdicionar();
+                    g.pan.win.typemod=Ext.get(this).getAttribute('typemod');
+                    g.pan.win.urlget=Ext.get(this).getAttribute('urlget');
+
+                });
+
+            }
+    });
     
-    var it=Ext.query('.items-sel');
-    for (var i=0;i<it.length;i++){
-        Ext.get(it[i]).on('click',function(e,h){
-            
-            g.pan.mostrarAdicionar();
-            g.pan.win.typemod=Ext.get(this).getAttribute('typemod');
-            
-        });
-        
-    }   
+    
+       
     
 });
 Raptor.Animated();
@@ -66,15 +64,14 @@ Ext.define('Generator.Panel',{
     
     initComponent:function(){
         
-        
-//       this.grid=new Generator.Grid();
+
         this.out=new Generator.OutPut();
          this.arbol=new Generator.Tree({
            
        });
         this.items=[this.arbol,this.out];
         
-//         this.grid.tbar=[this.adicionar,this.modificar,this.eliminar];
+
          this.win=new Generator.Window();
          //Para enviar tanto adicionar como modificar
          this.win.on('enviado',this.sendEntidad,this);
@@ -82,17 +79,7 @@ Ext.define('Generator.Panel',{
         
        
          this.callParent();
-         
-//        this.grid.getSelectionModel().on('beforeselect', function(smodel, rowIndex, keepExisting, record) {
-//            this.modificar.enable();
-//            this.eliminar.enable();
-//           
-//        }, this);
-//        this.grid.getSelectionModel().on('beforedeselect', function(smodel, rowIndex, keepExisting, record) {
-//            this.modificar.disable();
-//            this.eliminar.disable();
-//           
-//        }, this);
+
         
         this.arbol.on('nodeSelected',function (record){
             
@@ -136,6 +123,8 @@ Ext.define('Generator.Panel',{
         
            if (this.win.form.getForm().isValid())
         {
+            if(winForm.urlget)
+                url=winForm.urlget;
             this.win.form.getForm().submit({
                 url: url,
                 waitMsg: 'Please wait...',
@@ -259,15 +248,11 @@ Ext.define('Generator.Tree', {
     },
     listeners:{
         beforeload:function(store){
-           
-            
-//              store.getProxy().extraParams={id:this.currentNodeExpand.get('id')};
-           
-          
+
             
         },
         beforeitemexpand:function(n){
-//            this.currentNodeExpand=n;
+
         },
         select:function( obj, record, index, eOpts ){
             this.fireEvent('nodeSelected',record);
@@ -314,59 +299,51 @@ Ext.define('Generator.OutPut',{
             type: 'border',
             padding: 5
         },
-    title:'UI Generator - <b style="color:gray;padding: 3px;">Build your app more easy</b>',
+    title:'UI Generator - <b style="color:gray;padding: 3px;">Build your app more easly</b>',
     region:'center',
     id:'out-pan',
     disabled:true,
     header:true,
     initComponent:function(){
-        this.items=[ {
-                title: 'Bootstrap 3',
-                id: 'boot-pan',
-                icon: Raptor.getBundleResource('Raptor/img/tech/bootstrap-32.png'),
-                bodyStyle:'overflow: auto'
-            },{
-                title: 'Extjs 4',
-                id: 'ext-pan',
-                icon: Raptor.getBundleResource('Raptor/img/tech/ext-16.gif'),
-                bodyStyle:'overflow: auto'
-            }]
+
         this.callParent();
+        this.on('render',function(){
+            this.setLoading('Looking for templates ...');
+            Ext.Ajax.request({
+                url: 'genui/list',
+                callback: function() {
+                    this.setLoading(false);
+
+                },
+                success: function(response, opts) {
+                    var obj = Ext.decode(response.responseText);
+                    UiGenTemplate={};
+                    
+                    Ext.Object.each(obj, function(key, value, myself) {
+                        this.add({
+                            title: value.title,
+                            id: key,
+                            icon: Raptor.getBundleResource(value.icon),
+                            bodyStyle:'overflow: auto'
+                        });
+                        
+                        for(var i=0;i<value.templates.length;i++){
+                            value.templates[i].icon=Raptor.getBundleResource(value.templates[i].icon);
+                            value.templates[i].mode=key+':'+i;
+                        }
+                    },this);
+                    UiGenTemplate.items=obj;
+                    
+                    Ext.getCmp('out-pan').setActiveTab(0);
+                },
+                failure: function(response, opts) {
+                     Raptor.msg.show(3,'server-side failure with status code ' + response.status);
+                },
+                scope: this
+            });
+        },this)
         
-    },
-   // html:'<b style="color:gray">>> Ouput Console - RAPTOR NEMESIS</b>'
-
-    })
-
-UiGenTemplate={
-    init:function(){
-        ext_template=[{
-                title:'Empty Template',
-                desc:"Create a empty ExtJs template",
-                url:Raptor.getBundleResource("Raptor/img/ui/empty.png"),
-                mode:'ext:0'
-        },{
-                title:'Grid Template <b style="color:white;background: red;padding: 3px;">New</b>',
-                desc:"Create a Grid based ExtJs template",
-                url:Raptor.getBundleResource("Raptor/img/ui/grid.gif"),
-                mode:'ext:1'
-        },{
-                title:'Tree-Grid Template <b style="color:white;background: red;padding: 3px;">New</b>',
-                desc:"Create a Tree-Grid based ExtJs template",
-                url:Raptor.getBundleResource("Raptor/img/ui/grid.gif"),
-                mode:'ext:2'
-        }]
-
-        boot_template=[{
-                title:'Empty Boot Template',
-                desc:"Create a starter bootstrap template",
-                url:Raptor.getBundleResource("Raptor/img/ui/bootstrap-empty.png"),
-                mode:'boot:0'
-        },{
-                title:'Boot Site Template <b style="color:white;background: red;padding: 3px;">New</b>',
-                desc:"Create a fluid boostrap template",
-                url:Raptor.getBundleResource("Raptor/img/ui/bootstrap-full.png"),
-                mode:'boot:1'
-        }]
     }
-}
+
+    });
+
