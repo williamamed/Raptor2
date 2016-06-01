@@ -161,10 +161,11 @@ class Raptor extends \Slim\Slim {
         Security\Security::directives();
         
         $this->add(new Core\Routing());
+        $this->add(new \App\Main());
         $this->add(new Language\Language());
         $this->add(new Security\Security());
         $this->add(new Persister\Store());
-        $this->add(new \App\Main());
+        
         $this->add(new Exception\Listener\RaptorExceptions());
         $this->inyector = new Core\Inyector\Container();
         parent::run();
