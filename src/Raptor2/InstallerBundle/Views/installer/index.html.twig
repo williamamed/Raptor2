@@ -60,7 +60,7 @@
                                 <img src="{{ item['image'] }}" width="115">
                         {% endif %}
                         <h2>{{ item['name'] }}</h2>
-                        <p>{{ item['description'] }}</p>
+                        <p>{{ item['description']|slice(0,80) }} <b>...</b></p>
                         <h4><span class="text-muted">{{ item['author'] }}</span></h4>
                         <p><a class="btn btn-success" href="{{ path('_raptor_bundle_installer_module') }}?name={{ item['name'] }}&type={{ item['type'] }}&url={{ item['file'] }}" role="button">Install &raquo;</a></p>
                       </div>
