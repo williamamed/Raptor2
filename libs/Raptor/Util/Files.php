@@ -34,7 +34,7 @@ class Files {
                 if (is_dir($archivos_carpeta)) {
                     
                     if(!file_exists($to.DIRECTORY_SEPARATOR.$name)){
-                       mkdir($to.DIRECTORY_SEPARATOR.$name);
+                       mkdir($to.DIRECTORY_SEPARATOR.$name,0777,true);
                     }
                     $result=self::copy($file.DIRECTORY_SEPARATOR.$name,$to.DIRECTORY_SEPARATOR.$name);
                     $copy=array_merge($copy, $result);
