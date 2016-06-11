@@ -49,8 +49,7 @@ class BundleImporter {
         @unlink($bundle);
         $result = self::checkingForInstall($name_rand);
         if ($result !== false) {
-            $meta = json_decode(file_get_contents($result), true);
-
+            $meta = json_decode(utf8_encode(file_get_contents($result)), true);
             if (isset($meta['namespace'])) {
                 $parts = explode('.', $meta['namespace']);
                 
@@ -101,6 +100,7 @@ class BundleImporter {
     
    static public function checkingForInstall($name) {
         $file=  \Raptor\Util\Files::find(self::prepareCache().'/'.$name,'install.json');
+       
         if(count($file)>0)
             return $file[0];
         return false;
@@ -111,7 +111,7 @@ class BundleImporter {
         $metaInformation=array();
         
         foreach ($modules as $filename) {
-            $metaObj=  json_decode(file_get_contents($filename), true);
+            $metaObj=  json_decode(utf8_encode(file_get_contents($filename)), true);
             
             if($metaObj){
                 $meta=array('name'=>'','description'=>'','file'=>'');
@@ -155,10 +155,13 @@ class BundleImporter {
     static private function getRemoteManifiest($url) {
         
         $array=array();
-        $bufer=@file_get_contents($url);
+        $bufer=file_get_contents($url);
         
+        
+        $array=  json_decode(utf8_encode($bufer),true);
+        if($array===NULL)
+            echo "The repository metadata has some errors";
        
-        $array=  json_decode($bufer,true);
         if(!$array)
             return array();
         return $array;
