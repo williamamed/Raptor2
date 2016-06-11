@@ -406,7 +406,7 @@ class ConfigurationLoader {
         		$bundleRoute=join('/',$div);
                 $ruta=  $bundleRoute.'/Manifiest/install.json';
                 if(file_exists($ruta)){
-                    $meta=  json_decode(file_get_contents($ruta),true);
+                    $meta=  json_decode(utf8_encode(file_get_contents($ruta)),true);
                     
                     if(!isset($meta['installed']) or (isset($meta['installed']) and  $meta['installed']==0)){
                         
