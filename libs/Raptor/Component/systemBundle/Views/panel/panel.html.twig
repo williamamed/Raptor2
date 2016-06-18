@@ -116,7 +116,7 @@
                         $('.info-panel').html("  <img src='{{ asset('Raptor/img/progress.gif') }}' width='20'>Cleaning the cache ... ");
                         clearTimeout(makeHide);
                         $.post("{{ path('_raptor_clean_ajax') }}", function(data){ 
-                          if(data=="OK"){
+                          if(data.trim()=="OK"){
                               $('.info-panel').html(" .... The cache was cleaned");
                           }else{
                               $('.info-panel').html(" .... An error ocurred cleaning the cache, pulse <a style='background:transparent;color: #0079d2' href='{{ path('_raptor_clean') }}' target='cache'>here</a> to see the details");
