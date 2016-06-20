@@ -96,7 +96,10 @@ class View extends \Slim\View {
     public function register() {
         $asset = new Twig_SimpleFunction('asset', function ($val) {
                     
-                    return dirname($_SERVER['SCRIPT_NAME']) . '/bundles/' . $val;
+                    if(dirname($_SERVER['SCRIPT_NAME'])=='/' or dirname($_SERVER['SCRIPT_NAME'])=='\\')
+                        return '/bundles/' . $val;
+                    else
+                        return dirname($_SERVER['SCRIPT_NAME']) . '/bundles/' . $val;
                 });
         $this->twig->addFunction($asset);
 
