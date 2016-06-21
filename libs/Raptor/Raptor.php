@@ -353,6 +353,14 @@ class Raptor extends \Slim\Slim {
      */
     protected function defaultNotFound()
     {
+        if($this->request()->isXhr()){
+            $this->contentType(\Raptor\Raptor::JSON);
+            $response=new \Raptor\Util\ItemList();
+            $response->set('cod',5);
+            $response->set('msg',"<h2>404 Page Not Found</h2>".'<h4>The page you are looking for could not be found. Check the address bar to ensure your URL is spelled correctly. If all else fails, you can visit our home page at the link below.</p><a href="' . $this->request->getRootUri() . '/">Visit the Home Page</a></h4>');
+            echo $response->toJson();
+            return;
+        }
         echo static::generateTemplateMarkup('404 Page Not Found', '<p>The page you are looking for could not be found. Check the address bar to ensure your URL is spelled correctly. If all else fails, you can visit our home page at the link below.</p><a href="' . $this->request->getRootUri() . '/">Visit the Home Page</a>');
     }
 
@@ -362,6 +370,14 @@ class Raptor extends \Slim\Slim {
     protected function defaultError($e)
     {
         $this->getLog()->error($e);
+        if($this->request()->isXhr()){
+            $this->contentType(\Raptor\Raptor::JSON);
+            $response=new \Raptor\Util\ItemList();
+            $response->set('cod',5);
+            $response->set('msg',"<h2>Error</h2>".'<h4>A website error has occurred. The website administrator has been notified of the issue. Sorry for the temporary inconvenience.</h4>');
+            echo $response->toJson();
+            return;
+        }
         echo self::generateTemplateMarkup('Error', '<p>A website error has occurred. The website administrator has been notified of the issue. Sorry for the temporary inconvenience.</p>');
     }
     
