@@ -70,7 +70,7 @@ class Controller {
      * The relevant classes are already defined, you need to add only your
      * your personal classes if you want to used by the dependency inyector.
      * 
-     * @param string The name of the class to be inyected
+     * @param string $class The name of the class to be inyected
      * @return object A intance of the specified class
      */
     public function get($class) {
