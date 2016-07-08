@@ -33,9 +33,9 @@
 namespace Raptor\Bundle;
 
 /**
- * The delegate class encapsulate the Bundle 
- * representation for an execution of a route path
- * in a controller
+ * 
+ * La clase delegada encapsula la representacion del bundle para la ejecucion de un patron de ruta
+ * en un controlador
  * 
  */
 class Delegate {
@@ -49,7 +49,10 @@ class Delegate {
         $this->bundle = $bundle;
        
     }
-
+    /**
+     * [USO DEL SISTEMA]
+     * @return boolean
+     */
     public function call() {
         
         $cmp_str = $this->bundle;

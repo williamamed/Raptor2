@@ -38,7 +38,7 @@ use \Twig_SimpleFunction;
 use \Twig_SimpleFilter;
 
 /**
- * Description of View
+ * Implementa la logica para el manejo de las vistas en Raptor
  *
  * 
  */
@@ -77,10 +77,9 @@ class View extends \Slim\View {
         }
         $this->register();
     }
+    
     /**
-     * Display template
-     *
-     * This method echoes the rendered template to the current output buffer
+     * [RE-IMPLEMENTADO POR RAPTOR, USADO POR EL SISTEMA]
      *
      * @param  string   $template   Pathname of template file relative to templates directory
      */
@@ -88,11 +87,19 @@ class View extends \Slim\View {
         return $this->fetch($template);
     }
     
-    
+    /**
+     * Retorna la plantilla especificada
+     * 
+     * @param string $template
+     * @return string
+     */
     public function render($template) {
         return $this->twig->render($template, $this->data->all());
     }
-    
+    /**
+     * 
+     * [USADA POR EL SISTEMA]
+     */
     public function register() {
         $asset = new Twig_SimpleFunction('asset', function ($val) {
                     

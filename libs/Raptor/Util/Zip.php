@@ -32,10 +32,9 @@
  */
 namespace Raptor\Util;
 /**
- * This class compress and uncompress
- * Zip files
- * NEED THE ZIP EXTENSION ENABLED
  * 
+ * La clase ZIP comprime y descomprime archivos ZIP
+ * [NECESITA LA EXTENSION ZIP ACTIVADA]
  */
 class Zip {
     /**
@@ -55,8 +54,10 @@ class Zip {
     }
 
     /**
-     * Create a zip file with the given path, may be a file or a dir
-     * @param string $path the file or dir to compress
+     * 
+     * Crea un archivo ZIP de la ruta especificada, puede ser un archivo o directorio
+     * Devuelve TRUE si el archivo fue comprimido correctamente, FALSE en caso contrario
+     * @param string $path archivo o directorio a comprimir
      * @return boolean
      */
     public function create($path) {
@@ -99,8 +100,9 @@ class Zip {
     }
     
     /**
-     * Return the content output for this file, yo need to add
-     * the content type
+     * 
+     * Retorna el contenido del archivo ZIP
+     * Para retornos hacia el cliente necesitas establecer el contentType en la respuesta
      * @return string
      */
     public function output() {
@@ -118,8 +120,9 @@ class Zip {
         }
     }
     /**
-     * Extract the zip file to the given destination
-     * @param string $to destination to uncompress the file
+     * 
+     * Extrae el archivo ZIP en el destino especificado
+     * @param string $to destino donde descomprimir el archivo
      * @return boolean
      */
     public function extract($to) {

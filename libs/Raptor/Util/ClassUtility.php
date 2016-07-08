@@ -14,9 +14,15 @@ namespace Raptor\Util;
 
 use Wingu\OctopusCore\Reflection\ReflectionClass;
 use Wingu\OctopusCore\Reflection\ReflectionProperty;
-
+/**
+ * Clase utilitaria para convertir instancias de clases a su equivalentes en array
+ */
 class ClassUtility {
-    
+   /**
+    * Convierte la instancia especificada en su equivalente en array
+    * @param mixed $obj instacia a convertir
+    * @return array
+    */
    static public function toArray($obj) {
                 $reflect = new ReflectionClass($obj);
                 $props   = $reflect->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED | ReflectionProperty::IS_PRIVATE);

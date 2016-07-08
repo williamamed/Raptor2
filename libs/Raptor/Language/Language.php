@@ -33,9 +33,9 @@
 namespace Raptor\Language;
 
 /**
- * The Language class handle the idiomatic context for a 
- * Raptor app
- *
+ * 
+ * La clase Language establece el manejo del contexto idiomatico
+ * para la aplicacion Raptor
  * 
  */
 class Language extends \Slim\Middleware {
@@ -57,7 +57,7 @@ class Language extends \Slim\Middleware {
 
 
     /**
-     * Get the tag for the specified key
+     * [MARCADO PARA REMOCION, SIN USO]
      * @param string $key
      * @return string
      */
@@ -65,14 +65,16 @@ class Language extends \Slim\Middleware {
         return;
     }
     /**
-     * Return the language specified is yhe options system
+     * 
+     * Retorna el lenguaje definido en las opciones del sistema(options.yml)
      * @return string
      */
     public function getSystemLanguage() {
         return $this->current;
     }
     /**
-     * Return the user agent language
+     * 
+     * Retorna el lenguaje definido por el Agente de Usuario
      * @return string
      */
     public function getPreferedLanguage() {
@@ -95,9 +97,12 @@ class Language extends \Slim\Middleware {
         return $this->getSystemLanguage();
     }
     /**
-     * Get the string of the given tag language in the specified bundle
-     * @param string $tag
-     * @param string $scope
+     * 
+     * Devuelve la cadena definida para el tag especificado y el scope del bundle dado
+     * La cadena sera devuelta en el lenguaje actual del sistema o un cadena vacia
+     * en caso de que no exista una definicion para ese tag en el bundle
+     * @param string $tag llave del string deseado
+     * @param string $scope espacio de variables del bundle de donde pertenece la definicion de idioma
      * @return string
      */
     public function getBundleLanguage($tag, $scope=null) {
@@ -137,7 +142,9 @@ class Language extends \Slim\Middleware {
     }
 
     /**
-     * Get the language definition for the current bundle and language
+     * 
+     * Devuelve la definicion de lenguaje para el bundle y lenguaje actual
+     * Sera devuelta la definicion completa del archivo, ejemplo. la definicion de es.json
      * @return string
      */
     public function getBundleFile() {
@@ -165,7 +172,8 @@ class Language extends \Slim\Middleware {
     }
 
     /**
-     * Set for this user the default language of the system
+     * 
+     * Setea para el usuario en la sesion actual, el lenguaje por defecto definido en las opciones
      * @return string
      */
     public function setUserCurrentLanguage() {
@@ -175,7 +183,8 @@ class Language extends \Slim\Middleware {
         return $this->current;
     }
     /**
-     * Get the user language stablish in the session
+     * 
+     * Devuelve el lenguaje actual definido para el usuario en la sesion actual
      * @return string
      */
     public function getUserCurrentLanguage() {
@@ -191,7 +200,8 @@ class Language extends \Slim\Middleware {
         return $lan;
     }
     /**
-     * Set in the session the user language sended by the agent
+     * 
+     * Setea para el usuario en la sesion actual, el lenguaje del agente de usuario
      * @return string
      */
     public function setUserPreferedLanguage() {
@@ -200,14 +210,17 @@ class Language extends \Slim\Middleware {
 
         return $prefer;
     }
-
+    /**
+     * [USO DEL SISTEMA]
+     */
     public function call() {
         $this->app->setLanguage($this);
         $this->app->getLanguage()->setUserCurrentLanguage();
         $this->next->call();
     }
     /**
-     * Establish the current bundle to language analize
+     * 
+     * Establece el bundle actual para el analisis del contexto idiomatico
      * @param string $current_bundle
      */
     public function setCurrentBundle($current_bundle) {

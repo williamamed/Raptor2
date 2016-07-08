@@ -41,8 +41,7 @@
 namespace Raptor\Cache;
 use Raptor\Core\Location;
 /**
- * The cache create a way of local storage
- * in the app/cache directory
+ * La cache crea un forma de almacenamiento de infomacion local en el directorio app/cache
  */
 class Cache {
     private $name;
@@ -51,7 +50,7 @@ class Cache {
     private $instanceCache;
     private $variables;
     /**
-     * The name and identification in the cache directory
+     * El nombre e indetificacion en el directorio cache
      * @param string $name
      */
     function __construct($name) {
@@ -60,14 +59,19 @@ class Cache {
         $this->variables = array();
         $this->load();
     }
-    
+    /**
+     * 
+     * @param string $key
+     * @param string $var
+     * @param int $ttl
+     */
     private function add($key,$var,$ttl=0) {
         $this->variables[$key]=array('ttl'=>$ttl,'value'=>$var);
     }
 
 
     /**
-     * Return TRUE if exist a cache config for this actual name
+     * Retorna true si existe una configuracion cache para el nombre actual
      * 
      * @return boolean
      */
@@ -81,8 +85,9 @@ class Cache {
     }
 
     /**
-     * Put the data to save into the CacheConfig
-     * @param mixed $data
+     * 
+     * Establece los datos a salvar dentro de la cache
+     * @param mixed $data los datos a salvar
      */
     public function setData($data) {
         $this->data = $data;
@@ -90,15 +95,15 @@ class Cache {
     }
 
     /**
-     * Set the state of the cache config, 
-     * TRUE to non updated and else if was update
+     * 
+     * Setea el estado de la cache, TRUE para actualizada y false en caso contrario
      * @param type $update
      */
     public function setUpdate($update) {
         $this->update = $update;
     }
     /**
-     * Mark this cache has dirty
+     * Marca esta cache como sucia o no actualizada
      * 
      */
     public function setDirty() {
@@ -106,8 +111,7 @@ class Cache {
     }
 
     /**
-     * Return true is this Cache is
-     * marked has dirty
+     * Retorna TRUE si esta cache ha sido marca como sucia o no actualizada
      * 
      */
     public function isDirty() {
@@ -115,8 +119,8 @@ class Cache {
     }
 
     /**
-     * Return the state of the cache config, 
-     * TRUE to non updated and else if was update
+     * 
+     * Retorna el estado de la cache, TRUE para actualizada y FALSE en caso contrario
      * @return boolean
      */
     public function getUpdate() {
@@ -124,8 +128,9 @@ class Cache {
     }
 
     /**
-     * Return TRUE if the load operation success, to suucces most exist
-     * a cache config to this name and loaded correctly, otherwise return false
+     * 
+     * Retorna TRUE si la operacion fue correctamente realizada
+     * Para que la operacion sea tatisfactoria la cache para este nombre debe de existir
      * @return boolean
      */
     public function load() {
@@ -143,7 +148,8 @@ class Cache {
     }
 
     /**
-     * Perform a save operation, save the data and state in the cache
+     * 
+     * Realiza una operacion de salvado, salva los datos y el estado especificado
      */
     public function save() {
         $cache = Location::get(\Raptor\Core\Location::CACHE);
@@ -155,7 +161,12 @@ class Cache {
     }
 
     /**
-     * Return the data contained in cache
+     * Retorna los datos contenidos en la cache
+     * $cache = new \Raptor\Cache\Cache('testing');
+     *  if ($cache->isDirty()) {
+     *      $cache->setData(array('mis_opciones'));
+     *      $cache->save();
+     *  }
      * @return mixed
      */
     public function getData() {

@@ -33,8 +33,8 @@
 namespace Raptor\Bundle;
 
 /**
- * Abstract class of bundle with the base method to use 
- *
+ * 
+ * Clase asbtracta del bundle con los metodos base
  * 
  */
 abstract class Bundle {
@@ -47,38 +47,43 @@ abstract class Bundle {
     function __construct() {
         $this->app= \Raptor\Raptor::getInstance();
     }
-
+    
     public function init() {
         $container = \Raptor\Raptor::getInstance()->getAppAspectKernel()->getContainer();
         $this->registerBundleAspect($container);
     }
 
     /**
-     * Register in the apect container
+     * Registro de aspectos en el bundle
      */
     abstract public function registerBundleAspect(\Go\Core\AspectContainer $appAspectContainer);
     /**
-     * Register an Route Rule in the rule container, this rules are executed before that the registed
-     * paths in the controller classes
+     * 
+     * Registra Reglas de rutas en el contenedor de reglas, estas reglas seran ejecutas antes de las
+     * rutas definidas en los controladores
      */
     abstract public function registerRouteRule(Route\RuleContainer $ruleContainer);
     
     /**
-     * This method is call it in the entry of the bundle being the first routing in the bundle
-     * execution, you need to know when a route match with a controller path the entrance method
-     * of the representing bundle is executed before
+     *
+     * 
+     * Esta funcion es llamada en la entrada de cada bundle, siendo la primera rutina a ejecutar cuando se
+     * mande a ejecutar un ruta que pertenesca a un bundle
+     * 
      */
     abstract public function entrance(\Raptor\Raptor $app);
     /**
-     * Publish the Resources files of this bundle
-     * [if you are in dev mode you dont need to call it, Raptor will publish your file]
+     * Publica los recursos del bundle actual
+     * [Si te encuentras en modo de desarrollo no necesitas llamar esta funcion, Raptor publica todos los recursos automaticamente en cada request]
      */
     public function publishResources() {
         Publisher\Publisher::run($this,true);
     }
     /**
-     * This method is call it in the configure routine of the bundle, meaning that is call it when
-     * Raptor is configuring and adding all your registered path in the controller classes
+     * 
+     * Esta funcion es llamada en la rutina de configuracion del bundle
+     * Significa que es llamada cuando Raptor esta configurando y añadiendo todas las rutas registradas
+     * en las clases controladoras
      */
     public function configure(){
         

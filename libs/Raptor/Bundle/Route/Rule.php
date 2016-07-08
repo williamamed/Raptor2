@@ -33,7 +33,7 @@
 namespace Raptor\Bundle\Route;
 
 /**
- * Interface for rule creations
+ * Interfaz para creacion de reglas de rutas
  *
  * 
  */

@@ -33,9 +33,9 @@
 namespace Raptor\Bundle;
 
 /**
- * This class read the routes
- * definition from bundles
- * INTERNAL
+ * 
+ * Esta clase lee la definicion de rutas de los bundles
+ * [USO INTERNO DEL SISTEMA]
  * 
  */
 class Reader {
@@ -53,30 +53,51 @@ class Reader {
         $this->description=array();
         $this->api=array();
     }
-    
+    /**
+     * [USO INTERNO DEL SISTEMA]
+     * @param type $bundles
+     */
     public function setBundles($bundles) {
         $this->bundles = $bundles;
     }
+    /**
+     * [USO INTERNO DEL SISTEMA]
+     * @return type
+     */
     public function getDefinitions() {
         return $this->definitions;
     }
-
+    /**
+     * [USO INTERNO DEL SISTEMA]
+     * @return type
+     */
     public function getLocation() {
         return $this->location;
     }
-
+    /**
+     * [USO INTERNO DEL SISTEMA]
+     * @return type
+     */
     public function getSpecifications() {
         return $this->specif;
     }
-    
+    /**
+     * [USO INTERNO DEL SISTEMA]
+     * @return type
+     */
     public function getDescriptions() {
         return $this->description;
     }
-    
+    /**
+     * [USO INTERNO DEL SISTEMA] 
+     * @return type
+     */
     public function getApi() {
         return $this->api;
     }
-
+    /**
+     * [USO INTERNO DEL SISTEMA]
+     */
     public function load() {
         foreach ($this->bundles as $bundle) {
             

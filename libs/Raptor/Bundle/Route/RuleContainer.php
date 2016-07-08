@@ -33,9 +33,7 @@
 namespace Raptor\Bundle\Route;
 
 /**
- * This is the route container for
- * rule executions
- *
+ * Contenedor de reglas declaradas
  * 
  */
 class RuleContainer {
@@ -49,11 +47,14 @@ class RuleContainer {
         $this->container=array(array());
     }
     /**
-     * This add a route rule to the container, meaning that the especified
-     * Rule will be executed when the pattern match with the requested route
-     * @param string $pattern
-     * @param \Raptor\Bundle\Route\Rule $callback
-     * @param int $priority
+     * Adiciona una regla a este contenedor
+     * 
+     * Significa que esta regla sera ejecutada cuando el patron de ruta de la regla coincida
+     * con la del request actual
+     * 
+     * @param string $pattern patron de ruta de regla
+     * @param \Raptor\Bundle\Route\Rule $callback regla especificada para ejecutar cuando el patron de ruta coincida
+     * @param int $priority prieoridad de la regla, de 0-10, por defecto 0
      */
     public function add($pattern, Rule $callback,$priority=0) {
         $this->container[$priority][]=array($pattern,array($callback, 'call'));
@@ -61,10 +62,13 @@ class RuleContainer {
     }
     
     /**
-     * This add a route rule to the container, meaning that the especified
-     * Rule will be executed when the pattern annotation match with the requested route
+     * Adiciona una regla a este contenedor
      * 
-     * @param \Raptor\Bundle\Route\Rule $callback
+     * Significa que esta regla sera ejecutada cuando el patron de ruta en la anotacion de la regla coincida
+     * con la del request actual
+     * 
+     * 
+     * @param \Raptor\Bundle\Route\Rule $callback regla especificada para ejecutar cuando el patron de ruta coincida
      * 
      */
     public function addRule(Rule $callback) {
@@ -87,10 +91,10 @@ class RuleContainer {
     }
     
     /**
-     * This a shortcut added to register a Guia 
-     * in the route /interactive/tutorial, internally this call
-     * the add method
-     * @param \Raptor\Bundle\Route\Rule $callback
+     * Añade un regla para las guias interactivas de usuario
+     * 
+     * 
+     * @param \Raptor\Bundle\Route\Rule $callback regla especificada para ejecutar cuando el patron de ruta coincida
      * 
      */
     public function addGuia(Rule $callback) {

@@ -11,15 +11,17 @@
  * @author DinoByte
  */
 namespace Raptor\Util;
-
+/**
+ * Clase utilitaria para el manejo de archivos(copiado, remocion y busqueda)
+ */
 class Files {
     /**
+     * Copia archivos o directorios completos hacia una nueva locacion
      * 
-     * @param string $file
-     * @param string $to directory to copy for
-     * @return array an array of copied files
-     * @throws Exception
-     * @throws \Exception
+     * @param string $file el archivo o directorio a copiar
+     * @param string $to directorio donde se copiara el archivo
+     * @return array un array con todos los elementos que fueron copiados
+     * @throws \Exception Lanza una excepcion si el archivo existe
      */
     static public function copy($file,$to) {
         $copy=array();
@@ -41,7 +43,7 @@ class Files {
                     
                     } else {
                     if (!copy($archivos_carpeta,$to.DIRECTORY_SEPARATOR.$name)) {
-                        throw new Exception("Error al copiar ".$to.DIRECTORY_SEPARATOR.$name."...\n");
+                        throw new \Exception("Error al copiar ".$to.DIRECTORY_SEPARATOR.$name."...\n");
                     }else{
                         $copy[]=$to.DIRECTORY_SEPARATOR.$name;
                     }
@@ -63,8 +65,8 @@ class Files {
         return $copy;
     }
     /**
-     * Delete a file, if the given file is a directory
-     * delete recursive all the content
+     * 
+     * Remueve recursivamente el directorio especificado 
      * @param string $file
      */
     static public function delete($file) {
@@ -86,10 +88,11 @@ class Files {
         }
     }
     /**
-     * Search recursibly in a directory for a pattern
-     * @param string $directory The directory to search for
-     * @param string $file The pattern fiel to search
-     * @return array an array of matching results
+     * 
+     * Busca recursivamente en un directorio por un patron de archivo
+     * @param string $directory el directorio en donde buscar
+     * @param string $file el patron de archivo a buscar
+     * @return array un array con todas coincidencias
      */
     static public function find($directory,$file) {
         $result=array();

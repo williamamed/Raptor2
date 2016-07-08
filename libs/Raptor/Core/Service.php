@@ -33,13 +33,14 @@
 namespace Raptor\Core;
 
 /**
- * Handle the service consumption as SOAP and private service
- *
+ * 
+ * Esta clase maneja el consumo de servicios tanto internos como SOAP
  * 
  */
 class Service {
     /**
-     * get the resgistered Service Url for this App
+     * 
+     * Devuelve la URL de servicio SOAP registrada
      * @return string
      */
     public function getUrl() {
@@ -50,8 +51,8 @@ class Service {
     }
 
     /**
-     * return a instance of the SoapClient
-     * for a remote Soap service
+     * Retorna una instancia de la clase SoapClient para un servicio remoto
+     * 
      * @param type $url
      * @param type $options
      * @return SoapClient
@@ -64,8 +65,7 @@ class Service {
     }
 
     /**
-     * return a instance of the SoapClient
-     * for a internal Soap services
+     * Retorna una instancia de la clase SoapClient para un servicio interno
      * @return SoapClient
      */
     public function internal() {
@@ -73,8 +73,8 @@ class Service {
     }
 
     /**
-     * return a instance of the PrivateService
-     * to the given Bundle or FALSE if not found
+     * 
+     * Retorna una instancia de los servicios privados en el bundle especificado o FALSE sino se encontro ninguno
      * @param string $bundle The name of the Bundle where is the PrivateService
      * @return PrivateService
      */

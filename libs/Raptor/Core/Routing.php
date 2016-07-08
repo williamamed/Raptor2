@@ -34,7 +34,7 @@ namespace Raptor\Core;
 
 /**
  * Execute the routing rutine for registered controller paths
- *
+ * [USO DEL SISTEMA]
  * 
  */
 class Routing extends \Slim\Middleware {

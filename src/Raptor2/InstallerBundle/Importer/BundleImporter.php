@@ -155,12 +155,20 @@ class BundleImporter {
     static private function getRemoteManifiest($url) {
         
         $array=array();
-        $bufer=file_get_contents($url);
+        try {
+            $bufer=file_get_contents($url);
+        } catch (\Exception $exc) {
+            \Raptor\Raptor::getInstance()->response()->write("<h3 style='text-align:center;background: #ff9999;padding:5px;'>Cannot connect with remote repository</h3>");
+            return array();
+        }
+
+        
         
         
         $array=  json_decode(utf8_encode($bufer),true);
         if($array===NULL)
-            echo "The repository metadata has some errors";
+            \Raptor\Raptor::getInstance()->response()->write("<h3 style='text-align:center;background: #ff9999;padding:5px;'>The repository metadata has some errors</h3>");
+            
        
         if(!$array)
             return array();

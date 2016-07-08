@@ -32,42 +32,44 @@
  */
 namespace Raptor\Security;
 /**
- * SecurityManagerInterface
- * This is an Abstract class to implement for a SecurityManager 
+ * SecurityManagerInterface es una clase abstracta para implementar un SecurityManager
+ * para Raptor
+ * 
  * 
  */
 abstract class AbstractSecurityManager {
     
     /**
-     * Invoke the indentification process
+     * 
+     * Invoca el proceso de identificacion
      * @return boolean 
      */
     abstract public function indentification();
     
     /**
-     * Invoke the authentication process
+     * Invoca el proceso de autenticacion
      * 
-     * YOU NEED TO LOCK THE ACCESS FOR N ATTEMPS
-     * OF LOGIN BY A CERTAIN TIME
+     * [NECESITAS BLOQUEAR EL ACCESO POR CIERTO TIEMPO PARA N INTENTOS DE LOGIN]
      * 
      * @return boolean
      */
     abstract public function authentication();
     
     /**
-     * Invoke the authorization process
+     * Invoca el proceso de AUTORIZACION
      * @return boolean
      */
     abstract public function authorization();
     /**
+     * Marca la sesion de usuario como autenticada
      * 
-     * Mark the user session has authenticated
      */
     abstract public function login();
         
     /**
      * 
-     * Mark the user session has non-authenticated
+     * Marca la sesion de usuario como no autenticada
+     * 
      */
     abstract public function logout();
 }

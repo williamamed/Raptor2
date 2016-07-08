@@ -39,9 +39,16 @@
 namespace Raptor\Security;
 
 require_once __DIR__ . '/../lib/password.php';
-
+/**
+ * Esta clase hashea y verifica hash de contraseñas realizados
+ */
 class SecureHash {
-
+    /**
+     * Hashea una contraseña o texto dado
+     * @param string $password el texto o la contraseña a hashear
+     * @return string
+     * @throws \RuntimeException lanza esta excepcion si la plataforma PHP no es compatible
+     */
     static public function hash($password) {
 
         if (!function_exists('password_hash')) {
@@ -54,7 +61,13 @@ class SecureHash {
 
         return $hash;
     }
-
+    /**
+     * Verifica si el hash proporcionado como segundo parametro corresponde al texto o contraseña especificado
+     * @param string $password texto o la contraseña
+     * @param string $hash hash a verificar contra el primer parametro
+     * @return type
+     * @throws \RuntimeException lanza esta excepcion si la funcion password_verify() no existe
+     */
     static public function verify($password, $hash) {
 
         if (!function_exists('password_verify')) {

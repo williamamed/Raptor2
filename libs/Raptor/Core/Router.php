@@ -34,12 +34,12 @@ namespace Raptor\Core;
 
 /**
  * This is Router correction in Slim
- *
+ * 
  * 
  */
 class Router extends \Slim\Router {
     /**
-     * Establish the current routing in execution
+     * Establece la ruta actual en ejecucion
      * @param \Slim\Route $route
      */
     public function setCurrent($route) {

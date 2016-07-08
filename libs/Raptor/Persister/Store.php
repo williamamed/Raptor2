@@ -38,9 +38,8 @@ use Doctrine\ORM\Tools\EntityRepositoryGenerator;
 use Raptor\Util\ItemList;
 
 /**
- * 
- * The Store Class give access to your model files and database
- * using Doctrine ORM
+ * La clase Store es la interfaz de Raptor con la implementacion de Doctrine ORM, trabaja como
+ * manejador de persistencia de datos usando Doctrine ORM
  * 
  */
 class Store extends \Slim\Middleware {
@@ -62,30 +61,38 @@ class Store extends \Slim\Middleware {
         $this->registerAutoload();
         $this->state=false;
     }
-
+    /**
+     * [USADA POR EL SISTEMA]
+     */
     public function call() {
         $this->connect();
         $this->app->setStore($this);
         $this->next->call();
     }
-
+    /**
+     * [USADA POR EL SISTEMA]
+     */
     public static function registerAutoload() {
         \Doctrine\ORM\Tools\Setup::registerAutoloadDirectory(__DIR__ . '/../../Doctrine');
     }
-
+    /**
+     * [USADA POR EL SISTEMA]
+     */
     public function registerClassLoader() {
         $classLoader = new \Doctrine\Common\ClassLoader('Proxies', \Raptor\Core\Location::get(\Raptor\Core\Location::CACHE) . '/d0374123');
         $classLoader->register();
     }
     /**
-     * get the state of the Store, true connected and false otherwise
+     * 
+     * Devuelve el estado del Store, TRUE para conectado y false en caso contrario
      * @return boolean
      */
     public function getState() {
         return $this->state;
     }
     /**
-     * Connect Doctrine with the specificated params of connections
+     * 
+     * Conecta el manejador con los parametros especificados en la configuracion de Raptor
      */
     public function connect() {
         $op = $this->app->getConfigurationLoader()->getOptions();
@@ -148,29 +155,31 @@ class Store extends \Slim\Middleware {
     }
 
     /**
-     * Return the Dcotrine Entity Manager for this
-     * connection
+     * 
+     * Retorna el Manejador de Entidad de Doctrine para esta conexion
      * @return \Doctrine\ORM\EntityManager
      */
     public function getManager() {
         return $this->entityManager;
     }
     /**
-     * Exporter make and save a file data from the database with the tables especified
+     * 
+     * Devuelve una instancia de la clase Exporter para la exportacion de datos
      * @return \Raptor\Persister\Exporter
      */
     public function getExporter() {
         return new Exporter($this);
     }
     /**
-     * Importer upload a data file previusly save with the Exporter class into the database 
+     * Devuelve una instancia de la clase Importer para la importacion hacia la base de datos
      * @return \Raptor\Persister\Importer
      */
     public function getImporter() {
         return new Importer($this);
     }
     /**
-     * Get all the schemas database
+     * 
+     * Devuelve un array con todos los esquemas|tablas de la base de datos
      * @return array
      */
     public function getSchemaClass() {
@@ -200,10 +209,18 @@ class Store extends \Slim\Middleware {
 
     /**
      * Generate the model class for Raptor
-     * @param string $namespace
-     * @param array $clases
+     * Genera las clases modelos para las clases schema especificadas
+     * Los modelos seran generados en el namespace especificado
+     * Tenga en cuenta que un SchemaClass no es lo mismo que los nombres
+     * de las tablas, es una representacion que brinda doctrine para tablas en la base de datos
+     * 
+     * $this->getStore()->generateClasses('\example\exampleBundle','Persona');
+     * 
+     * @param string $namespace el namespace del bundle donde seran creados los modelos
+     * @param array $schemaClass un array con todos los schemaClass que seran generados los modelos
      */
-    public function generateClasses($namespace, $clases) {
+    public function generateClasses($namespace, $schemaClass) {
+        $clases=$schemaClass;
         // custom datatypes (not mapped for reverse engineering)
         $this->entityManager->getConnection()->getDatabasePlatform()->registerDoctrineTypeMapping('set', 'string');
         $this->entityManager->getConnection()->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
@@ -296,10 +313,15 @@ class Store extends \Slim\Middleware {
     
 
     /**
-     * Generate the Schema tables for Raptor
      * 
-     * @param string $alias
-     * @param array $classes
+     * Genera las tablas a partir de los modelos especificados en el array $classes
+     * El alias no es mas que el nombre acortado del bundle de donde pertenecen los
+     * modelos
+     * 
+     * $this->getStore()->generateSchema('exampleBundle',array('Persona'));
+     * 
+     * @param string $alias nombre acortado del bundle donde pertenecen los modelos
+     * @param array $classes clases modelos a generar sus tablas
      */
     public function generateSchema($alias, $classes = array()) {
         $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
@@ -328,7 +350,8 @@ class Store extends \Slim\Middleware {
     }
 
     /**
-     * Generate the database specified if not exist
+     * 
+     * Crea la base datos especificada sino existe
      * @param string $name
      */
     public function generateDatabase($name) {
@@ -337,7 +360,10 @@ class Store extends \Slim\Middleware {
     }
 
     /**
-     * Return tru if the specified class is Valid(for valid must be transient class)
+     * 
+     * Retorna TRUE si la instancia del modelo especificado es valido
+     * Doctrine evalua a traves de la funcion isTransient()
+     * 
      * @param string $class
      * @return boolean
      */

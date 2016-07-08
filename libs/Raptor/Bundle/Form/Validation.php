@@ -5,13 +5,14 @@
  * and open the template in the editor.
  */
 
+
+namespace Raptor\Bundle\Form;
 /**
- * This class is used to form validation
+ * La clase Validation se utiliza para la validacion
+ * de formaularios para jQuery
  *
  * @author Dinobyte
  */
-namespace Raptor\Bundle\Form;
-
 class Validation {
     private $formId;
     private $fields;
@@ -23,7 +24,7 @@ class Validation {
         $this->formId = $formId;
     }
     /**
-     * Add the validation rules to the specified form
+     * Adiciona reglas de validacion de campos para el formulario
      * @param array $fields
      * @return \Raptor\Bundle\Form\Validation
      */
@@ -32,7 +33,7 @@ class Validation {
         return $this;
     }
     /**
-     * Return the validation logic to the specified form
+     * Devuelve la logica de validacion para el formulario
      * @return string
      */
     function render() {
@@ -42,7 +43,7 @@ class Validation {
        ));
     }
     /**
-     * Create a Validation Form instance
+     * Crea una instancia de esta clase
      * @param type $formId the form selector
      * @return \Raptor\Bundle\Form\Validation
      */

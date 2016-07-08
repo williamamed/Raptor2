@@ -8,10 +8,12 @@
 namespace Raptor\Bundle;
 use \ReflectionClass;
 use \ReflectionProperty;
-
+/**
+ * Pobla los atributos de la clase o objeto especificado con los parametros provenientes en el request actual
+ */
 class Collector {
     /**
-     * Full a class with the attributes especified in request
+     *  Pobla los atributos de la clase o objeto especificado con los parametros provenientes en el request actual
      * @param string|Object $name
      * @param \Raptor\Util\ItemList $request
      * @param array $matcher
@@ -46,7 +48,11 @@ class Collector {
         }
         return $class;
     }
-    
+    /**
+     * [USO INTERNO DEL SISTEMA]
+     * @param type $value
+     * @return boolean
+     */
     static public function validator($value) {
         if($value==='true')
             return true;

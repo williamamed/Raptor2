@@ -34,7 +34,7 @@ namespace Raptor\Bundle\Controller;
 use Raptor\Util\ItemList;
 use Raptor\Bundle\Collector;
 /**
- * Description of Controller
+ * Clase controladora de los bundles del sistema
  *
  * 
  */
@@ -51,6 +51,7 @@ class Controller {
      */
     protected $app;
     /**
+     * Retorna la instancia a la clase principal de la aplicacion
      * 
      * @return \Raptor\Raptor
      */
@@ -62,15 +63,16 @@ class Controller {
         $this->app = \Raptor\Raptor::getInstance();
     }
     /**
-     * This is the dependency Inyector, return a instance of
-     * the given param if exist inside of the dependency container,
-     * otherwise a exception is throw.<br>
-     * To call a dependency is necesary to difine it in the container.<br>
-     * Some classes are defined by default, like Doctrine, Twig, Request.
-     * The relevant classes are already defined, you need to add only your
-     * your personal classes if you want to used by the dependency inyector.
+     * Inyector de dependencias
      * 
-     * @param string $class The name of the class to be inyected
+     * Retorna la instancia de la clase registrada anteriormente por 
+     * Raptor a traves de su nombre de clase.
+     * 
+     * Para llamar una clase a traves de esta funcion es necesario haberla registrado
+     * anteriormente. Si la clase no existe en el lanzara una exception
+     * 
+     * 
+     * @param string $class El nombre de la clase que sera obtenida del contenedor de dependencias
      * @return object A intance of the specified class
      */
     public function get($class) {
@@ -78,21 +80,22 @@ class Controller {
     }
     
     /**
-     * This is a Alias of extMessage, Return a ExtJs message format response
-     * @param string $msg This is the message to send to the view
-     * @param boolean $success This represent if the action related was made
-     * correctly, by default is <b>true</b>.
-     * @param integer $cod Indicates to the view the type of message has to show, 
-     * can be diferent values, and the constants that represents the values are:<br> 
-     * <b>Controller::INFO</b> indicates to show a information dialog box<br>
-     * <b>Controller::QUESTION</b> indicates to show a question dialog box<br>
-     * <b>Controller::ERROR</b> indicates to show a error dialog box<br>
-     * <b>Controller::WAIT</b> indicates to show a wait dialog box<br>
-     * <b>Controller::EXCEPTION</b> indicates to show a exception dialog box with the trace, the trace
-     * has to be specified in the $other param<br><br>
-     * By default the value is <b>Controller::INFO</b>.
-     * @param array $other This is an asociative array of item to atacht to the message, represent
-     * others data to send with the message, for example the trace of a exception (e.i array('trace'=>'this is the content of the trace') )
+     * Este es un Alias para extMessage, retorna un mensaje en el formato SON especificado por Extjs
+     * 
+     * Valores de respuesta de mensajes :
+     * 
+     * Controller::INFO indica mostrar un mensaje de informacion
+     * Controller::QUESTION indica mostrar un mesaje de pregunta
+     * Controller::ERROR indica mostrar un mesaje de error
+     * Controller::WAIT indica mostrar un mesaje de espera
+     * Controller::EXCEPTION indica mostrar un mesaje de excepcion con su respectiva traza, la traza debe 
+     * ser especificada en $other param
+     * 
+     * @param string $msg Mensaje a enviar hacia la vista
+     * @param boolean $success establece si la ccion fue relizada correctamente, por defecto en true
+     * @param integer $cod Indica a la vista el tipo de mensaje a mostrar
+     * @param array $other Array asociativo con un grupo de parametros adicionales a enviar en la respuesta de este mensaje, por ejemplo trzas de una excepcion (e.i array('trace'=>'this is the content of the trace') )
+     * 
      */
     public function show($msg, $success = true, $cod = Controller::INFO, $other = array()) {
         $msgObj = new ItemList();
@@ -105,31 +108,42 @@ class Controller {
         $this->app->contentType(\Raptor\Raptor::JSON);
         return $msgObj->toJson();
     }
-
+    
     /**
-     * Call Twig to process the given template with arguments,
-     * return a string template, to redirize is necesary to manualy
-     * return that string (e.i return $this->render(.....) )
+     * Manda a renderizar una plantilla twig con sus parametros
+     * 
+     * $this->render('@exampleBundle/index.twig');
+     * 
+     * @param string $template La ruta de la plantilla relativa la carpeta Views del bundle especificado
+     * @param array $arguments Un array de parametros a pàsar a la plantilla
+     * @param int $status codigo del rensponse
+     * @return string
      */
     public function render($template, $arguments = array(), $status = NULL) {
         return \Raptor\Raptor::getInstance()->render($template, $arguments, $status);
     }
+    
     /**
-     * Return the string defined to the given tag in the user current language
+     * 
+     * Retorna el texto del tag especificado en el idioma actual del sistema.
+     * 
+     * Si el tag o el idioma no han sido definidos devuelve una cadena vacia
+     * 
      * @param string $tag
-     * @param string $scope
+     * @param string $scope Espacio de variables del bundle donde se ejecutara la accion de lectura
      * @return string
      */
     public function lang($tag, $scope = null) {
         return \Raptor\Raptor::getInstance()->getLanguage()->getBundleLanguage($tag, $scope);
     }
     /**
-     * Set the User prefered Language for the Agent
+     * Establece el lenguaje definido en el navegador 
      */
     public function setPreferedLanguage() {
         $this->app->getLanguage()->setUserPreferedLanguage();
     }
     /**
+     * Retorna el request activo para la peticion actual
      * 
      * @return \Slim\Http\Request
      */
@@ -137,6 +151,7 @@ class Controller {
         return $this->app->request();
     }
     /**
+     * Retorna el manejador de persistencia para esta aplicacion(Doctrine ORM)
      * 
      * @return \Raptor\Persister\Store
      */
@@ -145,6 +160,7 @@ class Controller {
     }
     
     /**
+     * Retorna el manejador de Doctrine ORM
      * 
      * @return \Doctrine\ORM\EntityManager
      */
@@ -153,7 +169,8 @@ class Controller {
     }
     
     /**
-     * Return the authenticated user
+     * Retorna el SessionStore del usuario autenticado
+     * 
      * @return \Raptor\Security\Sessions\SessionStore
      */
     public function getSecurityUser() {
@@ -161,10 +178,14 @@ class Controller {
     }
 
     /**
-     * Redirect the page to the given route
-     * @param string $routeName The Raptor Route Name or Url
-     * @param type $isName 
-     * @param type $status
+     * Redirecciona hacia el nombre de ruta especificado
+     * 
+     * Podra redireccionarse por nombre de ruta o por URL, para
+     * redireccionar a una URL el segundo parametro debera ser false
+     * 
+     * @param string $routeName EL nombre de ruta de Raptor
+     * @param boolean $isName Establece si el primer paremetro es un nombre de ruta o una URL, por defecto en true(nombre de ruta)
+     * @param int $status Codigo de la redireccion
      * @throws \Exception
      */
     public function redirect($routeName, $isName = true, $status = 302) {
@@ -183,7 +204,8 @@ class Controller {
     }
 
     /**
-     * Verify if the active request has a valid csrf token
+     * Verifica si la peticion actual contiene y es valido el token de proteccion CSRF 
+     * 
      * @return boolean
      * @throws \Raptor\Exception\Csrf
      */
@@ -196,14 +218,13 @@ class Controller {
     }
 
     /**
-     * Move given Upload File present in the current request,
-     * to a specified location
      * 
-     * @param string $name This is the param name of the file in the
-     * request(e.i $_FILES['icon'] icon is the name of param )
+     * Mueve el archivo subido en la peticion actual a la locacion especificada
      * 
-     * @param string $dir This is the location where the file will be placed
-     * @return boolean Return true if the file was copied or false otherwise
+     * @param string $name Nombre del parametro del archivo(e.i $_FILES['icon'] icon es el nombre del parametro )
+     * 
+     * @param string $dir Nombre y ruta donde sera movido el archivo
+     * @return boolean Retorna true si el archivo fue movido, false sino fue movido
      */
     public function moveUploadFileTo($name, $dir) {
         if ($_FILES[$name] and $_FILES[$name]['tmp_name'])
@@ -211,9 +232,10 @@ class Controller {
     }
     
     /**
-     * This is used to send data from the server side to the client in JSON FORMAT, 
-     * this method set the apropiate content type for this response
-     * @param array|ItemList $data This is an asociative array of items to send
+     * Este metodo es usado para enviar datos desde el lado del servidor al cliente en formato JSON,
+     * establece el contentType apropiado para la respuesta
+     * 
+     * @param array|ItemList $data Array asociativo con los datos a enviar
      */
     public function JSON($data) {
         if ($data instanceof ItemList)
@@ -225,9 +247,10 @@ class Controller {
     }
 
     /**
-     * This is used to send data from the server side to the client in JSON FORMAT
-     * @param array $other This is an asociative array of items to atach to the message, represent
-     * others data to send with the message, for example the trace of a exception (e.i array('trace'=>'this is the content of the trace') )
+     * Este metodo es usado para enviar datos desde el lado del servidor al cliente en formato JSON,
+     * establece el contentType apropiado para la respuesta
+     * 
+     * @param array|ItemList $data Array asociativo con los datos a enviar
      */
     public function data($data) {
         $cod = Controller::DATA;
@@ -244,17 +267,14 @@ class Controller {
     }
 
     /**
-     * Populate the atributes of the given class or object with parameter from request object.<br>
-     * If the first parameter is a string the collector create a instamce of the
-     * given name of clases. If the the first parameters is a object, use this object
-     * to populate.<br>
-     * @param string/object $class Class to populate atributes
-     * @param string $request The name of the list of parameters most use in the Request<br>
-     * can be: request(POST), query(GET), rest(PUT, DELETE)
-     * @param array $matcher If the atributes of the desire class are not equals
-     * to the request, is necesary give this specification, this is used to match the atributes.
+     * Pobla los atributos de la clase o objeto especificado con los parametros provenientes en el request actual
      * 
+     * Si el primer parametro es una clase el colector crea un instancia de esta.
+     * Si el primer paremtro es un objeto lo usa para poblar segun los parametros del request.
      * 
+     * @param string/object $class clase u objeto a poblar
+     * @param array $matcher un array con el macheo de parametros que no conciden con los atributos de la clase. ejemplo array('nombre'=>'nombre_c') en el ejemplo nombre es el parametro que viene en el request y nombre_c el que esta en la clase, el colector pone el valor de nombre en nombre_c
+     * @return mixed
      */
     public function collector($class,$matcher = array()) {
         $classTo = $class;
@@ -273,10 +293,9 @@ class Controller {
     }
 
     /**
+     * Retorna una instancia del manejador de servicios
      * 
-     * 
-     * 
-     * @return Service Return a instance of the service handler
+     * @return \Raptor\Core\Service
      */
     public function service() {
         return new \Raptor\Core\Service();

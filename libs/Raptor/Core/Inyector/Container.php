@@ -33,7 +33,7 @@
 namespace Raptor\Core\Inyector;
 
 /**
- * Description of Container
+ * Esta clase es el contenedor del inyector de dependencias
  *
  * 
  */
@@ -45,25 +45,36 @@ class Container {
         $this->container = array();
         
     }
-    
+    /**
+     * Registra la instancia de una clase en el contenedor
+     * 
+     * @param mixed $instance la instancia
+     */
     public function add($instance) {
         $reflect = new \Wingu\OctopusCore\Reflection\ReflectionClass($instance);
         
         $this->container[strtolower($reflect->getShortName())] = $instance;
     }
     /**
-     * 
+     * Obtiene la instancia especificada del conteneder
+     * Debe especificarse el nombre de la clase a obtener
      * @param string $class
      * @return object|null
      */
     public function get($class) {
         return (isset($this->container[strtolower($class)])? $this->container[strtolower($class)] : null) ;
     }
-    
+    /**
+     * Devuelve la cantidad de instancias registradas en este contenedor
+     * @return int
+     */
     public function size() {
         return count($this->container);
     }
-    
+    /**
+     * Devuelve todos los nombres de las instancias registradas
+     * @return int
+     */
     public function getRegisteredNames() {
         return array_keys($this->container);
     }

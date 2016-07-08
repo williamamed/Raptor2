@@ -33,7 +33,10 @@
 
 namespace Raptor;
 /**
- * Raptor
+ * Raptor es la clase principal del framework del lado del
+ * servidor. Extiende de la clase principal Slim implementando
+ * la logica general del sistema.
+ * 
  * @package Raptor
  * @since   2.0.0
  */
@@ -67,7 +70,7 @@ class Raptor extends \Slim\Slim {
     const EXCEL = 'application/vnd.ms-excel';
 
 
-        /**
+    /**
      * Store the Global Application Config
      * @var Configuration\ConfigurationLoader
      */
@@ -170,22 +173,27 @@ class Raptor extends \Slim\Slim {
         $this->inyector = new Core\Inyector\Container();
         parent::run();
     }
+    
     /**
-     * Return the Configuration Loader for this App
+     * Retorna la instancia del cargador de configuracion del
+     * sistema, el cargador contiene las directivas de configuracion
+     * general del sistema almacenados en options.yml
+     * 
+     * Tener en cuenta que la configuracion es levantada desde cache, nunca
+     * directamente desde el archivo de configuracion.
+     * 
      * @return Configuration\ConfigurationLoader
      */
     public function getConfigurationLoader() {
         return $this->configuration;
     }
+    
     /**
-     * Return to the agent the Core javascript
-     * library
-     */
-    public function clientCore() {
-        
-    }
-    /**
-     * Return the container to depedency inyector
+     * Retorna la instanacia del Inyector de Dependencias
+     * 
+     * Este contiene todas las instancias de objetos previamente
+     * registrados ys eran llamados por su nombre de clase.
+     * 
      * @return Core\Inyector\Container
      */
     public function getInyector() {
@@ -193,20 +201,27 @@ class Raptor extends \Slim\Slim {
     }
 
     /**
-     * Get the RouteContainer for this App
+     * Retorna el contenedor de reglas para el sistema, debe
+     * de devolver todas reglas registradas en los bundles de
+     * la aplicacion
      * 
      * @return Bundle\Route\RuleContainer
      */
     public function getRuleContainer() {
         return $this->ruleContainer;
     }
-
+    /**
+     * Establece la clase controladora del lenguaje de la aplicacion
+     * 
+     * @param \Raptor\Language\Language $language La clase controladora del lenguaje
+     */
     public function setLanguage(Language\Language $language) {
         $this->language = $language;
     }
 
     /**
-     * Get the Language Configuration
+     * Devuelve la instancia de la clase controladora del lenguaje
+     * 
      * @return Language\Language
      */
     public function getLanguage() {
@@ -214,7 +229,10 @@ class Raptor extends \Slim\Slim {
     }
 
     /**
-     * Get the App Aspect Global Kernel
+     * Devuelve la instancia del nucleo de Aspectos de la aplicacion.
+     * Este nucleo es el contenedor de Aspectos registrados en todos los
+     * bundles del sistema.
+     * 
      * @return \App\AppAspectKernel
      */
     public function getAppAspectKernel() {
@@ -222,7 +240,8 @@ class Raptor extends \Slim\Slim {
     }
 
     /**
-     * Return the current session for this app
+     * Retorna directamente la NativeSession utilizada por el sistema
+     * 
      * @return Security\Sessions\NativeSession
      */
     public function getSession() {
@@ -230,41 +249,89 @@ class Raptor extends \Slim\Slim {
     }
     
     /**
-     * Set the session handler for this app.
-     * This is used by the Security to set the apropiate NativeSession in the precise moment with a 
-     * verification for remote sessions 
-     * @param Security\Sessions\NativeSession $session
+     * Establece el manejador de sesion para esta aplicacion.
+     * 
+     * [ Esta funcion es usada por el Security para establecer el manejador en el momento
+     * preciso con una verificacion a sesiones remotas ]
+     * 
+     * @param Security\Sessions\NativeSession $session  El manejador de sesion
      */
     public function setSession($session) {
         $this->session=$session;
     }
 
     /**
-     * Return the Doctrine Store 
+     * Retorna la instancia del Store(Manejador de Persistencia, Doctrine ORM)
+     * 
      * @return Persister\Store
      */
     public function getStore() {
         return $this->store;
     }
-
+    
+    /**
+     * Establece la instancia del Store(Manejador de Persistencia, Doctrine ORM)
+     * 
+     * [ Esta funcion es usada por Raptor para establecer el manejador ]
+     * 
+     * @param \Raptor\Persister\Store $store Manejador de Persistencia, Doctrine ORM
+     */
     public function setStore(Persister\Store $store) {
         $this->store = $store;
     }
-
+    
+    /**
+     * Establece la instancia del Manejador de seguridad del sistema.
+     * 
+     * [ Esta funcion es usada por Raptor para establecer el manejador ]
+     * 
+     * @param \Raptor\Security\Security $security El manejador de seguridad para esta aplicacion
+     */
     public function setSecurity(Security\Security $security) {
         $this->security = $security;
     }
+    
     /**
-     * Get the security routing for this app
+     * Devuelve la instancia del Manejador de Seguridad
+     * 
      * @return Security\Security
      */
     public function getSecurity() {
         return $this->security;
     }
     /**
-     * Register a render portion with that plugin name
-     * @param string $key the name of the location where to render
-     * @param string $value the content to render in that location
+     * Registra e inyecta codigo para un nombre de plugin determinado.
+     * 
+     * El primer parametro establece para que punto de inyeccion se inyectara
+     * el codigo pasado por el segundo parametro.
+     * 
+     * Los hotpots declarados en Raptor por defecto son:
+     * 
+     * raptor_bundle:
+     * nombre de plugin reservado para inyectar contenido html en el menú bundles del panel de control.
+     * 
+     * raptor_tools:
+     * nombre de plugin reservado para inyectar contenido html en el menú tools del panel de control.
+     * 
+     * raptor_panel:
+     * nombre de plugin reservado para inyectar contenido html en el menú principal del panel de control.
+     * 
+     * core_library_inside: 
+     * nombre de plugin reservado para inyectar funciones javascript en la clase core enviada al cliente. 
+     * Ejemplo getHola: function(){ … }, getHola2: function(){ … }
+     * 
+     * core_library_outside:
+     * nombre de plugin reservado para inyectar funciones javascript en el espacio de variables de la biblioteca
+     * core, este contenido es inyectadoo luego de la creacion del objeto Raptor.
+     * 
+     * core_header: 
+     * nombre de plugin reservado para inyectar contenido html en la sección header de la respuesta actual, 
+     * es inyectado luego del script del core de Raptor.
+     * 
+     * PUEDES ADEMAS CRETAR TUAS PROPIOS PUNTOS DE INYECCION Y LLAMARLOS EN LAS PLANTILLAS TWIG A TRAVES DE LA FUNCION plugin()
+     * 
+     * @param string $key nombre del punto de inyeccion eje. raptor_bundle
+     * @param string $value el contenido o codigo a inyectar, normalmente utilizado en conjunto con render()
      */
     public function setViewPlugin($key,$value) {
         
@@ -274,8 +341,9 @@ class Raptor extends \Slim\Slim {
         
     }
     /**
-     * return the array of plugins registered with that key or all if key is not specified
-     * @param string|NULL $key
+     * Retorna un array de todo el contenido registrado para ese nombre de punto de inyeccion.
+     * 
+     * @param string|NULL $key nombre del punto de inyeccion
      * @return array|false
      */
     public function getViewPlugin($key='') {
@@ -288,7 +356,11 @@ class Raptor extends \Slim\Slim {
                 return false;
         }
     }
-   
+    /**
+     * Retorna el Manejador de API de Raptor, esta debe devolver toda la documentacion declarada en Raptor.
+     * 
+     * @return boolean
+     */
     public function getApi() {
         $api = new \Raptor\Cache\Cache('api');
         if($api->isDirty()){
@@ -298,15 +370,20 @@ class Raptor extends \Slim\Slim {
         }
     }
 
-
+    /**
+     * Devuelve la instancia de la clase utilitaria Timer, esta devuelve informacion sobre el
+     * tiempo en ejecucion de bloques de codigo etc.
+     * 
+     * @return Util\Timer
+     */
     public function getTimer() {
         return $this->timer;
     }
 
     /**
-     * Return an instance of Raptor PHP App expecified
-     * Get application instance by name
-     * @param  string $name The name of the Raptor application
+     * Retorna una instancia unica de esta aplicacion Raptor de acuerdo a su nombre
+     * 
+     * @param  string $name El nombre de la aplicacion
      * @return \Raptor\Raptor|null
      */
      public static function getInstance($name = 'default') {
@@ -314,7 +391,8 @@ class Raptor extends \Slim\Slim {
     }
     
     /**
-     * Render a template
+     * Render a template. 
+     * $this->render('@exampleBundle/index.twig');
      *
      * Call this method within a GET, POST, PUT, PATCH, DELETE, NOT FOUND, or ERROR
      * callable to render a template whose output is appended to the

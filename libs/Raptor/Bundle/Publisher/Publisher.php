@@ -32,17 +32,18 @@
  */
 namespace Raptor\Bundle\Publisher;
 /**
- * Publisher execute a copying routine in the web directory of the
- * especified bundle, be aware that is copied creating the corresponding
- * bundle estrucuture in web
+ * 
  *
+ * Publisher ejecuta una rutina de copia de Recursos del bundle especificado para 
+ * el directorio publico web/bundles
  * 
  */
 class Publisher {
     /**
-     * The publishing files will be those are located in Resources
-     * @param string $bundle The bundle you want to publish in web
-     * @param boolean $extPreCompile if is true execute the extjs precompile routine
+     * Los archivos copiados seran aquellos contenidos en el directrorio Resources del bundle
+     * 
+     * @param string $bundle El bundle que se copiara los recursos
+     * @param boolean $extPreCompile Si este parametro es true, se ejecutaram ademas una rutina de busqueda dentro de los recursos para la compilacion de recursos Extjs
      */
     static public function run($bundle,$extPreCompile=false) {
         $class= new \Wingu\OctopusCore\Reflection\ReflectionClass($bundle);

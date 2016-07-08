@@ -46,7 +46,9 @@ class Security extends \Slim\Middleware {
     private $manager;
 
     
-
+    /**
+     * [USADO POR EL SISTEMA]
+     */
     public function call() {
         $this->app->setSecurity($this);
         $this->app->hook('slim.after', array($this, 'writeToken'));
@@ -56,7 +58,10 @@ class Security extends \Slim\Middleware {
     }
     
     /**
-     * Establish the state of identification process
+     * 
+     * Establece el estado del proceso de idetificacion-autenticacion
+     * TRUE para especificar que el usuario actual se encuentra autenticado
+     * FALSE en caso contrario
      * @param boolean $state
      */
     public function setAuthenticated($state) {
@@ -65,11 +70,12 @@ class Security extends \Slim\Middleware {
         $this->getApplication()->getSession()->set('rpt_auth', $state);
     }
     /**
-     * [Shortcut of setAuthenticated(true)]
-     * Mark the user session has authenticated
+     * [Atajo de setAuthenticated(true)]
+     *  Marca el usuario como autenticado
+     * Opcionalmente pueden especificarse los datos a añadir en la sesion del usuario autenticado
      * 
-     * [IF YOU ARE USING THE SECURITY MANAGER IN SOME HOW LIKE A SECURITY MODULE PROBABLY YOU NEED TO CALL THE LOGIN METHOD IN THE 
-     *  SECURITY MANAGER, SOME MANAGERS ADD OTHER ROUTINES TO THE LOGIN PROCCES]
+     *
+     * @param array $attr atributos del usuario autenticado, esto re-escribira los atributos especificados anteriormente
      */
     public function login($attr=array()) {
         $this->getApplication()->getSession()->set('rpt_user_agent', $this->getApplication()->request()->getUserAgent());
@@ -78,17 +84,17 @@ class Security extends \Slim\Middleware {
             $this->setUser ($attr);
     }
     /**
-     * [Shortcut of setAuthenticated(false)]
-     * Mark the user session has non-authenticated
+     * [Atajo de setAuthenticated(false)]
+     * Marca el usuario como no autenticado
      * 
-     *  [IF YOU ARE USING THE SECURITY MANAGER IN SOME HOW LIKE A SECURITY MODULE PROBABLY YOU NEED TO CALL THE LOGIN METHOD IN THE 
-     *  SECURITY MANAGER, SOME MANAGERS ADD OTHER ROUTINES TO THE LOGIN PROCCES]
+     * 
      */
     public function logout() {
         $this->getApplication()->getSession()->set('rpt_auth', false);
     }
     /**
-     * Get the state of identification process
+     * 
+     * Devuelve el estado del proceso de identificacion-autenticacion
      * @return boolean
      */
     public function isAuthenticated() {
@@ -104,16 +110,18 @@ class Security extends \Slim\Middleware {
         return $result;
     }
     /**
-     * Get the current security Token
+     * Devuelve el token actual de seguridad, este token corresponde a la proteccion CSRF
      * @return string
      */
     public function getToken() {
         return $this->getApplication()->getSession()->get('rpt_csrf');
     }
     /**
-     * Return true if the specifid token
-     * match with the current token
-     * @param string $old
+     * 
+     * Verifica si el token de seguridad espeficicado es valido
+     * Devuelve TRUE si es valido, FALSE en caso contrario
+     * 
+     * @param string $old token de seguridad a verificar
      * @return boolean
      */
     public function verifyToken($old) {
@@ -124,9 +132,10 @@ class Security extends \Slim\Middleware {
         return $this->getToken() == $old;
     }
     /**
-     * Write a new token to the User
      * 
-     * THIS FUNCTION IS CALLED INTERNALLY
+     * Escribe un nuevo token para la session actual
+     * 
+     * [ESTA FUNCION ES USADA INTERNAMENTE POR EL SISTEMA]
      */
     public function writeToken() {
         
@@ -144,8 +153,9 @@ class Security extends \Slim\Middleware {
     }
 
     /**
-     * Get the Security Manager for this App
-     * The Security manager implements Route\Rule
+     * 
+     * Devuelve el manejador de seguridad para esta aplicacion
+     * El Manejador de seguridad implementa Route\Rule y extiende de AbstractSecurityManager
      * @return AbstractSecurityManager
      */
     public function getManager() {
@@ -153,8 +163,9 @@ class Security extends \Slim\Middleware {
     }
 
     /**
-     * Set the Security Manager for this App
-     * The Security manager must implements Route\Rule
+     * 
+     * Setea el manejador de seguridad para esta aplicacion
+     * El Manejador de seguridad implementa Route\Rule y extiende de AbstractSecurityManager
      * @param AbstractSecurityManager $manager
      */
     public function setManager($manager) {
@@ -162,7 +173,8 @@ class Security extends \Slim\Middleware {
     }
     
     /**
-     * Return the an array with the user data stored in the session
+     * 
+     * Devuelve un array con los datos almacenados en la sesion para el usuario autenticado
      * @return array
      */
     public function getUser() {
@@ -170,14 +182,16 @@ class Security extends \Slim\Middleware {
     }
     
     /**
-     * Set the user data to store in the session
+     * 
+     * Setea un array con los datos del usuario
      * @param array $user
      */
     public function setUser(array $user) {
         $this->getApplication()->getSession()->put($user);
     }
     /**
-     * Establish some directives for session protection
+     * Establece directivas y rutinas de proteccion contra ataques
+     * [USADA POR EL SISTEMA]
      */
     static public function directives() {
         $options=  \Raptor\Raptor::getInstance()->getConfigurationLoader()->getConfOption();
@@ -221,8 +235,11 @@ class Security extends \Slim\Middleware {
     }
     
     /**
-     * Check the enviroment to establish the session driver
-     * for charg balance
+     * 
+     * Chequea el ambiente para establecer el manejador de sesion para escenarios de balance de carga
+     * 
+     * Si en la configuracion de Raptor se establece la opcion de sesiones remotas el sistema
+     * implementara la variante para ambientes de balance de carga
      */
     private function chekingSessionEnviroment() {
         $options=  $this->app->getConfigurationLoader()->getConfOption();

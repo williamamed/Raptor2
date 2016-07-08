@@ -1,13 +1,8 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of SessionStore
- * FIX MORE AHEAD
+ * Crea una interfaz de acceso y modificacion de los datos de la session
+ * a traves de un ItemList
  * @author Dinobyte
  */
 namespace Raptor\Security\Sessions;
@@ -32,7 +27,10 @@ class SessionStore extends ItemList {
          $session = \Raptor\Raptor::getInstance()->getSession();
          $session->put($this->getArray());
     }
-    
+    /**
+     * Retorna la Sesion para este SessionStore
+     * @return \Raptor\Security\Sessions\NativeSession
+     */
     public function getSession() {
         return \Raptor\Raptor::getInstance()->getSession();
     }

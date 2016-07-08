@@ -18,6 +18,12 @@ use Assetic\Asset\FileAsset;
 use Assetic\Asset\GlobAsset;
 use Assetic\Filter\CssMinFilter;
 use Raptor\Asset\Resources;
+
+/**
+ * La clase AssetCompiler establece las directivas de tratamiento
+ * y minificacion de los recursos web de la aplicacion Raptor
+ * 
+ */
 class AssetCompiler {
 
     private $resources = null;
@@ -34,9 +40,10 @@ class AssetCompiler {
         $this->force=$force;
     }
     /**
-     * This directive add a file to be minified
-     * @param string $resources The relative route resource ie. ('js/my.js')
-     * @param type $location This determine if lookup of the specified resource must be in the bundle resources(true default) or in the webbundles dir (false)
+     * Añade un archivo para ser minificado
+     * 
+     * @param string $resources La ruta relativa a la carpeta Resources del bundle o relativa a la carpeta web/bundles ie. ('js/my.js')
+     * @param boolean $location Por defecto este parametro es true, si se encuentra en true, el parametro $resources sera relativo al Resources del bundle, si es false entonces a web/bundles
      * @return \Raptor\Asset\AssetCompiler
      */
     public function add($resources, $location = true) {
@@ -55,7 +62,16 @@ class AssetCompiler {
         $this->resources->add($std);
         return $this;
     }
-
+    
+    /**
+     * Añade un grupo de archivos para ser minificados, esto se establece a traves de comodin
+     * 
+     * exjemplo '/path/to/css/*'
+     * 
+     * @param string $resources La ruta relativa a la carpeta Resources del bundle o relativa a la carpeta web/bundles ie. ('js/*.js')
+     * @param boolean $location Por defecto este parametro es true, si se encuentra en true, el parametro $resources sera relativo al Resources del bundle, si es false entonces a web/bundles
+     * @return \Raptor\Asset\AssetCompiler
+     */
     public function addGroup($resources, $location = true) {
         $std = new \stdClass();
         if ($location) {
@@ -71,7 +87,17 @@ class AssetCompiler {
         $this->resources->add($std);
         return $this;
     }
-
+    
+    /**
+     * Eejecuta la rutina de minificacion
+     * 
+     * Los tipos de recursos aceptados son:
+     * Resources:CSS
+     * Resources:JS
+     * Resources:NONE
+     * 
+     * @param int $compile El tipo de recurso a minificar
+     */
     public function compile($compile= Resources::NONE) {
         require_once __DIR__.'/cssmin-v3.0.1.php';
         require_once __DIR__.'/jsmin.php';

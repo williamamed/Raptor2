@@ -31,16 +31,16 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/**
- * The configuration loader handle all the Raptor global configuration,
- * storage the values of route definitions, registed bundles, global options, 
- * classes absolute locations, Api definitions Etc.
- *
- * 
- */
+
 namespace Raptor\Configuration;
 use Raptor\Core\Location;
-
+/**
+ * 
+ * El cargador de configuracion maneja toda la configuracion global de Raptor,
+ * definicion de rutas, bundles registrados, locaciones absolutas de los bundles
+ * y definiciones api etc...
+ * 
+ */
 class ConfigurationLoader {
     
     protected $options;
@@ -79,7 +79,7 @@ class ConfigurationLoader {
         $this->read();
         
     }
-
+    
     private function read() {
         if(!$this->cacheautoinstaller->isDirty()){
             $this->autoinstaller=  $this->cacheautoinstaller->getData();
@@ -167,7 +167,8 @@ class ConfigurationLoader {
         return $text;
     }
    /**
-    * Return a Std class representing the tag definition in the conf file,<br>
+    * [USO DEL SISTEMA]
+    * 
     * ei. "hash($TH$63.YHHSKKSK*&SJHJS&%JHD.sIIMNs)" = {mode: hash, password: $TH$63.YHHSKKSK*&SJHJS&%JHD.sIIMNs}
     * @param string $definition
     * @return \stdClass
@@ -193,21 +194,21 @@ class ConfigurationLoader {
     }
 
     /**
-     * Return the all the configuration in one array
+     * Retorna toda la configuracion en un array
      * 
-     * ['options'=><br>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;['database'=>...,'raptor'=>...],<br>
-     *  'bundles'=><br>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;['database','raptor'],<br>
-     *  'routes'=><br>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;['route_name'=>['/path','Bundle\ClassController','MethodToCall']],<br>
-     *  'location'=><br>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;['bundleName'=>'src/exampleBundle'],<br>
-     *  'specifications'=><br>
-     *  &nbsp;&nbsp;['bundleName'=><br>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;['location'=>'src/exampleBundle',<br>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;'namespace'=>'example\exampleBundle',<br>
-     *  &nbsp;&nbsp;&nbsp;&nbsp;'name'=>'example\exampleBundle\exampleBundle']<br>
+     * ['options'=>
+     *      ['database'=>...,'raptor'=>...],
+     *  'bundles'=>
+     *      ['\exmples\ejemploBundle']
+     *  'routes'=>[
+     *      ['route_name'=>['/path','Bundle\ClassController','MethodToCall']],
+     *  'location'=>
+     *      ['bundleName'=>'src/exampleBundle'],
+     *  'specifications'=>
+     *      ['bundleName'=>
+     *          ['location'=>'src/exampleBundle',
+     *          'namespace'=>'example\exampleBundle',
+     *          'name'=>'example\exampleBundle\exampleBundle']
      *  ]
      * @return Array
      */
@@ -215,8 +216,9 @@ class ConfigurationLoader {
         return $this->options;
     }
     /**
-     * Set the options to the conf options file
-     * You need to call flush to write in the config file
+     * 
+     * Setea las opciones de configuracion para el archivo option.yml
+     * necesitas ejecutar flush luego de esta accion
      * @param Array $array
      */
     public function setConfOption($array) {
@@ -227,7 +229,8 @@ class ConfigurationLoader {
     }
 
     /**
-     * Return the configuration array
+     * 
+     * Retorna la configuracion de options.yml en un array
      * 
      * @return Array
      */
@@ -236,7 +239,7 @@ class ConfigurationLoader {
     }
 
     /**
-     * Return all the routes registered
+     * Retorna todas las rutas registradas
      * ['route_name'=>['/path','Bundle\ClassController','MethodToCall']]
      * 
      * @return Array
@@ -246,7 +249,7 @@ class ConfigurationLoader {
     }
     
     /**
-     * Return all the routes descriptions
+     * Retorna todas las descripciones de rutas
      * ['/path'=>['This route is for doing something']]
      * 
      * @return Array
@@ -256,7 +259,7 @@ class ConfigurationLoader {
     }
 
     /**
-     * Return the bundles location
+     * Retorna todas las locaciones de los bundles
      * ['bundleName'=>'src/exampleBundle']
      * 
      * @return Array
@@ -266,7 +269,7 @@ class ConfigurationLoader {
     }
 
     /**
-     * Return the bundles registered
+     * Retornas los bundles registrados
      * ['\example\exampleBundle\exampleBundle']
      * 
      * @return Array
@@ -276,12 +279,12 @@ class ConfigurationLoader {
     }
 
     /**
-     * Return the bundles location
+     * Retorna las especificaciones de los bundles
      * 
      *      ['bundleName'
-     *      &nbsp;&nbsp;=>['location'=>'src/exampleBundle',
-     *       &nbsp;&nbsp;&nbsp;&nbsp;'namespace'=>'example\exampleBundle',
-     *       &nbsp;&nbsp;&nbsp;&nbsp;'name'=>'example\exampleBundle\exampleBundle']
+     *          =>['location'=>'src/exampleBundle',
+     *              'namespace'=>'example\exampleBundle',
+     *              'name'=>'example\exampleBundle\exampleBundle']
      *       ]
      * 
      * @return Array
@@ -291,8 +294,8 @@ class ConfigurationLoader {
     }
 
     /**
-     * Force the ConfigurationLoader
-     * to recompile the configuration
+     * 
+     * Fuerza al cargador a re-leer la configuracion
      * and cached
      */
     public function forceLoad() {
@@ -300,7 +303,7 @@ class ConfigurationLoader {
         $this->read();
     }
     /**
-     * Write in the conf options file
+     * Escirbe en el archivo de configuracion
      */
     public function writeOptions() {
         
@@ -313,7 +316,7 @@ class ConfigurationLoader {
         
     }
     /**
-     * Add a bundles in the conf bundles file
+     * Añade un bundle al archivo de registro de bundles
      * @param array|string $bundles
      */
     public function registerBundle($bundles) {
@@ -329,7 +332,7 @@ class ConfigurationLoader {
     }
     
     /**
-     * Remove a bundles in the conf bundles file
+     * Remueve un bundle del archivo de registro de bundles
      * @param string $bundle
      */
     public function unRegisterBundle($bundle) {
@@ -348,7 +351,7 @@ class ConfigurationLoader {
         file_put_contents($app . '/conf/bundles.yml', $ymlParam);
     }
     /**
-     * 
+     * Devuelve la instancia de la cache system
      * @return \Raptor\Cache\Cache
      */
     public function getCache() {
@@ -356,7 +359,9 @@ class ConfigurationLoader {
     }
     
     /**
-     * Get an array of messages corresponding to the last bundles autoinstall operations
+     * 
+     * Devuelve un array con los mensajes correspondientes a los ultimos bundles que realizaron
+     * operaciones de autoinstalacion
      * @return array
      */
     public function getAutoInstallMessage() {

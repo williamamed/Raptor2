@@ -12,12 +12,10 @@
  */
 namespace Raptor\Core;
 /**
- * This class return the absolute path to the main locations of the app
- * app
- * src
- * cache
- * web
- * web_bundles
+ * 
+ * Esta clase retorna todas las rutas absolutas en el servidor de las principales
+ * partes del sistema, app, src, cache, web, web_bundles, libs
+ * 
  */
 class Location {
    static private $instance = null;
@@ -26,6 +24,7 @@ class Location {
    const SRC='src';
    const CACHE='cache';
    const WEB='web';
+   const LIBS='libs';
    const WEBBUNDLES='web_bundles';
    
    private function __construct() {
@@ -34,15 +33,14 @@ class Location {
            'src'=>__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'src',
            'cache'=>__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'cache',
            'web'=>__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'web',
+           'libs'=>__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'libs',
            'web_bundles'=>__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'web'.DIRECTORY_SEPARATOR.'bundles'
        );
    }
     /**
-     * app
-     * src
-     * cache
-     * web
-     * web_bundles
+     * retorna todas las rutas absolutas en el servidor de las principales partes del sistema.
+     *  
+     * app, src, cache, web, web_bundles, libs
      * 
      * @param string $location
      * @return url

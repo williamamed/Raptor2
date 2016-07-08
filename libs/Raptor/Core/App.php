@@ -33,7 +33,8 @@
 namespace Raptor\Core;
 
 /**
- * Represent the main app of raptor
+ * Clase abstracta para la representacion de la clase
+ * de entrada principal de Raptor, Main.php en app
  *
  * 
  */
@@ -46,11 +47,12 @@ abstract class App extends \Slim\Middleware {
         $this->next->call();
     }
     /**
-     * This method is call it in first in the execution tree of a Raptor app
+     * 
+     * Este metodo es llamado de primero en cada ejecucion de request de Raptor
      */
     abstract public function init(\Raptor\Raptor $app);
     /**
-     * Register a instance in the container
+     * Registra instancias en el contenedor del inyector de dependencias
      */
     abstract public function registerClass(Inyector\Container $container);
 }

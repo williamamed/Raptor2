@@ -32,10 +32,12 @@
  */
 namespace Raptor\Persister;
 /**
- * Exporter make and save a file data from the database with the especified tables, 
- * this is generaly used to save not large amount of data in a PHP format for compatibily
- * with all database engines
- * [THIS OPERATION IS SIMILAR TO THE EXPORTING PHP ARRAY OF PHPMYADMIN]
+ * 
+ * 
+ * La clase Exporter crea y salva un archivo con los datos de la base de datoscon las
+ * tablas especificadas, esto es generalmente usado para salvar pequeños montos de datos
+ * en formato PHP para garantizar la compativilidad con todos los motores de base de datos
+ * [ESTA OPERACION ES SIMILAR A LA RUTINA DE EXPORTACION EN ARRAY PHP DE  PHPMYADMIN ]
  * 
  */
 class Exporter {
@@ -55,7 +57,17 @@ class Exporter {
         $this->store=$store;
     }
     /**
-     * Set an array of entities that represent the tables that will be saved in the file data
+     * 
+     * Setea un array con las entidades que representan las tablas que seran salvadas
+     * Estas seran salvadas en un archivo en formato array php
+     * 
+     * $this->getStore()
+     *               ->getExporter()
+     *               ->setEntities(array(
+     *                   '\examples\exampleBundle\Model\Entity\Persona'
+     *               ))
+     *               ->save(__DIR__ . '/exportExample.php');
+     * 
      * @param array $entities
      * @return \Raptor\Persister\Exporter
      */
@@ -65,21 +77,37 @@ class Exporter {
     }
     
     /**
-     * Set an array of table names or the tag all to export the especified tables or all
+     * 
+     * Setea un array con los nombres de las tablas o el comodin (*) para exportarlas todas
+     * El comodin para exportar todas las tablas podra ser la palabra reservada (all) o (*)
+     * 
+     * $this->getStore()
+     *               ->getExporter()
+     *               ->setTables('*')->save(__DIR__ . '/exportExample.php');
+     * 
      * @param array|string $tables
      * @return \Raptor\Persister\Exporter
      */
     public function setTables($tables) {
         if(is_array($tables))
             $this->tables=$tables;
-        elseif ($tables==='all') {
+        elseif ($tables==='all' or $tables==='*') {
             $this->tables =$this->store->getManager()->getConnection()->getSchemaManager()->listTableNames();
         }
         return $this;
     }
     /**
-     * Save a file data from the database with the tables especified
-     * @param string $file
+     * 
+     * Salva los datos con el nombre y ruta especificado
+     * 
+     * $this->getStore()
+     *               ->getExporter()
+     *               ->setEntities(array(
+     *                   '\examples\exampleBundle\Model\Entity\Persona'
+     *               ))
+     *               ->save(__DIR__ . '/exportExample.php');
+     * 
+     * @param string $file nombre del archivo a salvar con los datos
      */
     public function save($file) {
         $definition=array();
