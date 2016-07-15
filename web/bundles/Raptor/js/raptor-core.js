@@ -31,7 +31,7 @@
 Raptor.controlActions=function() {
     if(!Raptor.getActions){
                 
-                console.error("You are using the function Raptor.getActions() provided by the Syntarsus Module wich is not linked to this route.");
+                console.info("You are using the function Raptor.getActions() provided by the Syntarsus Module wich is not linked to this route.");
                 return;
             }
             
@@ -185,7 +185,7 @@ Raptor.msg={
     bootstrap:{},
     tags: {
         es:{
-            yes:'SÃ­',
+            yes:'Sí',
             no: 'No',
             close:'Cerrar',
             acept:'Aceptar'
@@ -322,7 +322,7 @@ if(window.Ext){
 
         });
         
-        Raptor.msg.extjs.info=function(msg,duration,background){
+        Raptor.msg.extjs.info=function(msg,duration,background,type){
                var f = Ext.DomHelper.append(Ext.getBody(), {
                             tag: 'span',
                             cls: 'msg-raptor2'
@@ -334,7 +334,7 @@ if(window.Ext){
                                back=background;
                         Ext.DomHelper.applyStyles(f, {
                             'width': '300px', 'z-index': '1000000',
-                             'padding':'5px',
+                             'padding':'0px',
                              'margin-bottom':'5px',
                              'background-color': back,
                              'color':'#fff',
@@ -374,45 +374,78 @@ if(window.Ext){
                              'position':'relative'
                              
                         });
+                        var titleb='';
+                        switch (type){
+                            case Raptor.ERROR:{
+                                 titleb="Ops !!";   
+                                 break;   
+                            }
+                            case Raptor.INFO:{
+                                 titleb="";   
+                                 break;      
+                            }
+                            default:{
+                                 titleb="";   
+                                 break;         
+                            }
+                        }
                         var im = Ext.DomHelper.append(f, {
                             tag: 'span',
-                            html: '<span class="icon-info" style="width:20px;height:20px; float:left;margin:2px;"></span>',
-                            cls: 'x-window-dlg'
+                            html: '<span class="icon-info" style="width:20px;height:20px; float:left;margin:2px;"></span><b>'+titleb+'</b>',
+                            cls: 'x-window-dlg',
+                            style:{
+                                background:'rgba(0,0,0,0.2)',
+                                padding:'5px',
+                                display:'block'
+                            }
                         }, true);
-
+                        
 
                         var tex = Ext.DomHelper.append(f, {
                             tag: 'span',
 
-                            html: msg
-
+                            html: msg,
+                            style:{
+                                boxSizing: 'content-box !important',
+                                padding:'5px'
+                            }
 
                         }, true);
-
+                        
+                        
+                        
                         Ext.DomHelper.applyStyles(tex, {
-                            'font': 'bold', 'margin': '10px', 'float': 'rigth'
+                            padding:'8px',boxSizing: 'content-box !important',
+                            display:'block',
+                            'font':'normal 100%/2.1 "Lucida Grande", Tahoma, sans-serif',
+                            
                         });
                         f.appendTo(Raptor.core.storage.container);
-                        f.show(true);
+                        
+                        f.fadeIn({
+                            opacity: 1, //can be any value between 0 and 1 (e.g. .5)
+                            easing: 'easeOut',
+                            duration: 1500
+                        });
                         var timeTo=15;
                         if(duration){
                             timeTo=duration;
                         }
 
                         var time=setTimeout(function() {
-                            im.hide(true);
-                            tex.hide(true);
-                         Ext.DomHelper.applyStyles(f, {
+                                im.hide(true);
+                                tex.hide(true);
+                             Ext.DomHelper.applyStyles(f, {
 
-                             'border-radius':'0px',
-                             'padding':'0px',
-                             'margin-bottom':'0apx'
-                        });
-                         Ext.fly(f).setHeight(0, {
-                            duration : 500, // animation will have a duration of .5 seconds
-                            // will change the content to "finished"
-                            callback: function(){  f.remove(); }
-                        });
+                                 'border-radius':'0px',
+                                 'padding':'0px',
+                                 'margin-bottom':'0apx'
+                            });
+                             Ext.fly(f).setHeight(0, {
+                                duration : 500, // animation will have a duration of .5 seconds
+                                // will change the content to "finished"
+                                callback: function(){  f.remove(); }
+                            });
 
 
                         }, timeTo*1000); 
@@ -464,7 +497,7 @@ if(window.Ext){
         
         Raptor.msg.extjs.error=function(msg,float,fn,scope){
             if(float===undefined || float===true){
-                Raptor.msg.extjs.info(msg,undefined,'#990033');
+                Raptor.msg.extjs.info(msg,undefined,'#990033',Raptor.ERROR);
             }else{
                  var buttons = new Array(Ext.MessageBox.OK, Ext.MessageBox.OKCANCEL, Ext.MessageBox.OK);
                  var title = new Array('', '', '');
@@ -539,7 +572,7 @@ if(window.jQuery){
                 classe=background;
             var info=$('<div class="alert '+classe+' alert-dismissible fade in" role="alert" style="position: fixed;right: 15px;top: 50px;z-index:100000"></div>');
             var btn=$('<button class="close" data-dismiss="alert" type="button"></button>');
-            btn.append('<span aria-hidden="true">Ã—</span>');
+            btn.append('<span aria-hidden="true">×</span>');
             btn.append('<span class="sr-only">Close</span>');
             info.append(btn);
             info.append('<p>'+msg+'</p>');
