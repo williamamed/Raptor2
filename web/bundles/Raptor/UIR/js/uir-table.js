@@ -21,10 +21,11 @@
                         this.$element=$element;
                         this.container=$("<div></div>");
                         if(this.options.putRootClass===true)
-                            this.container.addClass('uir-table');
+                            this.container.addClass('uir-table container-fluid');
 			$element.before(this.container);
-                        this.container.append($element);
                         
+                        //this.container.append($element);
+                         
                         this.body=$element.find('tbody');
                         
                         if(this.body.size()==0){
@@ -33,8 +34,9 @@
                         }
                         //Loading template
                         this.loading=$('<div></div>');
-                        this.loading.addClass('text-center')
-                        this.loading.append('<span class="label label-info " style="position:relative;top: 50%;"><b class="uir-loading-table" style="margin-right:5px;"></b>Cargando datos</span>')
+                        this.loading.addClass('')
+                        this.loading.append('<div class="uir-table-loading-indicator"></div>')
+                        this.loading.append('<h4 class="uir-table-loading-text" style="text-align:center;position:absolute;top:50%;margin-top: 20px;width:100%">Cargando..</h4>')
                         this.loading.css({
                             'background':'rgba(0,0,0,0.5)',
                             'position':'absolute',
@@ -45,32 +47,56 @@
                         this.loading.hide();
                         //Filas de arriba y abajo
                         this.rowUp=$("<div class='row-fluid'>");
+                        this.rowCenter=$("<div class='row-fluid'>");
+                        
                         this.rowDown=$("<div class='row-fluid'>");
                         this.container.prepend(this.rowUp);
+                        this.container.append(this.rowCenter);
                         this.container.append(this.rowDown);
                         //Lugar de derecha e izquierda de arriba
-                        this.rowUpLeft=$("<div class='span6'></div>");
-                        this.rowUpRight=$("<div class='span6'></div>");
+                        this.rowUpLeft=$("<div class='col-lg-9'></div>");
+                        this.rowUpRight=$("<div class='col-lg-3'></div>");
                         this.rowUp.append(this.rowUpLeft);
                         this.rowUp.append(this.rowUpRight);
                         if(this.options.hideTop==true)
                             this.rowUp.hide();
                         if(this.options.searching==true){
                             var con=$('<div></div>');
-                            con.addClass('input-append');
+                            con.addClass('input-group');
+                            //con.addClass('col-md-3');
                             
-                            this.searchingEl=$("<input type='text'>");
-                            con.addClass('pull-right');
+                            this.searchingEl=$("<input class='form-control' type='text'>");
+                            //con.addClass('pull-right');
                             this.searchingEl.attr('placeholder','Buscar...');
                             con.append(this.searchingEl);
                             this.searchingEl.on('keypress',this,this.onSearch);
-                            this.btnSearch=$('<button class="btn btn-primary"><i class="icon-search"></i></button>');
-                            con.append(this.btnSearch);
+                            this.btnSearch=$('<button class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>');
+                            var span=$('<span class="input-group-btn">');
+                            
+                            span.append(this.btnSearch);
+                            con.append(span)
                             this.btnSearch.css('height','35px');
                             
                             this.rowUpRight.append(con);
                             this.btnSearch.click(this,this.onSearchBtn);
                         }
+                        
+                        this.rowTable=$("<div class='col-lg-12'></div>");
+                        
+                        if(this.options.height){
+                            this.rowTable.css({
+                                overflow:'hidden'
+                            })
+                            this.rowTable.height(this.options.height)
+                            this.rowTable.perfectScrollbar({
+                                suppressScrollX:true
+                            });
+                        }
+                        
+                        this.rowTable.append($element);
+                        this.rowCenter.append(this.rowTable);
+                        $element.css('marginTop',5);
+                        
                         if(this.options.header){
                             $element.find('thead').remove();
                             this.header=$('<thead></thead>');
@@ -118,24 +144,24 @@
                         this.dataCount=this.data.length;
                        if(this.options.paging==true){
                            this.currentPage=1;
-                            this.pagingSelect=$("<select name='example_length' size='1'>"+
+                            this.pagingSelect=$("<select class='form-control' name='example_length' size='1'>"+
                                 "<option value='10' selected='selected'>10</option>"+
                                 "<option value='25'>25</option>"+
                                " <option value='50'>50</option>"+
                                 "<option value='100'>100</option>"+
                             "</select>");
-                            this.rowDownLeft=$("<div class='span6'></div>");
+                            this.rowDownLeft=$("<div class='col-lg-2'></div>");
                             this.rowDownLeft.append(this.pagingSelect);
                             this.rowDown.append(this.rowDownLeft);
                             
-                            this.pagination=$("<div class='pagination'>"+
-                                    "<ul>"+
-                                       " <li><a href='#'><i class=' icon-chevron-left'></i>Prev</a></li>"+
+                            this.pagination=$("<nav>"+
+                                    "<ul class='pagination'>"+
+                                       " <li><a href='#'><span aria-hidden='true'>&laquo;</span><span class='sr-only'>Previous</span></a></li>"+
                                        
-                                       " <li class='prev'><a href='#'>Next<i class='icon-chevron-right'></i></a></li>"+
+                                       " <li class='prev'><a href='#'><span aria-hidden='true'>&raquo;</span><span class='sr-only'>Next</span></a></li>"+
                                    " </ul>"+
-                                    "</div>");
-                            this.rowDownRight=$("<div class='span6'></div>");
+                                    "</nav>");
+                            this.rowDownRight=$("<div class='col-lg-6 pull-right'></div>");
                             this.rowDownRight.append(this.pagination);
                             this.pagination.addClass('pull-right');
                             this.rowDown.append(this.rowDownRight);
@@ -207,6 +233,7 @@
                     this.$element.trigger(e)
                     
                 },
+                
                 makeLoad:function(url,opt){
                     this.showLoading();
                     this.__on_deselect_row.call(this.__on_deselect_row_scope);
@@ -226,9 +253,17 @@
                             op=$.extend({},{},opt);
                     if(this.options.searching==true)
                         op.query=this.searchingEl.val();
-                    $.post(url, op,function(data){
-                        me.onLoadServer($.parseJSON(data));
-                       
+                    $.ajax({
+                        url:url,
+                        type :'POST',
+                        data:op,
+                        success:function(data){
+                            me.onLoadServer(data);
+
+                        },
+                        error:function(){
+                            me.onLoadServer([]);
+                        }
                     });
                     
                 },
@@ -248,28 +283,41 @@
                     if(rest>0)
                         cant++;
                     this.pagination.empty();
-                    this.pagination.append("<ul>"+
-                                       " <li class='prev'><a  href='#' ><i class='icon-chevron-left'></i>Prev</a></li>"+
+                    
+                    this.pagination.append("<ul class='pagination'>"+
+                                       " <li class='prev'><a href='#'><span aria-hidden='true'>&laquo;</span><span class='sr-only'>Previous</span></a></li>"+
                                        
-                                       " <li class='next'><a href='#'>Next<i class='icon-chevron-right'></i></a></li>"+
+                                       " <li class='next'><a href='#'><span aria-hidden='true'>&raquo;</span><span class='sr-only'>Next</span></a></li>"+
                                    " </ul>");
                     this.prevButton=this.pagination.find('li[class=prev] a');
                     this.nextButton=this.pagination.find('li[class=next] a');
                     
                     if(num>0||this.dataCount==0){
-                        this.prevButton.hide();
+//                        this.prevButton.hide();
+                          this.prevButton.parents('li').addClass('disabled');
                     }
                     
                     if(this.currentPage*this.pagingSelect.val()>=this.dataCount){
-                        this.nextButton.hide();
-                        
+//                        this.nextButton.hide();
+                          this.nextButton.parents('li').addClass('disabled');
                     }
+                    
+                    for(var i=1;i<=cant;++i){
+                        var pag=$('<li class="uir-pag uir-pag-'+i+'"><a href="#">'+i+'</a></li>');
+                        pag.data('pag',i);
+                        this.nextButton.parents('li').before(pag);
+                    }
+                    this.pagination.find('li').removeClass('active');
+                    this.pagination.find('li.uir-pag-'+this.currentPage).addClass('active');
+                    this.pagination.find('li.uir-pag a').click({scope:this,button:3},this.onPageClick);
                     this.nextButton.click({scope:this,button:2},this.onPageClick);
                     this.prevButton.click({scope:this,button:1},this.onPageClick);
                    
                   
                 },
                 onPageClick:function(e){
+                    if($(this).parents('li').hasClass('disabled') || $(this).parents('li').hasClass('active'))
+                        return false;
                     var me=e.data.scope;
                     var opt=e.data.button;
                     var numpag=me.pagingSelect.val();
@@ -281,6 +329,9 @@
                     if(opt==2){
                         me.currentPage++; 
                         
+                    }
+                    if(opt==3){
+                        me.currentPage=$(this).parents('li').data('pag');
                     }
                     if(me.options.url){
                         me.makeLoad('',{size:numpag,page:me.currentPage});    
@@ -296,15 +347,17 @@
                     me.nextButton.show();
                     me.prevButton.show();
                     if(me.currentPage*me.pagingSelect.val()>=me.dataCount){
-                        me.nextButton.hide();
-                        me.prevButton.show();
-                       
+//                        me.nextButton.hide();
+//                        me.prevButton.show();
+                          me.nextButton.parents('li').addClass('disabled');
+                          me.prevButton.parents('li').removeClass('disabled')
                     }else{
-                        me.nextButton.show();
+//                        me.nextButton.show();
+                        me.nextButton.parents('li').removeClass('disabled');
                     }
                     if(me.currentPage==1){
-                        me.prevButton.hide();
-                        
+//                        me.prevButton.hide();
+                        me.prevButton.parents('li').addClass('disabled')
                     }
                     
                 },
@@ -347,8 +400,11 @@
                     }
                     if(numpag==0){
                         this.rowUpLeft.empty();
+                        $('.uir-table-no-data').remove();
                         this.rowUpLeft.append('<span class="label label-info text-center " style="margin-top:10px;">No se encontraron datos para mostrar</span>');
+                        this.rowCenter.append('<div class="uir-table-no-data" style="text-align:center;color:gray;border-bottom:1px #d3d3d3 solid ;text-shadow: 0 2px 4px rgba(0, 0, 0, .6);padding-bottom:15px;margin-bottom: 10px">Sin datos para mostrar</div>')
                     }else{
+                        $('.uir-table-no-data').remove();
                         this.rowUpLeft.empty();
                         var text='';
                         if(this.options.paging==true){
@@ -422,7 +478,148 @@
                                         else
                                             td.html(val);
                                         tr.append(td);
+                                        if(val2.style)
+                                            td.attr('style',val2.style);
+                                        if(val2.cls)
+                                            td.addClass(val2.cls);
                                         
+                                        if(val2.editable){
+                                            var clicked=false;
+                                            var funcion=function(e){
+                                                
+                                                if(clicked){
+                                                    clicked=false;
+                                                    return;
+                                                }
+                                                e.stopPropagation();
+                                                var before=td.html();
+                                                var sub=$('<div>');
+                                                sub.append(before);
+                                                td.empty();
+                                                td.append(sub);
+                                                td.children().hide();
+                                                
+                                                
+                                                var input=$('<input type="text" class="form-control">');
+                                                
+                                                var con=$('<div class="selectContainer"></div>');
+                                                if(val2.editable.autoComplete)
+                                                input=$('<select  class="form-control" title="Seleccione..">'+
+                                                        '<option value=""></option>'+
+                                                        
+                                                    '</select>')
+                                                con.append(input);
+                                                
+                                               if(val2.editable.autoComplete &&val2.editable.data instanceof Array){
+                                                    var lon=val2.editable.data.length;
+                                                    var idMap=(val2.editable.map)?val2.editable.map.id:'id';
+                                                    var textMap=(val2.editable.map)?val2.editable.map.text:'text';
+                                                    for (var k=0;k<lon;++k){
+                                                        input.append('<option value="'+(val2.editable.data[k][idMap]?val2.editable.data[k][idMap]:val2.editable.data[k][textMap])+'">'+val2.editable.data[k][textMap]+'</option>');
+                                                    }
+                                                }
+                                                
+                                                if(val2.editable.autoComplete && val2.editable.data instanceof Function){
+                                                    var dataOld=val2.editable.data();
+                                                    var lon=dataOld.length;
+                                                    var idMap=(val2.editable.map)?val2.editable.map.id:'id';
+                                                    var textMap=(val2.editable.map)?val2.editable.map.text:'text';
+                                                    for (var k=0;k<lon;++k){
+                                                        input.append('<option value="'+(dataOld[k][idMap]?dataOld[k][idMap]:dataOld[k][textMap])+'">'+dataOld[k][textMap]+'</option>');
+                                                    }
+                                                }
+                                                
+                                                
+                                                con.click(function(){
+                                                    e.stopPropagation();
+                                                    clicked=true;
+                                                })
+                                                if(val2.editable.autoComplete)
+                                                input.selectpicker().change(function(){
+                                                        row[i]=!input.find('option:selected').html()?null:input.find('option:selected').html();
+                                                        con.remove();
+                                                        clicked=true;
+                                                        td.html(val2.render.call(me,row[i],row));
+                                                        
+                                                        
+                                                        td.children().show();
+                                                        if(val2.editable.onSave){
+                                                            val2.editable.reject=function(){
+                                                                    row[i]=prev;
+                                                                    td.html(val2.render.call(me,row[i],row));
+                                                            }
+                                                            var result=val2.editable.onSave(row[i],input.val(),row);
+//                                                           
+                                                        }
+                                                });
+                                                
+                                                
+                                                
+                                                
+                                                if(val2.editable.style)
+                                                    input.attr('style',val2.editable.style)
+                                                input.width(td.width()-40);
+                                                
+                                                input.click(function(e){
+                                                    e.stopPropagation();
+                                                });
+                                                input.blur(function(e){
+                                                    e.stopPropagation();
+                                                    $(this).remove();
+                                                    td.children().show();
+                                                });
+                                                input.keyup(function (e) { 
+                                                    e.stopPropagation();
+                                                    if (e.which == 27){
+                                                        $(this).remove();
+                                                        td.children().show();
+                                                    }
+                                                    var valid=true;
+                                                    if(val2.editable.validation){
+                                                        if(val2.editable.validation instanceof Function){
+                                                            valid=val2.editable.validation.render.call(me,input.val(),row);
+                                                        }else{
+                                                            valid=val2.editable.validation.test(input.val());
+                                                        }
+                                                    }
+                                                    if(valid)
+                                                        input.removeClass('error');
+                                                    else{
+                                                        input.addClass('error');
+                                                        return;
+                                                    }
+                                                   
+                                                    
+                                                    if (e.which == 13){
+                                                        row[i]=!input.val()?null:input.val();
+                                                        td.html(val2.render.call(me,row[i],row));
+                                                        
+                                                        $(this).remove();
+                                                        td.children().show();
+                                                        if(val2.editable.onSave){
+                                                            val2.editable.reject=function(){
+                                                                    row[i]=prev;
+                                                                    td.html(val2.render.call(me,row[i],row));
+                                                            }
+                                                            var result=val2.editable.onSave(row[i],row);
+//                                                           
+                                                        }
+                                                    }
+                                                });
+                                                if(val2.editable.autoComplete){
+                                                    $(this).append(con)
+                                                    
+                                                }else
+                                                    $(this).append(input);
+                                                input.val(row[i]);
+                                                var prev=row[i];
+                                                input.focus();
+                                            }
+                                            if(val2.editable.click && val2.editable.click==1)
+                                                td.click(funcion);
+                                            else
+                                                td.dblclick(funcion)
+                                        }
                                     }
                                     
                                 });
@@ -620,8 +817,13 @@
                 },
                 showLoading:function(){
                         var offset=this.container.offset();
-                        if(this.container.width()==0 && this.container.height())
+                        
+                        if(this.flagLoad)
                             return;
+                        if(this.container.width()<0 || this.container.height()<0)
+                            return;
+                        this.flagLoad=true;
+                        
                         this.loading.css({
                             'left':offset.left,
                             'top': offset.top,
@@ -632,6 +834,7 @@
                 },
                 hideLoading:function(){
                        this.loading.fadeOut("slow");
+                       this.flagLoad=false;
                 },
 		sorting:function(){
                     if(this.options.sort){
