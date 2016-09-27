@@ -1,5 +1,70 @@
+(function($) {
 
+$.fn.fixedHeader = function (options) {
+ var config = {
+   topOffset: 38
+   //bgColor: 'white'
+ };
+ if (options){ $.extend(config, options); }
 
+ return this.each( function() {
+  var o = $(this);
+
+  var $win = $(window)
+    , $head = $('thead.header', o)
+    , isFixed = 0;
+  var headTop = $head.length && $head.offset().top - config.topOffset;
+
+  function processScroll() {
+    if (!o.is(':visible')) return;
+    if ($('thead.header-copy').size()) {
+      $('thead.header-copy').width($head.width());
+      var i, scrollTop = $win.scrollTop();
+    }
+    var t = $head.length && $head.offset().top - config.topOffset;
+    if (!isFixed && headTop != t) { headTop = t; }
+    if (scrollTop >= headTop && !isFixed) {
+      isFixed = 1;
+    } else if (scrollTop <= headTop && isFixed) {
+      isFixed = 0;
+    }
+    isFixed ? $('thead.header-copy', o).show().offset({ left: $head.offset().left })
+            : $('thead.header-copy', o).hide();
+    // NG: dislocate while iframe page resized. fixed by jeffen@pactera 2015/7/8
+	headerCopyRectify();
+  }
+  
+  // set a broken bone when header copy dislocated
+  function headerCopyRectify() {
+    o.find('thead.header > tr > th').each(function (i, h) {
+      var w = $(h).width();
+      o.find('thead.header-copy> tr > th:eq('+i+')').width(w)
+    });
+  }
+  
+  $win.on('scroll', processScroll);
+  // NG: dislocate while body resized. fixed by jeffen@pactera 2015/7/9
+  $win.on('resize', processScroll);
+
+  // hack sad times - holdover until rewrite for 2.1
+  $head.on('click', function () {
+    if (!isFixed) setTimeout(function () {  $win.scrollTop($win.scrollTop() - 47) }, 10);
+  })
+
+  $head.clone(true).removeClass('header').addClass('header-copy header-fixed').css({'position': 'fixed', 'top': config['topOffset']}).appendTo(o);
+  o.find('thead.header-copy').width($head.width());
+
+  headerCopyRectify();
+  $head.css({ margin:'0 auto',
+              width: o.width(),
+             'background-color':config.bgColor });
+  processScroll();
+  
+
+ });
+};
+
+})(jQuery);
 (function($){
 	UIR.namespace('UIR.Panel');
 	UIR.Panel.Table=function(el,options){
@@ -82,7 +147,7 @@
                         }
                         
                         this.rowTable=$("<div class='col-lg-12'></div>");
-                        
+                        this.rowTable.append($element);
                         if(this.options.height){
                             this.rowTable.css({
                                 overflow:'hidden'
@@ -91,9 +156,10 @@
                             this.rowTable.perfectScrollbar({
                                 suppressScrollX:true
                             });
+                            
                         }
                         
-                        this.rowTable.append($element);
+                        
                         this.rowCenter.append(this.rowTable);
                         $element.css('marginTop',5);
                         
@@ -133,6 +199,8 @@
                         this.data=[];
                         var data=[];
                         
+                       
+                            
                         this.body.find('tr').each(function(){
                             var row=[];
                             $(this).find('td').each(function(){
@@ -184,7 +252,7 @@
                             
                         }
                         
-                        
+                        this.onFixHeader();
                      // alert(this.container.height())
 		},
                 onSearch:function(e){
@@ -193,6 +261,41 @@
                         e.data.currentPage=1;
                         e.data.makeLoad('',{query:e.data.searchingEl.val()});
                     }
+                },
+                onFixHeader:function(){
+                     
+                        var clone=this.$element.find('thead').clone(true);
+                        
+                        this.fixHeader=$('<table class="table table-bordered2 uir-table"></table>').css({'position': 'fixed'}).appendTo(this.rowTable);
+                           this.fixHeader.hide();
+                           clone.appendTo(this.fixHeader);
+                            
+                            this.rowTable.on('scroll',$.proxy(this.eventFixHeader,this))
+                            $(window).on('scroll',$.proxy(this.eventFixHeader,this));
+                            
+                            $(window).on('resize',$.proxy(this.eventFixHeader,this));
+                }, 
+                eventFixHeader:function(){
+                     var scroll=$(window).scrollTop();
+                     
+                     if(this.rowTable.scrollTop()>0){
+                         this.fixHeader.show();
+                     
+                        this.fixHeader.css({
+                                       top:this.rowTable.offset().top-scroll,
+                                       left:this.$element.find('thead').offset().left,
+                                       width:this.$element.find('thead').width()
+                                   })
+                        var el=this.$element;
+                        var tds=this.$element.find('thead th');
+                        var cont=0;
+                        this.fixHeader.find('th').each(function(){
+                            $(this).width($(tds.get(cont)).width())
+                            cont++;
+                        })
+                     }else{
+                         this.fixHeader.hide();
+                     }
                 },
                 onSearchBtn:function(e){
                     
@@ -285,9 +388,9 @@
                     this.pagination.empty();
                     
                     this.pagination.append("<ul class='pagination'>"+
-                                       " <li class='prev'><a href='#'><span aria-hidden='true'>&laquo;</span><span class='sr-only'>Previous</span></a></li>"+
+                                       " <li class='prev'><a ><span aria-hidden='true'>&laquo;</span><span class='sr-only'>Previous</span></a></li>"+
                                        
-                                       " <li class='next'><a href='#'><span aria-hidden='true'>&raquo;</span><span class='sr-only'>Next</span></a></li>"+
+                                       " <li class='next'><a ><span aria-hidden='true'>&raquo;</span><span class='sr-only'>Next</span></a></li>"+
                                    " </ul>");
                     this.prevButton=this.pagination.find('li[class=prev] a');
                     this.nextButton=this.pagination.find('li[class=next] a');
@@ -303,7 +406,7 @@
                     }
                     
                     for(var i=1;i<=cant;++i){
-                        var pag=$('<li class="uir-pag uir-pag-'+i+'"><a href="#">'+i+'</a></li>');
+                        var pag=$('<li class="uir-pag uir-pag-'+i+'"><a >'+i+'</a></li>');
                         pag.data('pag',i);
                         this.nextButton.parents('li').before(pag);
                     }
