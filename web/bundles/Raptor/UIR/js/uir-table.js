@@ -1,70 +1,4 @@
-(function($) {
 
-$.fn.fixedHeader = function (options) {
- var config = {
-   topOffset: 38
-   //bgColor: 'white'
- };
- if (options){ $.extend(config, options); }
-
- return this.each( function() {
-  var o = $(this);
-
-  var $win = $(window)
-    , $head = $('thead.header', o)
-    , isFixed = 0;
-  var headTop = $head.length && $head.offset().top - config.topOffset;
-
-  function processScroll() {
-    if (!o.is(':visible')) return;
-    if ($('thead.header-copy').size()) {
-      $('thead.header-copy').width($head.width());
-      var i, scrollTop = $win.scrollTop();
-    }
-    var t = $head.length && $head.offset().top - config.topOffset;
-    if (!isFixed && headTop != t) { headTop = t; }
-    if (scrollTop >= headTop && !isFixed) {
-      isFixed = 1;
-    } else if (scrollTop <= headTop && isFixed) {
-      isFixed = 0;
-    }
-    isFixed ? $('thead.header-copy', o).show().offset({ left: $head.offset().left })
-            : $('thead.header-copy', o).hide();
-    // NG: dislocate while iframe page resized. fixed by jeffen@pactera 2015/7/8
-	headerCopyRectify();
-  }
-  
-  // set a broken bone when header copy dislocated
-  function headerCopyRectify() {
-    o.find('thead.header > tr > th').each(function (i, h) {
-      var w = $(h).width();
-      o.find('thead.header-copy> tr > th:eq('+i+')').width(w)
-    });
-  }
-  
-  $win.on('scroll', processScroll);
-  // NG: dislocate while body resized. fixed by jeffen@pactera 2015/7/9
-  $win.on('resize', processScroll);
-
-  // hack sad times - holdover until rewrite for 2.1
-  $head.on('click', function () {
-    if (!isFixed) setTimeout(function () {  $win.scrollTop($win.scrollTop() - 47) }, 10);
-  })
-
-  $head.clone(true).removeClass('header').addClass('header-copy header-fixed').css({'position': 'fixed', 'top': config['topOffset']}).appendTo(o);
-  o.find('thead.header-copy').width($head.width());
-
-  headerCopyRectify();
-  $head.css({ margin:'0 auto',
-              width: o.width(),
-             'background-color':config.bgColor });
-  processScroll();
-  
-
- });
-};
-
-})(jQuery);
 (function($){
 	UIR.namespace('UIR.Panel');
 	UIR.Panel.Table=function(el,options){
@@ -340,6 +274,9 @@ $.fn.fixedHeader = function (options) {
                 makeLoad:function(url,opt){
                     this.showLoading();
                     this.__on_deselect_row.call(this.__on_deselect_row_scope);
+                    var e = $.Event('rowdeselect');
+                       
+                    this.$element.trigger(e);
                     
                     var me=this;
                     if(!url||url=='')
@@ -527,6 +464,9 @@ $.fn.fixedHeader = function (options) {
                         e.data.body.find('tr').removeClass('selected');
                     $(this).addClass('selected');
                     e.data.__on_select_row.call(e.data.__on_select_row_scope,$(this));
+                    var e2 = $.Event('rowselect');
+                       
+                    e.data.$element.trigger(e2,[$(this).data('row'),$(this)]);
                 },
                 onTableSelect:function(fun,scope){
                     this.__on_select_row=fun;

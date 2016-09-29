@@ -131,12 +131,21 @@ UIR.Internal.BaseController.prototype={
     var me=this; 
         if(this.events instanceof Object){
             $.each(this.events, function(i, val) {
-
+                    var delegate=false;
+                   if(val.delegate && (typeof  val.delegate === 'boolean' || typeof  val.delegate === 'string'))
+                            delegate=true;
+                    
                     $.each(val,function(i2,val2){
-                        me['__'+val2]=function(e){
-                            val2.call(me,e,$(this));
-                        }
-                        $(i)[i2](me,me['__'+val2]);
+                        
+                        if(delegate){
+                            if(typeof  val.delegate === 'boolean' && val.delegate===true)
+                                $('body').on(i2,i,$.proxy(val2,me,$(i)))
+                            
+                            if(typeof  val.delegate === 'string')
+                                $(val.delegate).on(i2,i,$.proxy(val2,me,$(i)))
+                                
+                        }else
+                            $(i).on(i2,$.proxy(val2,me,$(i)))
                     })               
             });
             
