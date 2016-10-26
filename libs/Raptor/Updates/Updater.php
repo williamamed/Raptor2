@@ -8,14 +8,36 @@
  */
 $app=  Raptor\Raptor::getInstance();
 $lib=  \Raptor\Core\Location::get(\Raptor\Core\Location::APP).'/../libs';
-if(file_exists($lib.'/Slim/Slim.php') and file_exists(__DIR__.'/Slim.php')){
-    Raptor\Util\Files::delete($lib.'/Slim/Slim.php');
-    Raptor\Util\Files::copy(__DIR__.'/Slim.php', $lib.'/Slim');
-    Raptor\Util\Files::delete(__DIR__.'/Slim.php');
+
+/**
+ * Updates files
+ * array(
+ *      array('file_to_copy','file_to_override')
+ * )
+ */
+$files=array();
+
+foreach ($files as $value) {
+    if (file_exists($lib . $value[1]) and file_exists(__DIR__ . $value[0])) {
+        Raptor\Util\Files::delete($lib . $value[1]);
+        Raptor\Util\Files::copy(__DIR__ . $value[0], dirname($lib . $value[1]));
+        Raptor\Util\Files::delete(__DIR__ . $value[0]);
+    }
 }
-if(file_exists($lib.'/../src/Raptor2/InstallerBundle/Importer/BundleImporter.php') and file_exists(__DIR__.'/BundleImporter.php')){
-    Raptor\Util\Files::delete($lib.'/../src/Raptor2/InstallerBundle/Importer/BundleImporter.php');
-    Raptor\Util\Files::copy(__DIR__.'/BundleImporter.php', $lib.'/../src/Raptor2/InstallerBundle/Importer');
-    Raptor\Util\Files::delete(__DIR__.'/BundleImporter.php');
+/**
+ * Copy new ones
+ * array(
+ *      array('file_to_copy','directory_to_copy')
+ * )
+ */
+$files_new=array();
+
+foreach ($files_new as $value) {
+    if (file_exists(__DIR__ . $value[0])) {
+        @mkdir($lib . $value[1]);
+        Raptor\Util\Files::copy(__DIR__ . $value[0], $lib . $value[1]);
+        Raptor\Util\Files::delete(__DIR__ . $value[0]);
+    }
 }
+
 ?>
