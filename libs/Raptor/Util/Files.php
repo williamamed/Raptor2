@@ -26,7 +26,7 @@ class Files {
     static public function copy($file,$to) {
         $copy=array();
         if(!file_exists($to))
-            @mkdir ($to);
+            @mkdir ($to,0777,true);
         if (is_dir($file)) {
             foreach (glob($file . "/*") as $archivos_carpeta) {
                 

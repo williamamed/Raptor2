@@ -158,6 +158,25 @@ class Raptor extends \Slim\Slim {
         ));
         $this->ruleContainer = new Bundle\Route\RuleContainer();
         $this->configuration = new Configuration\ConfigurationLoader();
+        /**
+         * Verify if the framework was moved of location
+         */
+        $locations = \Raptor\Raptor::getInstance()->getConfigurationLoader()->getOptions();
+        $bundles = $locations['location'];
+        $counting=0;
+        $onefile=NULL;
+        foreach ($bundles as $value) {
+            if (!file_exists($value)){
+                $counting++;
+                $onefile=$value;
+            }else{
+                break;
+            }
+        }
+        if($counting == count($bundles) and $counting>0){
+            $this->configuration->forceLoad();
+        }
+        
         $secret=$this->configuration->getConfOption();
         if(isset($secret['raptor']['secret']))
             $this->config('cookies.secret_key',$secret['raptor']['secret']);

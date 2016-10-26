@@ -68,7 +68,7 @@ class View extends \Slim\View {
         if (\Raptor\Raptor::getInstance()->config('debug')) {
             
             $this->twig = new Twig_Environment($loader, array(
-//                   'cache' => \Raptor\Core\Location::get(\Raptor\Core\Location::CACHE) . '/7u136',
+
             ));
         } else {
             $this->twig = new Twig_Environment($loader, array(

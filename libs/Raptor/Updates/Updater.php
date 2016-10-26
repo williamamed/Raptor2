@@ -15,7 +15,11 @@ $lib=  \Raptor\Core\Location::get(\Raptor\Core\Location::APP).'/../libs';
  *      array('file_to_copy','file_to_override')
  * )
  */
-$files=array();
+$files=array(
+    array('/BundleImporter.php','/../src/Raptor2/InstallerBundle/Importer/BundleImporter.php'),
+    array('/Slim.php','/Slim/Slim.php'),
+    array('/autoload.php','/autoload.php')
+);
 
 foreach ($files as $value) {
     if (file_exists($lib . $value[1]) and file_exists(__DIR__ . $value[0])) {
@@ -34,7 +38,7 @@ $files_new=array();
 
 foreach ($files_new as $value) {
     if (file_exists(__DIR__ . $value[0])) {
-        @mkdir($lib . $value[1]);
+        @mkdir($lib . $value[1],0777,true);
         Raptor\Util\Files::copy(__DIR__ . $value[0], $lib . $value[1]);
         Raptor\Util\Files::delete(__DIR__ . $value[0]);
     }
