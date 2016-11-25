@@ -36,8 +36,8 @@
 }
 .uir-table thead{
     cursor: pointer;
-    background: url(../../../Maitre/Portal/img/header.png);
-    background-position: bottom;
+    background: url(../images/header-rpt.png);
+    background-position: center;
     color: white;
     text-shadow: 0 2px 4px rgba(0, 0, 0, .8);
 }

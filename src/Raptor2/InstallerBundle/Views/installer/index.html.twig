@@ -1,9 +1,11 @@
 {% extends "@systemBundle/template.html.twig" %}
 {% block content %}
 
-<div class="container" style="padding: 20px;" >
+<div class="container-fluid" style="padding: 40px;" >
     <h2 class="featurette-heading"><span class="">Bundles Installer</span></h2>
     <br>
+    
+    {% if finfo %}
     <h4 class="featurette-heading"><span >{{ message|raw }}</span></h4>
     <hr>
     <h4 class="featurette-heading"><span class="text-muted">Please choose a bundle to install or upload one</span></h4>
@@ -68,7 +70,10 @@
             {% endif %}
             
       </div>
-
+     {% else %}
+        <h4 class="featurette-heading"><span style="color: #ff3366;margin-bottom: 50px">The fileinfo extension is not enebled, please activate your extension in the php.ini file</span></h4>
+        <hr>
+     {% endif %}
 </div>
 
 
@@ -81,7 +86,7 @@
 <script type="text/javascript">
         $(document.body).ready(function() {
 
-            $(window.parent.document.body).find('#tabla').height($(document.body).outerHeight(true));
+            $(window.parent.document.body).find('#tabla').height($('body').outerHeight(true)+50);
             $('#myfield').click(function(){
                 $('#file-field').trigger('click');
             })

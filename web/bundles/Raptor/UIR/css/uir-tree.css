@@ -1,0 +1,76 @@
+/* 
+    Document   : uir-tree
+    Created on : 31-jul-2016, 17:53:24
+    Author     : Amed
+    Description:
+        Purpose of the stylesheet follows.
+*/
+.uir-tree{
+    border: 1px solid #cccccc;
+    position: absolute;
+    width: 100%
+}
+.uir-tree .uir-tree-header{
+    padding: 10px;
+    border-bottom: 2px solid #cccccc;
+    
+    cursor: pointer;
+    background: url(../images/header-rpt.png);
+    background-position: right ;
+    
+}
+.uir-tree .uir-tree-content{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.uir-tree .uir-tree-content a:focus{
+    background: transparent;
+	outline: none;
+	outline-offset: 0px;
+}
+
+.uir-tree .loading{
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background: url(../images/loading2.gif) !important;
+    margin-right: 5px;
+}
+.uir-tree .uir-tree-header .text-header{
+    margin-left:5px;
+    font-size: 17px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, .8);
+    color:white;
+}
+.uir-tree .icon{
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin-right: 5px;
+    background-image: url(../images/icons.gif);
+    background-position: -16px -16px;
+}
+
+.uir-tree .indicator{
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin-right: 5px;
+    background-image: url(../images/icons.gif);
+    background-position: -16px -80px;
+    
+}
+.uir-tree .expanded{
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin-right: 5px;
+    background-image: url(../images/icons.gif);
+    background-position: -48px -80px;
+    
+}
+.uir-tree .selected{
+    background: #ccccff !important;
+}
+

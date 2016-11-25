@@ -25,6 +25,13 @@ class DefaultController extends Controller{
      * @param \Slim\Route $route
      */
     public function bundleInstallerIndexAction() {
+        if (!extension_loaded('fileinfo')) {
+            return $this->render('@InstallerBundle/installer/index.html.twig',array(
+                'finfo'=> false
+            ));
+        }
+        
+        
         $local=\Raptor2\InstallerBundle\Importer\BundleImporter::getMetainformation();
         $conf=  $this->getApp()->getConfigurationLoader()->getConfOption();
         if(isset($conf['raptor']['repository'])){
@@ -32,7 +39,8 @@ class DefaultController extends Controller{
             $local=  array_merge($local, $remote);
         }
         return $this->render('@InstallerBundle/installer/index.html.twig',array(
-            'modules'=> $local
+            'modules'=> $local,
+            'finfo'=> true
         ));
     }
     
@@ -47,15 +55,26 @@ class DefaultController extends Controller{
      * @param \Slim\Route $route
      */
     public function bundleInstallerUploadAction($request) {
-        
+        if (!extension_loaded('fileinfo')) {
+            return $this->render('@InstallerBundle/installer/index.html.twig',array(
+                'finfo'=> false
+            ));
+        }
         $msg="";
-        if($request->file('mybundle') and ($request->file('mybundle')->get('type')=='application/zip' or $request->file('mybundle')->get('type')=='application/octet-stream')){
+        
+        $fileInfo = new \finfo(FILEINFO_MIME_TYPE);
+        $fileMime = $fileInfo->file($request->file('mybundle')->get('tmp_name'));
+        if($request->file('mybundle') and $fileMime=='application/zip'){
             $dir=\Raptor2\InstallerBundle\Importer\BundleImporter::prepareCache();
             if($this->moveUploadFileTo('mybundle', $dir.'/'.$request->file('mybundle')->get('name'))){
                 
                 $msg=\Raptor2\InstallerBundle\Importer\BundleImporter::proccesBundle($dir.'/'.$request->file('mybundle')->get('name'));
                 
+            }else{
+                $msg="<span style='color:#ff3366'>The uploaded bundle cant be copied to the cache location for an unknown reason</span>";
             }
+        }else{
+            $msg="<span style='color:#ff3366'>The file you upload is not a zip bundle file</span>";
         }
         $local=\Raptor2\InstallerBundle\Importer\BundleImporter::getMetainformation();
         $conf=  $this->getApp()->getConfigurationLoader()->getConfOption();
@@ -65,7 +84,8 @@ class DefaultController extends Controller{
         }
         return $this->render('@InstallerBundle/installer/index.html.twig',array(
             'modules'=>$local,
-            'message'=>$msg
+            'message'=>$msg,
+            'finfo'=>true
         ));
     }
     
@@ -108,7 +128,8 @@ class DefaultController extends Controller{
         }
         return $this->render('@InstallerBundle/installer/index.html.twig',array(
             'modules'=>$local,
-            'message'=>$msg
+            'message'=>$msg,
+            'finfo'=>true
         ));
     }
     

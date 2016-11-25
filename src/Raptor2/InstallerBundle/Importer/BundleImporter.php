@@ -68,19 +68,19 @@ class BundleImporter {
                         \Raptor\Raptor::getInstance()->getConfigurationLoader()->forceLoad();
                     } else {
                         //Show error
-                        $error = '<span style="color:red">Cannot find the bundle especified in the manifiest</span>';
+                        $error = '<span style="color:#ff3366">Cannot find the bundle especified in the manifiest</span>';
                     }
                 } else {
                     //Show error
-                    $error = '<span style="color:red">The bundle especified already exist or an existent bundle have the same name</span>';
+                    $error = '<span style="color:#ff3366">The bundle especified already exist or an existent bundle have the same name</span>';
                 }
             } else {
                 //Show error
-                $error = '<span style="color:red">The Namepace param is a critical parameter in the manifiest and is missing</span>';
+                $error = '<span style="color:#ff3366">The Namepace param is a critical parameter in the manifiest and is missing</span>';
             }
         } else {
             //Show error
-            $error = '<span style="color:red">We cannot find an installer manifiest in the zip bundle</span>';
+            $error = '<span style="color:#ff3366">We cannot find an installer manifiest in the zip bundle</span>';
         }
         $hidden = \Raptor\Util\Files::find(self::prepareCache() . '/' . $name_rand, '.*');
         foreach ($hidden as $value) {

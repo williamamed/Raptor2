@@ -151,32 +151,18 @@ class Raptor extends \Slim\Slim {
         $this->appAspectKernel = \App\AppAspectKernel::getInstance();
         if(!file_exists(Core\Location::get(Core\Location::CACHE)))
             @mkdir (Core\Location::get(Core\Location::CACHE));
-        $this->appAspectKernel->init(array(
-            'debug' => $this->config('debug'),
-            'appDir' => Core\Location::get(Core\Location::SRC),
-            'cacheDir' => Core\Location::get(Core\Location::CACHE).'/AOP'
-        ));
+        /**
+         * Esta instruccion fue movida hacia el cargador de configuracion
+         * Llamando al gestor de AOP cuando la configuracion este lista
+         */
+//        $this->appAspectKernel->init(array(
+//            'debug' => $this->config('debug'),
+//            'appDir' => Core\Location::get(Core\Location::SRC),
+//            'cacheDir' => Core\Location::get(Core\Location::CACHE).'/AOP'
+//        ));
+        
         $this->ruleContainer = new Bundle\Route\RuleContainer();
         $this->configuration = new Configuration\ConfigurationLoader();
-        /**
-         * Verify if the framework was moved of location
-         */
-        $locations = \Raptor\Raptor::getInstance()->getConfigurationLoader()->getOptions();
-        $bundles = $locations['location'];
-        $counting=0;
-        $onefile=NULL;
-        foreach ($bundles as $value) {
-            if (!file_exists($value)){
-                $counting++;
-                $onefile=$value;
-            }else{
-                break;
-            }
-        }
-        if($counting == count($bundles) and $counting>0){
-            $this->configuration->forceLoad();
-        }
-        
         $secret=$this->configuration->getConfOption();
         if(isset($secret['raptor']['secret']))
             $this->config('cookies.secret_key',$secret['raptor']['secret']);

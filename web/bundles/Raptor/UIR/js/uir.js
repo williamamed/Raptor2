@@ -56,12 +56,13 @@ String.prototype.format = function(){
 UIR.Internal={
     ControllerList:{},
     ModelList:{},        
-    BaseController:function(options){
+    BaseController:function(options,name,app){
         var me=this;
         
             me.options=options;
             
-       
+      this.controllerName = name;
+      this.appName = app;
     },
     
     BaseModel:function(options){
@@ -75,24 +76,60 @@ UIR.Internal={
     }
 };
 UIR.Controller=function(name,options){
-   var obj=new UIR.Internal.BaseController(options);
-   UIR.Internal.ControllerList[name]=obj;
+   var ns=name.split('.');
+   var obj;
+   if(ns.length===2){
+        var app=$('[uir-app="'+ns[0]+'"]');
+        if(app.size()>0){
+            obj=new UIR.Internal.BaseController(options,ns[1],ns[0]);
+            app.data(name,obj);
+        }else
+            throw Error('The app '+ns[0]+' you declare not exist !!')
+        
+   }else
+        throw Error('The controller '+name+' that you declare is wrong(MISSING APP NAME), you must declare an app name ej. Appname.mycontroller')
+   
    return obj;
 }
 UIR.getController=function(name){
-    return UIR.Internal.ControllerList[name];
+   
+   var ns=name.split('.');
+   var obj;
+   if(ns.length===2){
+        var app=$('[uir-app="'+ns[0]+'"]');
+        if(app.size()>0){
+           
+            return app.data(name);
+        }else
+            throw Error('The app '+ns[0]+' you call not exist !!')
+        
+   }else
+        throw Error('The controller '+name+' that you call is wrong(MISSING APP NAME), you must call an app name ej. Appname.mycontroller')
+   
 }
-UIR.getModel=function(name){
-    return UIR.Internal.ModelList[name];
-}
+
 UIR.Internal.BaseController.prototype={
     constructor: UIR.Internal.BaseController,
     
     elements:[],
     events:{},
     Run:function(fun){
+        
         var me=this;    
         $(document).ready(function() {
+                
+                me.internalInit();
+                if(fun instanceof Function)
+                    fun.call(me);
+                
+                UIR.autoAdjust();
+            })
+    },
+    run:function(fun){
+        
+        var me=this;    
+        $(document).ready(function() {
+                
                 me.internalInit();
                 if(fun instanceof Function)
                     fun.call(me);
@@ -150,12 +187,35 @@ UIR.Internal.BaseController.prototype={
             });
             
         }
+    },
+    model: function(name) {
+        
+        var app = $('[uir-app="' + this.appName + '"]');
+        if (app.size() > 0) {
+
+            return app.data('Model-'+name);
+        } else
+            throw Error('The app ' + this.appName + ' you call not exist !!')
+
     }
 }
 
 UIR.Model=function(name,options){
-   var obj=new UIR.Internal.BaseModel(options);
-   UIR.Internal.ControllerList[name]=obj;
+   var ns=name.split('.');
+   var obj;
+   if(ns.length===2){
+        var app=$('[uir-app="'+ns[0]+'"]');
+        if(app.size()>0){
+            
+            var obj=new UIR.Internal.BaseModel(options);
+            app.data('Model-'+name,obj);
+        }else
+            throw Error('The app node '+ns[0]+' you declare not exist !!')
+        
+   }else
+        throw Error('The model '+name+' that you declare is wrong(MISSING APP NAME), you must declare an app name ej. Appname.mymodel')
+   
+  
    return obj;
 }
 

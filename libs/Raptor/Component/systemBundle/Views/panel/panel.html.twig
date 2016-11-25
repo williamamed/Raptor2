@@ -180,7 +180,7 @@
             {% for key,tag in routes %}
         <div>       
             <b id="id-route-{{ key }}">
-                <span style="color: #0079d2">{{ key }}:&nbsp;</span>{{ tag.getPattern }}
+                <a href="{{ path(key) }}" target="_blank" style="background: none;color: white"><span style="color: #0079d2">{{ key }}:&nbsp;</span>{{ tag.getPattern }}</a>
             </b>
             </div>  
             {% endfor %}

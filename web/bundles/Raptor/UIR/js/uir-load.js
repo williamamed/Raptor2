@@ -14,8 +14,12 @@ UIR.load={
         var mask=$('<div>');
         mask.css('background','rgba(255,255,255,0.7)');
         mask.css('display','none');
-        this.mask=mask;
         mask.addClass('uir-load');
+        if($('.uir-load').size()>0)
+            mask=$($('.uir-load').get(0));
+        this.mask=mask;
+        
+        
         var indicator=$('<div>');
         indicator.addClass('indicator');
         mask.append(indicator);
@@ -26,7 +30,8 @@ UIR.load={
         this.mask.show();
     },
     hide:function(){
-        this.mask.fadeOut();
+        if(this.mask)
+            this.mask.fadeOut();
         this.active=false;
     }
 }

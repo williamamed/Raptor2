@@ -44,8 +44,7 @@ class RaptorController extends \Raptor\Bundle\Controller\Controller {
      * @RouteName _raptor_clean
      */
     public function cleanAction() {
-        $cache=  \Raptor\Core\Location::get(\Raptor\Core\Location::CACHE);
-        \Raptor\Util\Files::delete($cache.'/7u136');
+        
         $this->app->getConfigurationLoader()->forceLoad();
         return $this->render('@systemBundle/cache/clean.html.twig',array(
             'autoinstall'=>$this->app->getConfigurationLoader()->getAutoInstallMessage()
@@ -57,8 +56,7 @@ class RaptorController extends \Raptor\Bundle\Controller\Controller {
      * @RouteName _raptor_clean_ajax
      */
     public function cleanAjaxAction() {
-        $cache=  \Raptor\Core\Location::get(\Raptor\Core\Location::CACHE);
-        \Raptor\Util\Files::delete($cache.'/7u136');
+        
         $this->app->getConfigurationLoader()->forceLoad();
         return "OK";
     }
