@@ -110,11 +110,7 @@ class ConfigurationLoader {
             \Raptor\Util\Files::delete($cache . '/7u136');
             
             $appr=\Raptor\Raptor::getInstance();
-            $appr->getAppAspectKernel()->init(array(
-                'debug' => $appr->config('debug'),
-                'appDir' => Location::get(Location::SRC),
-                'cacheDir' => Location::get(Location::CACHE) . '/AOP'
-            ));
+            
             
 
             $this->reader->setBundles($this->options['bundles']);
@@ -123,7 +119,16 @@ class ConfigurationLoader {
             $this->options['location'] = $this->reader->getLocation();
             $this->options['specifications'] = $this->reader->getSpecifications();
             $this->options['description'] = $this->reader->getDescriptions();
-            
+            $appr->getAppAspectKernel()->init(array(
+                'debug' => $appr->config('debug'),
+                'appDir' => Location::get(Location::SRC),
+                'cacheDir' => Location::get(Location::CACHE) . '/AOP'
+            ));
+            foreach ($this->options['bundles'] as $bundle) {
+                $cmp_str = $bundle;
+                $cmp = new $cmp_str();
+                call_user_func_array(array($cmp, 'init'), array());
+            }
             $this->cache->setData($this->options);
             $this->cache->save();
             /**
