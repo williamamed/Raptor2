@@ -50,8 +50,7 @@ abstract class Bundle {
     
     public function init() {
         $container = \Raptor\Raptor::getInstance()->getAppAspectKernel()->getContainer();
-        if($this->app->request()->getPathInfo()!='/raptor/clean' and $this->app->request()->getPathInfo()!='/raptor/cleanajax')
-            $this->registerBundleAspect($container);
+        $this->registerBundleAspect($container);
     }
 
     /**

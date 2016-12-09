@@ -57,6 +57,10 @@ class ConfigureController extends \Raptor\Bundle\Controller\Controller {
         $parameters['raptor']['language'] = $request->post('lang');
         $parameters['raptor']['secret'] = $request->post('secret');
         $parameters['raptor']['cache'] = $request->post('cache');
+        if($request->post('proyect'))
+            $parameters['raptor']['name']=  str_replace(' ', '', $request->post('proyect'));
+        else
+            $parameters['raptor']['name']='Raptor2Proyect';
         
         $this->app->getConfigurationLoader()->setConfOption($parameters);
         $this->getStore()->connect();

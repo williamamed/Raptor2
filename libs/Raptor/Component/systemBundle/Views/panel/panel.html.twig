@@ -180,7 +180,7 @@
             {% for key,tag in routes %}
         <div>       
             <b id="id-route-{{ key }}">
-                <a href="{{ path(key) }}" target="_blank" style="background: none;color: white"><span style="color: #0079d2">{{ key }}:&nbsp;</span>{{ tag.getPattern }}</a>
+                <a href="{{ path(key) }}" target="RaptorPanel" style="background: none;color: white"><span style="color: #0079d2">{{ key }}:&nbsp;</span>{{ tag.getPattern }}</a>
             </b>
             </div>  
             {% endfor %}
@@ -191,7 +191,7 @@
         <div style="margin-bottom: 40px;">
             <img style="float: left;margin-right: 10px;height: 20px !important;" src="{{ asset('Raptor/img/dev_white.png') }}" height="20"/>
             <b style="float: left;" >Development Mode<span class="info-panel" style="margin-left: 10px;"></span></b>
-        <b title="Close"   style="" id="rpt-close-panel" class="panel-rpt-x">x</b>
+        <b title="Close"  style="" id="rpt-close-panel" class="panel-rpt-x">x</b>
         </div>
             <div style="float: left">
                 <input class="panel-rpt-input" style="display: none;" type="text"/>

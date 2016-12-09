@@ -121,7 +121,7 @@ class NativeSession implements SessionInterface {
 	public function startSession()
 	{
 		// Let's start the session
-                session_name("Raptor2Session");
+                session_name(\Raptor\Security\Security::getSessionName());
 		if (session_id() == '')
 		{
 			session_start();

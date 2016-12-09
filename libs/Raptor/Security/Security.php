@@ -189,6 +189,14 @@ class Security extends \Slim\Middleware {
     public function setUser(array $user) {
         $this->getApplication()->getSession()->put($user);
     }
+    
+    static public function getSessionName() {
+        $name=\Raptor\Raptor::getInstance()->getConfigurationLoader()->getConfOption('raptor','name');
+        if($name===false)
+            return 'Raptor2Session';
+        return $name.'Session';
+    }
+
     /**
      * Establece directivas y rutinas de proteccion contra ataques
      * [USADA POR EL SISTEMA]

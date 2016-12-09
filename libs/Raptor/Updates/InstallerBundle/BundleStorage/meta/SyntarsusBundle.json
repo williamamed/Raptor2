@@ -1,0 +1,7 @@
+{
+    "name": "SyntarsusBundle",
+    "description":"The Security Module(Syntarsus) implement  a structure RBAC model allowing adjust your system to organizational enviroments representing that in a structures tree.",
+    "file":"SyntarsusBundle.zip",
+    "image":"Raptor/img/logo-syn.png",
+    "author": "Dinobyte S.L"
+}

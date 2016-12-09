@@ -1,56 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Raptor System</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <head>
+        <meta charset="utf-8">
+        <title>Raptor System</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    <!-- Le styles -->
-    <link href="{{ asset('bootstrap/css/bootstrap.css') }}" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        
-      }
-    </style>
-    
-   
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="../assets/js/html5shiv.js"></script>
-    <![endif]-->
+        <!-- Le styles -->
+        <link href="{{ asset('bootstrap/css/bootstrap.css') }}" rel="stylesheet">
+        <style type="text/css">
+                body {
+                    padding-top: 60px;
 
-    <!-- Fav and touch icons -->
-   
-  </head>
+                }
+            </style>
 
-  <body style="padding: 20px;background: rgba(255,255,255,0.8) !important;" >
-      <h2 class="featurette-heading"><span class="muted">Application Options</span></h2><br><br>
-      <div class="featurette" style="background: transparent !important;">
-         
-        
-        <br><br>
-        <p class="lead">
-            The systems was configured
 
-        </p>
-        
-      </div>
-    
-          
-          <script src="{{ asset('bootstrap/js/jquery.js') }}"></script>
-          
-          <script type="text/javascript">
-        $(document.body).ready(function(){
-           
-           
-        });
-        
-        </script>
-  </body>
-</html>
+            <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+            <!--[if lt IE 9]>
+              <script src="../assets/js/html5shiv.js"></script>
+            <![endif]-->
+
+            <!-- Fav and touch icons -->
+
+        </head>
+
+        <body style="padding: 20px;background: rgba(255,255,255,0.8) !important;" >
+            <div class="container" style="padding: 20px;" >
+                <h2 class="featurette-heading"><span class="muted">Application Options</span></h2>
+                <img src="{{ asset('Raptor/img/logo.png') }}" height="200" class="pull-right">
+                <br><br>
+                <div class="featurette" style="background: transparent !important;">
+
+
+                    
+                        <div class="inner cover">
+                            <h3 class="cover-heading">The system is configured.</h3>
+                            <p class="text-muted">Enjoy the new features of Raptor 2 !</p>
+                            <p class="lead">
+                                <a href="{{ path('_raptor_configuration') }}" class="btn btn-success">Go back</a>
+                            </p>
+                        </div>
+                       
+                   
+
+                </div>
+            </div>
+
+            <script src="{{ asset('bootstrap/js/jquery.js') }}"></script>
+
+            <script type="text/javascript">
+                $(document.body).ready(function() {
+
+
+                });
+
+                </script>
+            </body>
+        </html>
 
 
 

@@ -189,9 +189,9 @@ class Raptor extends \Slim\Slim {
             header('Location: '.$_SERVER['REQUEST_URI']);
             return;
         }
-        $secret=$this->configuration->getConfOption();
-        if(isset($secret['raptor']['secret']))
-            $this->config('cookies.secret_key',$secret['raptor']['secret']);
+        
+        if($this->configuration->getConfOption('raptor','secret')!==false)
+            $this->config('cookies.secret_key',$this->configuration->getConfOption('raptor','secret'));
         Security\Security::directives();
         
         $this->add(new Core\Routing());

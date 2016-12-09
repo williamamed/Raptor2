@@ -124,10 +124,17 @@ class ConfigurationLoader {
                 'appDir' => Location::get(Location::SRC),
                 'cacheDir' => Location::get(Location::CACHE) . '/AOP'
             ));
+            $container = \Raptor\Raptor::getInstance()->getAppAspectKernel()->getContainer();
             foreach ($this->options['bundles'] as $bundle) {
                 $cmp_str = $bundle;
                 $cmp = new $cmp_str();
                 call_user_func_array(array($cmp, 'init'), array());
+                
+                $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+                $refClass = new \ReflectionObject($cmp);
+
+                $container->addResource($trace[1]['file']);
+                $container->addResource($refClass->getFileName());
             }
             $this->cache->setData($this->options);
             $this->cache->save();
@@ -150,11 +157,12 @@ class ConfigurationLoader {
                 'appDir' => Location::get(Location::SRC),
                 'cacheDir' => Location::get(Location::CACHE) . '/AOP'
             ));
+            $container = \Raptor\Raptor::getInstance()->getAppAspectKernel()->getContainer();
             foreach ($this->options['bundles'] as $bundle) {
                 $cmp_str = $bundle;
                 $cmp = new $cmp_str();
                 call_user_func_array(array($cmp, 'init'), array());
-                $container = \Raptor\Raptor::getInstance()->getAppAspectKernel()->getContainer();
+                
                 $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
                 $refClass = new \ReflectionObject($cmp);
 
@@ -248,7 +256,22 @@ class ConfigurationLoader {
      * @return Array
      */
     public function getConfOption() {
-        return $this->options['options'];
+        $count=  func_num_args();
+        if($count==0)
+            return $this->options['options'];
+        $args= func_get_args();
+        $value=$this->options['options'];
+        $counter=0;
+        foreach ($args as $arg) {
+            if(is_string($arg) && isset($value[$arg])){
+                $value=$value[$arg];
+                $counter++;
+            }
+        }
+        if($counter==$count)
+            return $value;
+        else
+            return false;
     }
 
     /**
