@@ -48,11 +48,11 @@ class DefaultController extends Controller{
         }
         $store=json_encode(array('reject'=>false,'tutoriales'=>array('interactive'=>'This is interactive')));
         if($this->app->getCookie('Interactive_'.$user, true)==NULL){
-            $this->app->setCookie('Interactive_'.$user, $store ,  strtotime('+30 day'));
+            //$this->app->setCookie('Interactive_'.$user, $store ,  strtotime('+30 day'));
         }else{
             $store= json_decode($this->app->getCookie('Interactive_'.$user, true));
             $store->tutoriales->{$request->get('name')}=0;
-            $this->app->setCookie('Interactive_'.$user, json_encode($store) ,  strtotime('+30 day'));
+            //$this->app->setCookie('Interactive_'.$user, json_encode($store) ,  strtotime('+30 day'));
             
         }
         $interactive->setCurrentData($store);

@@ -51,9 +51,9 @@ class Interactive implements \Raptor\Bundle\Route\Rule{
         }
         $store=json_encode(array('reject'=>false,'tutoriales'=>array('interactive'=>'This is interactive')));
         if($app->getCookie('Interactive_'.$user, true)==NULL){
-            $app->setCookie('Interactive_'.$user, $store ,  strtotime('+1 year'));
+            //$app->setCookie('Interactive_'.$user, $store ,  strtotime('+1 year'));
         }else{
-            $store=  $app->getCookie('Interactive_'.$user, true);
+            $store=  $app->getCookie('Interact2_'.$user, true);
         }
         $app->setViewPlugin('core_library_outside',$app->render("@InteractiveBundle/core/core.js.twig",array(
             'url'=>$app->request()->getUrl().$app->request()->getScriptName().'/interactive/core',

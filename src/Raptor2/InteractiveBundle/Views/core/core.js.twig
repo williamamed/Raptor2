@@ -10,7 +10,7 @@ Interactive={
             return false;
         }
         this.init=true;
-        
+        var me=this;
         if(!window.$){
             var script2 = document.createElement('script');
             script2.onload = script2.onreadystatechange = script2.onerror = null;
@@ -18,23 +18,39 @@ Interactive={
 
             script2.onerror = this.onErrorFn;
             script2.onload = function(){
-                me.onLoadFn()
+                me.onLoadFn();
+                
+                var script = document.createElement('script');
+                script.onload = script.onreadystatechange = script.onerror = null;
+                script.type = 'text/javascript';
+                
+                script.onerror = this.onErrorFn;
+                script.onload = function(){
+                    me.onLoadFn()
+                };
+                script.src = '{{ url }}';
+                document.getElementsByTagName('head')[0].appendChild(script);   
+                
+                
             };
             script2.src = '{{ asset('bootstrap/js/jquery.js') }}';
             document.getElementsByTagName('head')[0].appendChild(script2);
-        }else
+            
+        }else{
             this.many++;
+            var script = document.createElement('script');
+            script.onload = script.onreadystatechange = script.onerror = null;
+            script.type = 'text/javascript';
+                
+            script.onerror = this.onErrorFn;
+            script.onload = function(){
+                    me.onLoadFn()
+                };
+            script.src = '{{ url }}';
+            document.getElementsByTagName('head')[0].appendChild(script); 
+        }
         
-        var script = document.createElement('script');
-        script.onload = script.onreadystatechange = script.onerror = null;
-        script.type = 'text/javascript';
-        var me=this;
-        script.onerror = this.onErrorFn;
-        script.onload = function(){
-            me.onLoadFn()
-        };
-        script.src = '{{ url }}';
-        document.getElementsByTagName('head')[0].appendChild(script);    
+         
     },
     show:function(name,condition){
         var me=this;
@@ -53,10 +69,14 @@ Interactive={
     },
     calling:function(name,condition){
         this.free=false;
-        var val=$.cookie('Interactive_'+Raptor.getUser());
+        var val=$.cookie('Interact2_'+Raptor.getUser());
         var obj=$.parseJSON(val);
-        if(!obj || !obj.tutoriales )
-            return;
+       
+        if(!obj || !obj.tutoriales ){
+            $.cookie('Interact2_'+Raptor.getUser(),'{"reject":false,"tutoriales":{"interactive":"This is interactive"}}',{expires: 30,path:'/'});
+            val=$.cookie('Interact2_'+Raptor.getUser());
+            obj=$.parseJSON(val);
+        }
         if(obj.reject)
             return;
         if(obj.tutoriales[name]!=undefined)
