@@ -50,7 +50,7 @@ class Interactive implements \Raptor\Bundle\Route\Rule{
             $user=$array['username'];
         }
         $store=json_encode(array('reject'=>false,'tutoriales'=>array('interactive'=>'This is interactive')));
-        if($app->getCookie('Interactive_'.$user, true)==NULL){
+        if($app->getCookie('Interact2_'.$user, true)==NULL){
             //$app->setCookie('Interactive_'.$user, $store ,  strtotime('+1 year'));
         }else{
             $store=  $app->getCookie('Interact2_'.$user, true);
