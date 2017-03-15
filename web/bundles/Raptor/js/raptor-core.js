@@ -62,7 +62,7 @@ Raptor.controlActions=function() {
             var actions = Raptor.getActions();
             if (actions != false) {
                 var actionsSize = actions.length;
-                var sel=selector.join(',');
+               
                 $("[privilegeName]").hide();
                 
                 var selector = new Array();
