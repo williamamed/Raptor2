@@ -47,7 +47,7 @@ class ConfigureController extends \Raptor\Bundle\Controller\Controller {
         $parameters = array();
         $parameters['database'] = array();
         $parameters['database']['driver'] = $request->post('driver');
-        $parameters['database']['dbname'] = '';
+        $parameters['database']['dbname'] = $request->post('db');
         $parameters['database']['user'] = $request->post('user');
         $parameters['database']['port'] = $request->post('port');
         $parameters['database']['password'] = $request->post('password');
@@ -57,15 +57,11 @@ class ConfigureController extends \Raptor\Bundle\Controller\Controller {
         $parameters['raptor']['language'] = $request->post('lang');
         $parameters['raptor']['secret'] = $request->post('secret');
         $parameters['raptor']['cache'] = $request->post('cache');
-        if($request->post('proyect'))
-            $parameters['raptor']['name']=  str_replace(' ', '', $request->post('proyect'));
-        else
-            $parameters['raptor']['name']='Raptor2Proyect';
         
         $this->app->getConfigurationLoader()->setConfOption($parameters);
         $this->getStore()->connect();
-        $this->getStore()->generateDatabase($request->post('db'));
-        $parameters['database']['dbname'] = $request->post('db');
+        //$this->getStore()->generateDatabase($request->post('db'));
+        //$parameters['database']['dbname'] = $request->post('db');
         $this->app->getConfigurationLoader()->setConfOption($parameters);
        
         $this->app->getConfigurationLoader()->writeOptions();
