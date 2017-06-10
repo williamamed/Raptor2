@@ -199,7 +199,9 @@ class Store extends \Slim\Middleware {
     }
 
     private function translateSchemas($name) {
-        $real = new ItemList(explode('.', $name));
+        $publicSchemaPgArray=explode('Public.', $name);
+        $publicSchemaPg=(count($publicSchemaPgArray)>0)?$publicSchemaPgArray[1]:$publicSchemaPgArray[0];
+        $real = new ItemList(explode('.', $publicSchemaPg));
         $real->each(function($k, $v, $l) {
                     $l->set($k, ucfirst($v));
                 });
@@ -261,9 +263,6 @@ class Store extends \Slim\Middleware {
                 $meta->customRepositoryClassName = $namespace . $this->namespaceSeparator . 'Model' . $this->namespaceSeparator . 'Repository' . $this->namespaceSeparator . $real . 'Repository';
 
                 //TODO buscar entidades ya creadas    
-
-
-
                 foreach ($meta->associationMappings as $key => $value) {
                     $names = $this->entityManager->getConfiguration()->getEntityNamespaces();
                     $target = $meta->associationMappings[$key]['targetEntity'];
