@@ -30,6 +30,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 namespace Raptor\Component\systemBundle\Controller;
 
 /**
@@ -44,19 +45,19 @@ class RaptorController extends \Raptor\Bundle\Controller\Controller {
      * @RouteName _raptor_clean
      */
     public function cleanAction() {
-        
+
         $this->app->getConfigurationLoader()->forceLoad();
-        return $this->render('@systemBundle/cache/clean.html.twig',array(
-            'autoinstall'=>$this->app->getConfigurationLoader()->getAutoInstallMessage()
+        return $this->render('@systemBundle/cache/clean.html.twig', array(
+                    'autoinstall' => $this->app->getConfigurationLoader()->getAutoInstallMessage()
         ));
     }
-    
+
     /**
      * @Route /cleanajax
      * @RouteName _raptor_clean_ajax
      */
     public function cleanAjaxAction() {
-        
+
         $this->app->getConfigurationLoader()->forceLoad();
         return "OK";
     }
@@ -66,11 +67,11 @@ class RaptorController extends \Raptor\Bundle\Controller\Controller {
      * @RouteName _raptor_front
      */
     public function frontAction() {
-        
-        return $this->render('@systemBundle/control/base.html.twig',array(
-            'user'=>  $this->app->getSession()->get('admin_auth'),
-            'username'=>  $this->app->getSession()->get('admin_auth_user'),
-            'docs'=>false
+
+        return $this->render('@systemBundle/control/panel.html.twig', array(
+                    'user' => $this->app->getSession()->get('admin_auth'),
+                    'username' => $this->app->getSession()->get('admin_auth_user'),
+                    'docs' => false
         ));
     }
     
@@ -79,105 +80,122 @@ class RaptorController extends \Raptor\Bundle\Controller\Controller {
      * @RouteName _raptor_front_logout
      */
     public function adminLogoutAction() {
-        $this->app->getSession()->set('admin_auth',false);
+        $this->app->getSession()->set('admin_auth', false);
         $this->redirect('_raptor_front');
     }
-    
+
     /**
      * @Route /newcredentials
      * @RouteName _raptor_front_newcredentials
      */
     public function newCredentialsAction($request) {
-        if($request->get('register')==='true'){
+
+        $validation = \Raptor\Bundle\Form\Validation::create('#credential_admin')
+                ->fields(array(
+            'username' => array('required' => true),
+            'password' => array('required' => true),
+            'repassword' => array('equalTo' => '#password')
+        ));
+
+        return $this->JSON(array(
+                    'extjs' => false,
+                    'content' => $this->render('@systemBundle/credentials/index.html.twig', array(
+                        'username' => $this->app->getSession()->get('admin_auth_user'),
+                        'validation' => $validation->render()
+                    ))
+        ));
+    }
+
+    /**
+     * @Route /newcredentials/config
+     * 
+     */
+    public function newCredentialsConfigAction($request) {
+        try {
+
             $parameters['raptor'] = array();
             $parameters['raptor']['admin'] = $request->post('username');
-            $hash=  \Raptor\Security\SecureHash::hash($request->post('password'));
+            $hash = \Raptor\Security\SecureHash::hash($request->post('password'));
             $parameters['raptor']['adminpass'] = "hash($hash)";
-           
+
             $this->app->getConfigurationLoader()->setConfOption($parameters);
 
             $this->app->getConfigurationLoader()->writeOptions();
             $this->app->getConfigurationLoader()->forceLoad();
-            return $this->render('@systemBundle/credentials/index.html.twig',array(
-                'protection'=>true
-                
-            ));
-//            $parameters['database']['password'] = '???';
-//            $this->app->getConfigurationLoader()->setConfOption($parameters);
-//            $this->app->getConfigurationLoader()->writeOptions();
+            $this->app->flash('credentials_msg', 'The credentials are configured to the admin user');
+        } catch (\Exception $exc) {
+            $this->app->flash('credentials_msg', $exc->getMessage());
+            $this->redirect($request->getReferer() . '#!/raptor/newcredentials', false);
         }
-            
-        $validation=  \Raptor\Bundle\Form\Validation::create('#credential_admin')
-                ->fields(array(
-                    'username'=>array('required'=>true),
-                    'password'=>array('required'=>true),
-                    'repassword'=>array('equalTo'=>'#password')
-                ));
-        return $this->render('@systemBundle/credentials/index.html.twig',array(
-            'username'=>$this->app->getSession()->get('admin_auth_user'),
-            'validation'=>$validation->render()
-        ));
+        $this->redirect($request->getReferer() . '#!/raptor/newcredentials', false);
     }
-    
+
     /**
      * @Route /configuration
      * @RouteName _raptor_configuration
      */
     public function configureAction() {
         $options = $this->app->getConfigurationLoader()->getOptions();
-        return $this->render('@systemBundle/configure/index.html.twig', array(
-                    'db' => $options['options']['database'],
-                    'raptor' => $options['options']['raptor'],
+
+        return $this->JSON(array(
+                    'extjs' => false,
+                    'content' => $this->render('@systemBundle/configure/index.html.twig', array(
+                        'db' => $options['options']['database'],
+                        'raptor' => $options['options']['raptor'],
+                    ))
         ));
     }
-    
+
     /**
      * @Route /flaticon
      * 
      */
     public function flatAction() {
-        
+
         return $this->render('@systemBundle/icons/index.html.twig');
     }
-    
+
     /**
      * @Route /presentation
      * @RouteName _raptor_presentation
      */
     public function startAction() {
-        $version= array(PHP_VERSION);
-        if(version_compare(PHP_VERSION,'5.4')==-1)
-                $version[]=false;
+        $version = array(PHP_VERSION);
+        if (version_compare(PHP_VERSION, '5.4') == -1)
+            $version[] = false;
         else
-                $version[]=true;
-        $other=array();
-        if(extension_loaded('soap')===false){
-            $other['soap']=false;
-        }else{
-            $other['soap']=true;
+            $version[] = true;
+        $other = array();
+        if (extension_loaded('soap') === false) {
+            $other['soap'] = false;
+        } else {
+            $other['soap'] = true;
         }
-        
-        if(extension_loaded('zip')===false){
-            $other['zip']=false;
-        }else{
-            $other['zip']=true;
+
+        if (extension_loaded('zip') === false) {
+            $other['zip'] = false;
+        } else {
+            $other['zip'] = true;
         }
-        
-        if(extension_loaded('openssl')===false){
-            $other['openssl']=false;
-        }else{
-            $other['openssl']=true;
+
+        if (extension_loaded('openssl') === false) {
+            $other['openssl'] = false;
+        } else {
+            $other['openssl'] = true;
         }
-        
-        if(extension_loaded('mcrypt')===false){
-            $other['mcrypt']=false;
-        }else{
-            $other['mcrypt']=true;
+
+        if (extension_loaded('mcrypt') === false) {
+            $other['mcrypt'] = false;
+        } else {
+            $other['mcrypt'] = true;
         }
-        
-        return $this->render('@systemBundle/start/start.html.twig',array(
-            'version'=>$version,
-            'other'=>$other
+
+        return $this->JSON(array(
+                    'extjs' => false,
+                    'content' => $this->render('@systemBundle/start/start.html.twig', array(
+                        'version' => $version,
+                        'other' => $other
+                    ))
         ));
     }
 

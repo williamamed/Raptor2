@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Generated with RAPTOR NEMESIS
  * You can add a route prefix to this Controller
@@ -12,8 +13,8 @@ use Raptor\Bundle\Controller\Controller;
 /**
  * @Route /raptor
  */
-class DefaultController extends Controller{
-    
+class DefaultController extends Controller {
+
     /**
      * 
      *
@@ -26,24 +27,30 @@ class DefaultController extends Controller{
      */
     public function bundleInstallerIndexAction() {
         if (!extension_loaded('fileinfo')) {
-            return $this->render('@InstallerBundle/installer/index.html.twig',array(
-                'finfo'=> false
+            return $this->JSON(array(
+                        'extjs' => false,
+                        'content' => $this->render('@InstallerBundle/installer/index.html.twig', array(
+                            'finfo' => false
+                        ))
             ));
         }
-        
-        
-        $local=\Raptor2\InstallerBundle\Importer\BundleImporter::getMetainformation();
-        $conf=  $this->getApp()->getConfigurationLoader()->getConfOption();
-        if(isset($conf['raptor']['repository'])){
-            $remote=  \Raptor2\InstallerBundle\Importer\BundleImporter::getRemoteMetainformation($conf['raptor']['repository']);
-            $local=  array_merge($local, $remote);
+
+
+        $local = \Raptor2\InstallerBundle\Importer\BundleImporter::getMetainformation();
+        $conf = $this->getApp()->getConfigurationLoader()->getConfOption();
+        if (isset($conf['raptor']['repository'])) {
+            $remote = \Raptor2\InstallerBundle\Importer\BundleImporter::getRemoteMetainformation($conf['raptor']['repository']);
+            $local = array_merge($local, $remote);
         }
-        return $this->render('@InstallerBundle/installer/index.html.twig',array(
-            'modules'=> $local,
-            'finfo'=> true
+        return $this->JSON(array(
+                    'extjs' => false,
+                    'content' => $this->render('@InstallerBundle/installer/index.html.twig', array(
+                        'modules' => $local,
+                        'finfo' => true
+                    ))
         ));
     }
-    
+
     /**
      * 
      *
@@ -55,40 +62,33 @@ class DefaultController extends Controller{
      * @param \Slim\Route $route
      */
     public function bundleInstallerUploadAction($request) {
-        if (!extension_loaded('fileinfo')) {
-            return $this->render('@InstallerBundle/installer/index.html.twig',array(
-                'finfo'=> false
-            ));
-        }
-        $msg="";
-        
-        $fileInfo = new \finfo(FILEINFO_MIME_TYPE);
-        $fileMime = $fileInfo->file($request->file('mybundle')->get('tmp_name'));
-        if($request->file('mybundle') and $fileMime=='application/zip'){
-            $dir=\Raptor2\InstallerBundle\Importer\BundleImporter::prepareCache();
-            if($this->moveUploadFileTo('mybundle', $dir.'/'.$request->file('mybundle')->get('name'))){
-                
-                $msg=\Raptor2\InstallerBundle\Importer\BundleImporter::proccesBundle($dir.'/'.$request->file('mybundle')->get('name'));
-                
-            }else{
-                $msg="<span style='color:#ff3366'>The uploaded bundle cant be copied to the cache location for an unknown reason</span>";
+
+        $msg = "";
+        try {
+            $fileInfo = new \finfo(FILEINFO_MIME_TYPE);
+            $fileMime = $fileInfo->file($request->file('mybundle')->get('tmp_name'));
+            if ($request->file('mybundle') and $fileMime == 'application/zip') {
+                $dir = \Raptor2\InstallerBundle\Importer\BundleImporter::prepareCache();
+                if ($this->moveUploadFileTo('mybundle', $dir . '/' . $request->file('mybundle')->get('name'))) {
+                    
+                    $msg = \Raptor2\InstallerBundle\Importer\BundleImporter::proccesBundle($dir . '/' . $request->file('mybundle')->get('name'));
+                } else {
+                    $msg = "<span style=''>The uploaded bundle cant be copied to the cache location for an unknown reason</span>";
+                }
+            } else {
+                $msg = "<span style=''>The file you upload is not a zip bundle file</span>";
             }
-        }else{
-            $msg="<span style='color:#ff3366'>The file you upload is not a zip bundle file</span>";
+            
+        } catch (\Exception $exc) {
+            $this->app->flash('bundleinstaller_msg', $exc->getMessage());
+            $this->redirect($request->getReferer() . '#!/raptor/bundle/installer', false);
         }
-        $local=\Raptor2\InstallerBundle\Importer\BundleImporter::getMetainformation();
-        $conf=  $this->getApp()->getConfigurationLoader()->getConfOption();
-        if(isset($conf['raptor']['repository'])){
-            $remote=  \Raptor2\InstallerBundle\Importer\BundleImporter::getRemoteMetainformation($conf['raptor']['repository']);
-            $local=  array_merge($local, $remote);
-        }
-        return $this->render('@InstallerBundle/installer/index.html.twig',array(
-            'modules'=>$local,
-            'message'=>$msg,
-            'finfo'=>true
-        ));
+
+
+        $this->app->flash('bundleinstaller_msg', $msg);
+        $this->redirect($request->getReferer() . '#!/raptor/bundle/installer', false);
     }
-    
+
     /**
      * 
      *
@@ -100,40 +100,35 @@ class DefaultController extends Controller{
      * @param \Slim\Route $route
      */
     public function bundleInstallerModuleAction($request) {
-        
-        $msg="";
-        if($request->get('name') and $request->get('type')=='local'){
-            $dir=\Raptor2\InstallerBundle\Importer\BundleImporter::prepareCache();
-            $meta=  \Raptor2\InstallerBundle\Importer\BundleImporter::getMetainformation($request->get('name'));
-            if($meta!==false){
-                
-                \Raptor\Util\Files::copy(__DIR__.'/../BundleStorage/files/'.$meta['file'],$dir);
-                
-                $msg=\Raptor2\InstallerBundle\Importer\BundleImporter::proccesBundle($dir.'/'.$meta['file']);
-                
+
+        $msg = "";
+        try {
+            if ($request->get('name') and $request->get('type') == 'local') {
+                $dir = \Raptor2\InstallerBundle\Importer\BundleImporter::prepareCache();
+                $meta = \Raptor2\InstallerBundle\Importer\BundleImporter::getMetainformation($request->get('name'));
+                if ($meta !== false) {
+
+                    \Raptor\Util\Files::copy(__DIR__ . '/../BundleStorage/files/' . $meta['file'], $dir);
+
+                    $msg = \Raptor2\InstallerBundle\Importer\BundleImporter::proccesBundle($dir . '/' . $meta['file']);
+                }
+            } elseif ($request->get('name') and $request->get('type') == 'remote' and $request->get('url')) {
+
+                $file = \Raptor2\InstallerBundle\Importer\BundleImporter::downloadRemoteFile($request->get('url'));
+
+                $msg = \Raptor2\InstallerBundle\Importer\BundleImporter::proccesBundle($file);
             }
-        }elseif ($request->get('name') and $request->get('type')=='remote' and $request->get('url')) {
             
-             $file=  \Raptor2\InstallerBundle\Importer\BundleImporter::downloadRemoteFile($request->get('url'));
-             
-             $msg=\Raptor2\InstallerBundle\Importer\BundleImporter::proccesBundle($file);
-                
-            
+        } catch (\Exception $exc) {
+            $this->app->flash('bundleinstaller_msg', $exc->getMessage());
+            $this->redirect($request->getReferer() . '#!/raptor/bundle/installer', false);
         }
-        $local=\Raptor2\InstallerBundle\Importer\BundleImporter::getMetainformation();
-        $conf=  $this->getApp()->getConfigurationLoader()->getConfOption();
-        if(isset($conf['raptor']['repository'])){
-            $remote=  \Raptor2\InstallerBundle\Importer\BundleImporter::getRemoteMetainformation($conf['raptor']['repository']);
-            $local=  array_merge($local, $remote);
-        }
-        return $this->render('@InstallerBundle/installer/index.html.twig',array(
-            'modules'=>$local,
-            'message'=>$msg,
-            'finfo'=>true
-        ));
+
+
+        $this->app->flash('bundleinstaller_msg', $msg);
+        $this->redirect($request->getReferer() . '#!/raptor/bundle/installer', false);
     }
-    
-    
+
 }
 
 ?>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Raptor 2</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- Le styles -->
+        <link href="{{ asset('bootstrap/css/bootstrap.css') }}" rel="stylesheet">
+        <link href="{{ asset('Raptor/css/icons_rpt.css') }}" rel="stylesheet">
+        <link href="{{ asset('Raptor/UIR/css/uir-all.css') }}" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ asset('Raptor/css/raptor.css') }}" media="screen"/>
+        <style type="text/css">
+                body {
+                    padding-top: 70px;
+
+                }
+                .fondo{
+                    background-image: url({{ asset('Raptor/Component/system/img/raptor-panel.png') }});
+                }
+                .uir-load{
+                    background: rgba(43,34,63,0.9) !important;
+                }
+                .uir-load .uir-load-text{
+                    color:white !important;
+                }
+                .uir-load .indicator{
+                    width: 64px;
+                    height: 64px;
+                    background-image: url({{ asset('Raptor/Component/system/img/loading.gif') }});
+                    border-radius: 64px;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    margin-left: -32px;
+                    margin-top: -64px;
+                }
+
+
+
+            </style>
+            
+            
+            <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+            <!--[if lt IE 9]>
+              <script src="../assets/js/html5shiv.js"></script>
+            <![endif]-->
+
+            <!-- Fav and touch icons -->
+            <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('assets/ico/apple-touch-icon-144-precomposed.png') }}">
+            <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('assets/ico/apple-touch-icon-114-precomposed.png') }}">
+            <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('assets/ico/apple-touch-icon-72-precomposed.png') }}">
+            <link rel="apple-touch-icon-precomposed" href="{{ asset('assets/ico/apple-touch-icon-57-precomposed.png') }}">
+            <link rel="shortcut icon" href="{{ asset('Raptor/ico/raptor-32.png') }}">
+        </head>
+
+        <body class="fondo">
+
+            <div class="navbar raptor-panel navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                            
+                            <a class="navbar-brand" style="padding-top: 10px;"  href="#"><i style="margin-right: 5px;"><img src="{{ asset("Raptor/img/logo.png") }}" width="45"></i>Raptor 2</a>
+                            
+                        </div>
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <li class="" ><a href="#!/raptor/presentation"><i class="icon-raptor-home icon-white" style="margin-right: 5px"></i>Begin</a></li>  
+                                <li class="" ><a href="#!/raptor/configuration"><i class="icon-raptor-conf icon-white" style="margin-right: 5px"></i>Configuration</a></li>
+
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-raptor-tool icon-white" style="margin-right: 5px"></i>Tools <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        
+                                        <li><a href="#!f/raptor/clean"><i class="icon-raptor-trash" style="margin-right: 5px"></i>Clear Configuration Cache </a></li>
+
+                                        <li><a href="#!f/raptor/performance"><i class="icon-raptor-diana" style="margin-right: 5px"></i>Performance Statistic</a></li>
+                                       
+                                        <li class="divider"></li>
+                                        <li><a href="#!f/raptor/flaticon"><i class="icon-raptor-image" style="margin-right: 5px"></i>Icon Flat Generator <span class="label label-danger">New</span></a></li>
+                 
+                                            {{ plugin("raptor_tools")|raw }}
+                                    </ul>
+                                </li>
+                                       
+                                    <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-raptor-bundle-create icon-white" style="margin-right: 5px"></i>Bundle <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#!f/raptor/genbundle" ><i class="icon-raptor-bundle-create" style="margin-right: 5px"></i>Generate Bundle</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#!f/raptor/gendoctrine/model" ><i class="icon-raptor-fire" style="margin-right: 5px"></i>Doctrine Model Generator</a></li>
+                                        <li><a href="#!f/raptor/gendoctrine/schema" ><i class="icon-raptor-fire" style="margin-right: 5px"></i>Doctrine Schema Generator</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#!f/raptor/genui" ><i class="icon-raptor-win" style="margin-right: 5px"></i>UI Generator <span class="label label-danger">New</span></a></li>
+
+                                        <li><a href="#!f/raptor/resources/publisher" ><i class="icon-raptor-service" style="margin-right: 5px"></i>Resources Publisher</a></li>
+                                        
+                                        {{ plugin("raptor_bundle")|raw }}
+                                        
+                                     </ul>
+                                   </li> 
+                                   {{ plugin("raptor_panel")|raw }}     
+                                       
+                                        
+                                            
+
+                                        
+                                            
+                                        
+
+                {% if docs==true %}        
+                                            <li class=""><a target="_blank" href="../../../docs"><i class="icon-raptor-book" style="margin-right: 5px"></i>API</a></li>
+                {% endif %}
+                                            </ul>
+                                <div class="navbar-collapse collapse">
+                                    <ul class="nav navbar-nav navbar-right">
+                                      <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-raptor-user icon-white" style="margin-right: 5px"></i>{{ username }} <b class="caret"></b></a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#!/raptor/newcredentials"><i class="icon-raptor-user" style="margin-right: 5px"></i>New Admin Credentials</a></li>
+                                                    {% if user==true %}
+                                                        <li><a href="{{ path("_raptor_front_logout") }}"><i class="" style="margin-right: 5px"></i>Logout</a></li>
+                                                    {% endif %}   
+                                                </ul>
+                                            </li>
+                                    </ul>
+                                    
+                                </div>
+                                            <!--
+                                      <form class="navbar-form pull-right">
+                                        <input class="span2" type="text" placeholder="Email">
+                                        <input class="span2" type="password" placeholder="Password">
+                                        <button type="submit" class="btn btn-primary ">Sign in</button>
+                                      </form>
+                                            -->
+                                        </div><!--/.nav-collapse -->
+                                    </div>
+                               
+                    <div style="height: 1px;background: #402878;"></div>
+                </div>
+            
+         
+            <div id="rux-container" class="container" >
+
+
+                <div  id="rux-window" style="width: 100%;height: 100%;display: none;background-size: 100%;background-position: 0 50%;" ></div>
+                <div  id="rux-window-cover" style="width: 100%;display: none">
+                    <iframe  id="rux-window-frame" style="width: 100%;height: 100%;border: none;" src=""></iframe>
+                </div>
+
+
+
+            </div>
+            <!--
+            <div class="container" style="margin-top: 35px;">
+                <div class="loadlogo" id="loading" style=""><img  src="{{ asset('Raptor/img/loading.gif') }}" width="120"><br>
+                    <b style="color: #585858"></b>
+                </div>	
+               
+                <div class="">
+                    <iframe  id="tabla" style="width: 100%;height: 500px;border: none;" src=""></iframe>
+
+                </div>-->
+
+                <!-- Example row of columns -->
+
+
+                <hr>
+
+
+
+            </div> <!-- /container -->
+                            <footer class="footer" style="padding: 10px;">
+
+                                <div class="container bar-success ">
+                                    <p>&copy; Dinobyte 2014-2017</p>
+                                    
+                                    
+
+                                </div>
+                            </footer>
+                            <!-- Le javascript
+                            ================================================== -->
+                            <!-- Placed at the end of the document so the pages load faster -->
+
+                            <script src="{{ asset('bootstrap/js/all.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('Raptor/js/raptor-core.js') }}"></script>
+                            <script src="{{ asset('Raptor/Component/system/lib/blur.js') }}"></script>
+                            <script src="{{ asset('Raptor/UIR/js/uir-all.js') }}"></script>
+                            <script src="{{ asset('Raptor/Component/system/backbone/underscore.js') }}"></script>
+                            <script src="{{ asset('Raptor/Component/system/backbone/backbone.js') }}"></script>
+                            <script src="{{ asset('Raptor/Component/system/app/view/area.js') }}"></script>
+                            <script src="{{ asset('Raptor/Component/system/app/router.js') }}"></script>
+                            <script src="{{ asset('Raptor/Component/system/app/app.js') }}"></script>
+                            
+                            <script type="text/javascript">
+                                    $(document.body).ready(function() {
+                                        $('#rux-window').blurjs({ 
+                                             source: 'body',
+                                             radius: 10,
+                                             offset: {  x: 0, y: 0 },
+                                             overlay: 'rgba(255,255,255,0.8)'
+                                         });
+                                         
+                                        $('a[data-url]').each(function(){
+                                            var path=Raptor.getFront();
+                                            var route=$(this).attr('data-url').replace(path,'');
+                                            $(this).attr('href','#!f'+route);
+                                            
+                                        })
+                                        $('a[data-url]').click(function(){
+                                           // $('#tabla').animate({opacity: 0}, 500)
+                                           // $('#tabla').attr('src',$(this).attr("data-url"));
+                                           // $('#tabla').height(500);
+                                           // loading($(this).html());
+                                        });
+                                        Interactive.show('raptor.panel.welcome');
+                                        
+                                        
+                                    });
+                                    
+
+                                </script>
+                            </body>
+                        </html>
+

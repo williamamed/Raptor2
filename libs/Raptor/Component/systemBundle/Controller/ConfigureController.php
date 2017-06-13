@@ -30,6 +30,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 namespace Raptor\Component\systemBundle\Controller;
 
 /**
@@ -57,19 +58,27 @@ class ConfigureController extends \Raptor\Bundle\Controller\Controller {
         $parameters['raptor']['language'] = $request->post('lang');
         $parameters['raptor']['secret'] = $request->post('secret');
         $parameters['raptor']['cache'] = $request->post('cache');
-        
-        $this->app->getConfigurationLoader()->setConfOption($parameters);
-        $this->getStore()->connect();
-        //$this->getStore()->generateDatabase($request->post('db'));
-        //$parameters['database']['dbname'] = $request->post('db');
-        $this->app->getConfigurationLoader()->setConfOption($parameters);
-       
-        $this->app->getConfigurationLoader()->writeOptions();
-        $this->app->getConfigurationLoader()->forceLoad();
-//        $parameters['database']['password'] = '???';
-//        $this->app->getConfigurationLoader()->setConfOption($parameters);
-//        $this->app->getConfigurationLoader()->writeOptions();
-        return $this->render('@systemBundle/configure/parameter.html.twig');
+        if ($request->post('proyect'))
+            $parameters['raptor']['name'] = str_replace(' ', '', $request->post('proyect'));
+        else
+            $parameters['raptor']['name'] = 'Raptor2Proyect';
+        try {
+            $this->app->getConfigurationLoader()->setConfOption($parameters);
+            $this->getStore()->connect();
+           
+            $this->app->getConfigurationLoader()->setConfOption($parameters);
+			$this->app->getConfigurationLoader()->forceLoad();
+            $this->app->getConfigurationLoader()->writeOptions();
+            
+        } catch (\Exception $exc) {
+            $this->app->flash('config_err',$exc->getMessage());
+            
+            $this->redirect($request->getReferer().'#!/raptor/configuration',false);
+            
+        }
+        $this->app->flash('config_succ','Raptor was properly configured');
+        $this->app->flash('config_succ_detail','Enjoy the new features of Raptor 2 !');
+        $this->redirect($request->getReferer().'#!/raptor/configuration',false);
     }
 
 }

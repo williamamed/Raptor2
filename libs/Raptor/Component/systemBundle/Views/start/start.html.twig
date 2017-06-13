@@ -1,10 +1,10 @@
-{% extends "@systemBundle/template.html.twig" %}
-{% block content %}
 
-<div class="container" style="padding: 20px;" >
+</div>
+<div style="padding: 35px;" >
+    <h4 class="featurette-heading text-center"><img class="featurette-image text-center" src="{{ asset('Raptor/img/logo.png') }}" style="margin-right: 15px;margin-top: 25px" width="230"></h4>
+    <h2 class="featurette-heading text-center"><span class="" >Welcome to Raptor 2</span></h2>
     
-    <h4 class="featurette-heading text-center"><img class="featurette-image text-center" src="{{ asset('Raptor/img/logo.png') }}" style="margin-right: 15px;" width="250"></h4>
-    <h2 class="featurette-heading text-center"><span class="">Welcome to Raptor 2</span></h2>
+    
     <hr>
     <br><br>
     <div class="featurette" style="background: transparent !important;">
@@ -33,16 +33,7 @@
                             </td>
                             
                         </tr>
-                        <tr>
-                            <td>SOAP Extension </td>
-                            <td>
-                            {% if other['soap']==false %}
-                               <span class="label label-danger">not active</span>     
-                            {% else %}
-                               <span class="label label-success">active</span>          
-                            {% endif %}
-                            </td>
-                        </tr>
+                        
                         <tr>
                             <td>ZIP Extension <span class="label label-danger">Required for installer</span></td>
                             <td>
@@ -104,46 +95,110 @@
             </p>
             <br>
             
-            <div class="row text-center"><h3>Founders</h3></div>
+            <div class="row text-center"><h3>Founders and Colaborators of Raptor 2</h3></div>
             <hr>
             <br>
-            <div class="row text-center">
-            <div class="col-sm-4 col-md-4">
-              <div class="">
-                <img src="{{ asset('Raptor/img/Authors/amed.jpg') }}" width="60" alt="..." class="img-circle">
-                <div class="caption">
-                  <h5>Ing. William Amed</h5>
-                  
+            <div class="container-fluid text-center">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="">
+                            <img src="{{ asset('Raptor/img/Authors/amed.jpg') }}" width="60" alt="..." class="img-circle">
+                            <div class="caption">
+                                <h5>Ing. William Amed</h5>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="">
+                            <img src="{{ asset('Raptor/img/account.png') }}" width="60" alt="..." class="img-circle">
+                            <div class="caption">
+                                <h5>Ing. Otto Haus</h5>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="">
+                            <img src="{{ asset('Raptor/img/Authors/richard.jpg') }}" width="60" alt="..." class="img-circle">
+                            <div class="caption">
+                                <h5>Ing. Ricardo Suarez</h5>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="">
+                            <img src="{{ asset('Raptor/img/account.png') }}" width="60" alt="..." class="img-circle">
+                            <div class="caption">
+                                <h5>Ing. Jorge Miralles</h5>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="">
+                            <img src="{{ asset('Raptor/img/account.png') }}" width="60" alt="..." class="img-circle">
+                            <div class="caption">
+                                <h5>Ing. Jorge Carmenate</h5>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+                <div class="row" style="margin-top: 15px">    
+                    <div class="col-md-2">
+                        <div class="">
+                            <img src="{{ asset('Raptor/img/account.png') }}" width="60" alt="..." class="img-circle">
+                            <div class="caption">
+                                <h5>MSc. Pedro Abreu</h5>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="">
+                            <img src="{{ asset('Raptor/img/account.png') }}" width="60" alt="..." class="img-circle">
+                            <div class="caption">
+                                <h5>MSc. Ivan Rodriguez</h5>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="">
+                            <img src="{{ asset('Raptor/img/account.png') }}" width="60" alt="..." class="img-circle">
+                            <div class="caption">
+                                <h5>Ing. Yordanis Carralero</h5>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="">
+                            <img src="{{ asset('Raptor/img/account.png') }}" width="60" alt="..." class="img-circle">
+                            <div class="caption">
+                                <h5>Lic. Roberto Garcia</h5>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="">
+                            <img src="{{ asset('Raptor/img/account.png') }}" width="60" alt="..." class="img-circle">
+                            <div class="caption">
+                                <h5>Ing. Alejandro Lora</h5>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-            <div class="col-sm-4 col-md-4">
-              <div class="">
-                <img src="{{ asset('Raptor/img/Authors/otto.jpg') }}" width="60" alt="..." class="img-circle">
-                <div class="caption">
-                  <h45>Ing. Otto Haus</h5>
-                  
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4 col-md-4">
-              <div class="">
-                <img src="{{ asset('Raptor/img/Authors/richard.jpg') }}" width="60" alt="..." class="img-circle">
-                <div class="caption">
-                  <h5>Ing. Ricardo Suarez</h5>
-                  
-                </div>
-              </div>
-            </div>
-            
-          </div>
          <br>   
-         <div class="row text-center"><h3>Colaborators Raptor 2</h3></div>
+         
             <hr>
           <div class="row text-center">
-             <p>Ing. Jorge Miralles | Ing. Jorge Carmenate | MSc. Pedro Abreu | MSc. Ivan Rodriguez | Ing. Yordanis Carralero | Lic. Roberto Garcia.</p>
-              
-                  <br>
+             
               <p>This boys are the base of the framework today and they are members and moderators in our comunity, we thanks for all the time dedicated to the project, the ideas, recomendations and hours of testing with the only purpose of helping others.</p>    
               <h4>Many thanks to all !!</h4>
           </div>  
@@ -151,25 +206,5 @@
 
 
 </div>
-
-
-
-    
-
-{% endblock %}
-
-{% block script %}
-<script type="text/javascript">
-        $(document.body).ready(function(){
-            
-            if(window.parent){
-                window.parent.Interactive.show('raptor.start.startopen');
-                
-            }
-            $(window.parent.document.body).find('#tabla').height($(document.body).outerHeight(true));
-            
-        });
-    </script>
-{% endblock %}
 
 

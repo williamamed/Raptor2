@@ -1,12 +1,16 @@
-{% extends "@systemBundle/template.html.twig" %}
-{% block content %}
 
 <div class="container-fluid" style="padding: 40px;" >
     <h2 class="featurette-heading"><span class="">Bundles Installer</span></h2>
     <br>
     
     {% if finfo %}
-    <h4 class="featurette-heading"><span >{{ message|raw }}</span></h4>
+    {% if flash['bundleinstaller_msg'] %}
+    <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <strong>{{ flash['bundleinstaller_msg']|raw }}</strong> 
+    </div>
+    {% endif %}
+    
     <hr>
     <h4 class="featurette-heading"><span class="text-muted">Please choose a bundle to install or upload one</span></h4>
     <br>
@@ -77,24 +81,20 @@
 </div>
 
 
-
-    
-
-{% endblock %}
-
-{% block script %}
 <script type="text/javascript">
         $(document.body).ready(function() {
 
-            $(window.parent.document.body).find('#tabla').height($('body').outerHeight(true)+50);
             $('#myfield').click(function(){
                 $('#file-field').trigger('click');
             })
             $('#file-field').change(function(){
                 $('#show-field').val($('#file-field').val());
             });
+            $('.btn-success').click(function(){
+                UIR.load.show('Installing module...');
+            })
         });
        
-    </script>
-{% endblock %}
+</script>
+
 

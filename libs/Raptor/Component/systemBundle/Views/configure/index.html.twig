@@ -1,11 +1,22 @@
-{% extends "@systemBundle/template.html.twig" %}
-{% block content %}
 
-<div class="container" style="padding: 20px;" >
-    <h2 class="featurette-heading"><span class="">Application Options</span></h2>
+<div class="container-fluid" style="padding: 35px;" >
+    <h2 class="featurette-heading"><span class="">Application options</span></h2>
     <hr>
     <h4 class="featurette-heading"><span class="text-muted">this is the basic configuration in the conf/options file, you can add others options directly</span></h4>
-    <br><br>
+    <br>
+    {% if flash['config_err'] %}
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <strong>Ops an error ocurred!</strong> {{ flash['config_err'] }}
+    </div>
+    {% endif %}
+    {% if flash['config_succ'] %}
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <strong>{{ flash['config_succ'] }}</strong> {{ flash['config_succ_detail'] }}
+    </div>
+    {% endif %}
+    <br>
     <div class="featurette" style="background: transparent !important;">
         <form class="form-horizontal" method="POST" action="{{ path('_raptor_configuration_configure') }}">
 
@@ -17,7 +28,9 @@
                     </div>
                 </div>
             </div>
-            <hr>
+            <br>
+            <h4>Database configuration</h4>
+            <hr style="margin-bottom:0px;margin-top: 0px">
             <div class="row">
                 <div class="col-md-4">
                     <label data-toggle="tooltip" data-placement="top" title="Driver to use in the database connection" class="control-label" for="driver">Driver</label>
@@ -33,7 +46,74 @@
 
 
                 </div>
-                <div class="col-md-4 col-md-offset-4">
+
+
+            </div>     
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <label data-toggle="tooltip" data-placement="top" title="Database name to connect with" class="control-label" for="inputDB">DB name</label>
+                    <div class="controls">
+                        <input class="form-control" name="db" type="text" id="inputDB" placeholder="" value="{{ db.dbname }}">
+                    </div>
+                </div>    
+
+                <div class="col-md-4">
+                    <label data-toggle="tooltip" data-placement="top" title="Database host address" class="control-label" for="inputHost">Host</label>
+                    <div class="controls">
+                        <input name="host" class="form-control" type="text" id="inputHost" placeholder="" value="{{ db.host }}">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label data-toggle="tooltip" data-placement="top" title="Database port to connect with" class="control-label" for="inputPort">Port</label>
+                    <div class="controls">
+                        <input name="port" class="form-control" type="text" id="inputPort" placeholder="" value="{{ db.port }}">
+                    </div>
+                </div>
+            </div>  
+
+            <div class="row">
+
+
+
+                <div class="col-md-4">
+                    <label data-toggle="tooltip" data-placement="top" title="Database user" class="control-label" for="inputUser">User</label>
+                    <div class="controls">
+                        <input name="user" class="form-control" type="text" id="inputUser" placeholder="" value="{{ db.user }}">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label data-toggle="tooltip" data-placement="top" title="Database password" class="control-label" for="inputPass">Password</label>
+                    <div class="controls">
+                        <input name="password" class="form-control" type="password" id="inputPass" placeholder="" value="{{ db.password }}">
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <br>
+            <h4>General</h4>
+            <hr style="margin-bottom:0px;margin-top: 0px">
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <label data-toggle="tooltip" data-placement="top" title="Secret key, used to create protections agains CSRF, encryptions tokens etc.." class="control-label" for="inputSecret">Secret</label>
+                    <div class="input-group">
+                        <input name="secret" class="form-control" type="text" id="inputSecret" placeholder="" value="{{ raptor.secret }}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" class="" id="Generator" type="button">Generate!</button>
+                        </span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
                     <label data-toggle="tooltip" data-placement="top" title="Default language used in the idiomatic context" class="control-label" for="lang">Language</label>
                     <div class="controls">
 
@@ -45,78 +125,20 @@
                             </select>
                         </div>
                     </div>
-                </div>     
 
-
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <label data-toggle="tooltip" data-placement="top" title="Database name to connect with" class="control-label" for="inputDB">DB name</label>
-                        <div class="controls">
-                            <input class="form-control" name="db" type="text" id="inputDB" placeholder="" value="{{ db.dbname }}">
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-md-offset-4">
+                    <div class="col-md-4 ">
                         <label data-toggle="tooltip" data-placement="top" title="Default time to keep the http cache alive" class="control-label" for="cache">Cache</label>
                         <div class="controls">
                             <input name="cache" class="form-control" type="text" id="cache" placeholder="" value="{{ raptor.cache }}">
                         </div>
-                    </div> 
+                    </div>     
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4">
-                        <label data-toggle="tooltip" data-placement="top" title="Database host address" class="control-label" for="inputHost">Host</label>
-                        <div class="controls">
-                            <input name="host" class="form-control" type="text" id="inputHost" placeholder="" value="{{ db.host }}">
-                        </div>
-                    </div>
+
 
                 </div>
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <label data-toggle="tooltip" data-placement="top" title="Database port to connect with" class="control-label" for="inputPort">Port</label>
-                        <div class="controls">
-                            <input name="port" class="form-control" type="text" id="inputPort" placeholder="" value="{{ db.port }}">
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <label data-toggle="tooltip" data-placement="top" title="Database user" class="control-label" for="inputUser">User</label>
-                        <div class="controls">
-                            <input name="user" class="form-control" type="text" id="inputUser" placeholder="" value="{{ db.user }}">
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <label data-toggle="tooltip" data-placement="top" title="Database password" class="control-label" for="inputPass">Password</label>
-                        <div class="controls">
-                            <input name="password" class="form-control" type="password" id="inputPass" placeholder="" value="{{ db.password }}">
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <label data-toggle="tooltip" data-placement="top" title="Secret key, used to create protections agains CSRF, encryptions tokens etc.." class="control-label" for="inputSecret">Secret</label>
-                        <div class="input-group">
-                            <input name="secret" class="form-control" type="text" id="inputSecret" placeholder="" value="{{ raptor.secret }}">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" class="" id="Generator" type="button">Generate!</button>
-                            </span>
-                        </div>
-
-                    </div>
-
-                </div>
 
                 <div class="row pull-left" style="margin-top: 40px;margin-bottom: 40px;">
                     <div class="col-md-4">
@@ -134,40 +156,32 @@
 
         </div>
 
-
-    </div>
-
-
+        <script type="text/javascript">
+            $(document.body).ready(function() {
 
 
+                $('#Generator').click(generateSecret);
+                $('#driver').val("{{db.driver}}");
+                $('#lang').val("{{raptor.language}}");
+                $('#btn-config').click(function() {
+                    $(this).attr({disabled: true});
+                    UIR.load.show('Configuring Raptor....')
+                })
 
-{% endblock %}
+                Interactive.show('raptor.configuration.conf');
+                $('[data-toggle="tooltip"]').tooltip();
 
-{% block script %}
-    <script type="text/javascript">
-        $(document.body).ready(function() {
+            });
+            function generateSecret() {
 
-            $(window.parent.document.body).find('#tabla').height($(document.body).outerHeight(true));
-            $('#Generator').click(generateSecret);
-            $('#driver').val("{{db.driver}}");
-            $('#lang').val("{{raptor.language}}");
-            $('#btn-config').click(function() {
-                $(this).attr({disabled: true});
-            })
-            if (window.parent)
-                window.parent.Interactive.show('raptor.configuration.conf');
-            $('[data-toggle="tooltip"]').tooltip();
-            $(window).on('resize',function(){
-                $(window.parent.document.body).find('#tabla').height($(document.body).outerHeight(true));
-            })
-        });
-        function generateSecret() {
+                for (var c = ''; c.length < 32; )
+                    c += 'abcdefgh1234567890@#$%*ijklmnopqrstuvwxyz'.charAt(Math.random() * 26)
 
-            for (var c = ''; c.length < 32; )
-                c += 'abcdefgh1234567890@#$%*ijklmnopqrstuvwxyz'.charAt(Math.random() * 26)
+                $('#inputSecret').val(c);
+            }
+            </script>
 
-            $('#inputSecret').val(c);
-        }
-        </script>
-{% endblock %}
+        </div>
+
+
 

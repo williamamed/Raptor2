@@ -206,6 +206,44 @@ class Raptor extends \Slim\Slim {
     }
     
     /**
+     * Set flash message for subsequent request
+     * @param  string   $key
+     * @param  mixed    $value
+     */
+    public function flash($key, $value)
+    {
+        parent::flash($key, $value);
+        $this->environment['slim.flash']->save();
+    }
+
+    /**
+     * Set flash message for current request
+     * @param  string   $key
+     * @param  mixed    $value
+     */
+    public function flashNow($key, $value)
+    {
+        parent::flashNow($key, $value);
+        $this->environment['slim.flash']->save();
+    }
+
+    /**
+     * Keep flash messages from previous request for subsequent request
+     */
+    public function flashKeep()
+    {
+        parent::flashKeep();
+        $this->environment['slim.flash']->save();
+    }
+    
+    public function flashSave()
+    {
+        $this->environment['slim.flash']->save();
+    }
+    
+    
+    
+    /**
      * Retorna la instancia del cargador de configuracion del
      * sistema, el cargador contiene las directivas de configuracion
      * general del sistema almacenados en options.yml

@@ -64,7 +64,13 @@ class Panel implements \Raptor\Bundle\Route\Rule {
         $session['Token'] = $app->getSecurity()->getToken();
         $session['Language'] = $app->getLanguage()->getUserCurrentLanguage();
         
-        
+        foreach ($session as $key => $value) {
+            if(!is_string($value) &&  !is_numeric($value))
+                if(is_array($value))
+                    $session[$key]=join(',',$session[$key]);
+                else
+                    unset($session[$key]);
+        }
         
         $app->response()->write($app->render('@systemBundle/panel/panel.html.twig', array(
                     'color' => $color,

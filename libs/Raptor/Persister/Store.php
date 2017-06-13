@@ -200,7 +200,7 @@ class Store extends \Slim\Middleware {
 
     private function translateSchemas($name) {
         $publicSchemaPgArray=explode('Public.', $name);
-        $publicSchemaPg=(count($publicSchemaPgArray)>0)?$publicSchemaPgArray[1]:$publicSchemaPgArray[0];
+        $publicSchemaPg=(count($publicSchemaPgArray)>1)?$publicSchemaPgArray[1]:$publicSchemaPgArray[0];
         $real = new ItemList(explode('.', $publicSchemaPg));
         $real->each(function($k, $v, $l) {
                     $l->set($k, ucfirst($v));

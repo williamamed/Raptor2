@@ -65,8 +65,9 @@ class BundleImporter {
                             $message = require $src . '/' . $parts[0] . '/' . $parts[1] . '/' . $meta['installScript'];
                             $error.=(is_string($message) ? $message : '');
                         }
-                        \Raptor\Raptor::getInstance()->getConfigurationLoader()->registerBundle('\\'.  join('\\',$parts));
                         \Raptor\Raptor::getInstance()->getConfigurationLoader()->forceLoad();
+                        \Raptor\Raptor::getInstance()->getConfigurationLoader()->registerBundle('\\'.  join('\\',$parts));
+                        
                     } else {
                         //Show error
                         $error = '<span style="color:#ff3366">Cannot find the bundle especified in the manifiest</span>';

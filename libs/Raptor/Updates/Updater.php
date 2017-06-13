@@ -16,11 +16,7 @@ $lib=  \Raptor\Core\Location::get(\Raptor\Core\Location::APP).'/../libs';
  * )
  */
 $files=array(
-    array('/BundleImporter.php','/../src/Raptor2/InstallerBundle/Importer/BundleImporter.php'),
-    array('/Slim.php','/Slim/Slim.php'),
-    array('/autoload.php','/autoload.php'),
-    array('/InstallerBundle','/../src/Raptor2/InstallerBundle/InstallerBundle.php'),
-    array('/DefaultController.php','/../src/Raptor2/UpdateServiceBundle/Controller/DefaultController.php')
+    
 );
 
 foreach ($files as $value) {

@@ -47,6 +47,7 @@ class Firewall implements \Raptor\Bundle\Route\Rule {
     public function call(\Raptor\Raptor $app) {
         $conf=$app->getConfigurationLoader()->getConfOption();
         $this->app=$app;
+        
         if(isset($conf['raptor']['admin']) and isset($conf['raptor']['adminpass'])){
             if(!$app->getSession()->get('admin_auth')){
                 $this->handleAuthenticationRequest($message,$conf);
@@ -57,7 +58,9 @@ class Firewall implements \Raptor\Bundle\Route\Rule {
                 $app->contentType('text/html; charset=UTF-8');
                 return true;
             }   
+           
         }
+        
         return false;
     }
     
@@ -66,7 +69,9 @@ class Firewall implements \Raptor\Bundle\Route\Rule {
      * 
      */
     public function handleAuthenticationRequest(&$message,$conf) {
+        
         if($this->app->request()->isFormData() and !$this->app->request()->isXhr()){
+            
             if($this->app->request()->post('username') and $this->app->request()->post('password')){
                 $username=$this->app->request()->post('username');
                 $pass=$this->app->request()->post('password');
@@ -80,7 +85,7 @@ class Firewall implements \Raptor\Bundle\Route\Rule {
                 if($conf['raptor']['admin']==$username and $passCompare){
                     $this->app->getSession()->set('admin_auth',true);
                     $this->app->getSession()->set('admin_auth_user',$username);
-                    $this->app->redirect('');
+                    $this->app->redirect($_SERVER['REQUEST_URI']);
                 }else
                     $message= "Wrong password or username";
             }else{
